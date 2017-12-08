@@ -1,0 +1,522 @@
+from __future__ import division
+import requests
+import json
+import BeautifulSoup
+import timeit
+import time
+import datetime
+import MySQLdb
+import os.path
+from BeautifulSoup import BeautifulSoup
+import sys
+from collections import OrderedDict
+
+ARAM_QUEUE1 = 450
+ARAM_QUEUE2 = 65
+
+API_KEY= 'RGAPI-04a191f8-ee3b-4a29-a1ba-e5457e98779c'
+DATABASE_DETAILS = ["localhost", "LoL_Analysis", "123456", "LoL_Analysis"]
+GAMES_FOLDERS_PATH = "/media/4TB/aram_games/"
+ERROR_FILES_PATH= "/home/abusteif/ARAM_Analysis/Error_Logs/"
+LOG_FILES_PATH= "/home/abusteif/ARAM_Analysis/Logs/"
+MODELS_LOCATION = "/home/abusteif/ARAM_Analysis/"
+MAX_THREAD_NUM = 4
+REGIONS=["KR", "EUW1", "OC1", "NA1" ]
+#REGIONS = ["OC1"]
+
+
+class URL_resolve:
+    first_api_call = True
+
+    def __init__(self, url, region, api_endpoint):
+        self.url = url
+        self.region = region
+        self.api_endpoint = api_endpoint
+
+    def assert_url(self):
+        m = Misc()
+        i = 0
+        for i in range(3):
+            while True:
+                try:
+                    self.html_result = requests.get(self.url)
+                except requests.exceptions.RequestException as e:
+                    m.logging(self.region," Retrying after encountering the following error: " + str(e.message) ,"error")
+                    #print " Retrying after encountering the following error: " + str(e.message)
+                    continue
+                break
+            if self.html_result.status_code == 200:
+                self.handle_rate_limit()
+                return self.html_result
+
+            elif self.html_result.status_code == 429:
+                m.logging(self.region, self.url + " encountered a rate limit error", "error" )
+                self.handle_rate_limit(status = 429)
+                #print "Rate limit error"
+                time.sleep(10)
+
+
+            elif self.html_result.status_code == 404:
+                m.logging(self.region, self.url + " returned a 404 Error", "error")
+                #print self.url, " returned a 404 Error"
+                self.html_result =-1
+                return
+            else:
+                retry_time = 1
+                #print self.html_result.status_code
+                m.logging(self.region, self.url + " encountered error: " + str(self.html_result.status_code) + ". Sleeping .. for " + str(retry_time) +" seconds", "error")
+                #print "Sleeping .."
+                time.sleep(retry_time)
+
+        m.logging(self.region, "Exiting program due to error: " + str(self.html_result.status_code) +" persisting after 3 reattempts" , "error")
+        sys.exit(1)
+
+
+    def request_to_json(self):
+        self.assert_url()
+        if self.html_result == -1:
+            return -1
+        json_result = json.loads(self.html_result.text)
+        return json_result
+
+    def handle_rate_limit(self,status = 200):
+        m = Misc()
+        method_count = self.html_result.headers["X-Method-Rate-Limit-Count"]
+        method_limit = self.html_result.headers["X-Method-Rate-Limit"]
+        app_count = self.html_result.headers["X-App-Rate-Limit-Count"]
+        app_limit = self.html_result.headers["X-App-Rate-Limit"]
+
+        if status == 429:
+            m.logging(self.region, "Rate limit has been reached for the region " + self.region + ". Sleeping for " + str(self.html_result.headers["Retry-After"]) + " seconds", "error")
+            time.sleep(int(self.html_result.headers["Retry-After"]))
+        if int(app_count.split(":")[0]) == 1:
+            URL_resolve.app_window = time.time()
+            URL_resolve.first_api_call = False
+        if int(method_limit.split(":")[0]) - int(method_count.split(":")[0])  < 3:
+            m.logging(self.region, self.region + " has reached a rate limit for the method " + self.api_endpoint, "error")
+            time.sleep(3)
+
+        if int(app_limit.split(":")[0]) - int(app_count.split(":")[0]) < MAX_THREAD_NUM:
+            m.logging(self.region, "Rate limit for the region "+self.region + " is almost reached", "error")
+            print "Rate limit for the region "+self.region
+            time_wait =  time.time() - URL_resolve.app_window - int((app_limit.split(":")[1]).split(",")[0])
+            print time_wait
+            time.sleep(abs(time_wait))
+
+
+
+        #print method_count, method_limit, app_count, app_limit, "\n"
+
+
+
+
+class Game:
+    json_game_details = []
+
+    def __init__(self, game_id, region, api_key):
+        self.game_id = game_id
+        self.api_key = api_key
+        self.region = region
+
+
+
+    def game_details(self):
+        game_url = 'https://' + self.region + '.api.riotgames.com/lol/match/v3/matches/' + self.game_id + '?api_key=' + self.api_key
+        self.json_game_details = URL_resolve(game_url, self.region, "/lol/match/v3/matches/{matchId}").request_to_json()
+        return self.json_game_details
+
+    def game_champs(self, team):
+        return
+
+
+class Player:
+    def __init__(self, region, api_key, player_name="", account_id=0):
+
+        self.account_id = account_id
+        self.api_key = api_key
+        self.region = region
+        self.date_last_game = 0
+        self.non_aram_games = 0
+        self.aram_games = 0
+        self.total_games = 0
+
+        if player_name:
+            self.get_player_id(player_name)
+
+
+    def get_games(self, begin_time=0, count=100 ):
+        m = Misc()
+        first_game = True
+        recent_games_list = OrderedDict()
+        self.date_last_game = begin_time
+        games_url = 'https://' + self.region + '.api.riotgames.com/lol/match/v3/matchlists/by-account/' + str(self.account_id) +\
+                    '?beginTime=' + str(begin_time) + '&endIndex=' + str(count) + '&api_key='+ self.api_key
+        #print games_url
+        self.json_games_url = URL_resolve(games_url, self.region, "/lol/match/v3/matchlists/by-account/{accountId}").request_to_json()
+        if self.json_games_url == -1:
+            return -1
+        if begin_time == 0 or self.json_games_url['matches'].__len__() > count:
+            if "matches" in self.json_games_url:
+                all_games = self.json_games_url['matches']
+            else:
+                m.logging(self.region, str(self.json_games_url) + " was returned after making the following call " + games_url, "error")
+        else:
+            if "matches" in self.json_games_url:
+                all_games = self.json_games_url['matches'][:-1]
+            else:
+                m.logging(self.region,self.json_games_url + " was returned after making the following call " + games_url, "error")
+        for game in all_games:
+            if recent_games_list.__len__() == count:
+                return recent_games_list
+            if first_game == True:
+                self.date_last_game = game['timestamp']
+                first_game = False
+            if game['queue'] == ARAM_QUEUE1 or game['queue'] == ARAM_QUEUE2:
+                #recent_games_list.append(str(game['gameId']))
+                recent_games_list[str(game['gameId'])]=str(game['timestamp'])
+                self.aram_games += 1
+            else:
+                self.non_aram_games += 1
+            self.total_games += 1
+            if not game['platformId'] == self.region:
+                m.logging(self.region, "Player " + str(self.account_id) + " is not in " + self.region + " anymore. ", "log")
+                #print "Player " + str(self.account_Id) + " is not in " + self.region + " anymore. "
+                return -1
+        return recent_games_list
+
+    def get_player_id(self, name):
+        name =str(name)
+
+        player_url = 'https://' + self.region + '.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+ name + '?api_key=' +self.api_key
+        self.json_summoner_url = URL_resolve(player_url, self.region, '/lol/summoner/v3/summoners/by-name/{summonerName}').request_to_json()
+        self.account_id = self.json_summoner_url['accountId']
+
+#https://oc1.api.riotgames.com/lol/summoner/v3/summoners/by-name/Caitlyn%20B%C3%B4t
+
+
+class Champ:
+    def __init__(self, champ_id, api_key):
+        self.champ_id = champ_id
+        self.api_key = api_key
+
+    def getChampName(self, champ_id):
+        # get champ_id from the database (LoL_analytics -> champ_names_ids
+        champ_id = self.champ_id
+
+
+# Only a single Static object should be used, hence we will be using local variables instead of class wide variables.
+
+class Static:
+    def __init__(self, api_key):
+        self.api_key = api_key
+
+    def champs_list(self):
+        champ_list = []
+        champ_list_url = 'https://oc1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&tags=tags&dataById=false&api_key=' + self.api_key
+        json_champs = URL_resolve(champ_list_url, "OC1", "/lol/static-data/v3/champions").request_to_json()
+        for champ in json_champs['data'].values():
+            champ_list.append(champ['name'].encode('utf-8'))
+            #print champ_list
+'''
+    def champs_winrate(self):
+        champs_WR = dict()
+        LA_url = 'http://aram.lolalytics.com/grid/'
+        if not champs_WR:
+            LA_raw = URL_resolve(LA_url).assert_url()
+            LA_text = LA_raw.text.encode('utf8')
+            self.LA = BeautifulSoup(LA_text)
+            LA_body = self.LA.body.findAll('div', attrs={'class': 'gridcell filterbyname lane_All lane_Middle'})
+            for sect in LA_body:
+                name = sect.find('div', attrs={'class': 'gridtitlev2'}).text
+                WR = sect.find('div', attrs={'class': 'All'}).text
+                champs_WR[name] = WR
+        return sorted(champs_WR)
+'''
+
+class Database:
+    def __init__(self, database_details):
+
+
+        self.db = MySQLdb.connect(host=database_details[0], user=database_details[1], passwd=database_details[2], db=database_details[3])
+        self.cur = self.db.cursor()
+        self.db_name = database_details[3]
+        self.cur.connection.autocommit(True)
+        return
+
+    def update_numberof_games(self, table, id, id_value, column, number):
+        number = str(number)
+        id_value=str(id_value)
+        data = self.cur.execute("UPDATE " + table + " SET " + column + " = " + column + " + " + number + " WHERE " + id + " = " + id_value + ";")
+
+        return
+
+    def update_multiple_fields(self, table, id, id_value, columns_values):
+        argument = ""
+        id_value = str(id_value)
+        for column in columns_values:
+            argument = argument + column + " = " + column + " + " + str(columns_values[column]) + ","\
+
+        self.cur.execute("UPDATE " + table + " SET " + argument[:-1] + " WHERE " + id + " = " + id_value + ";")
+
+
+
+
+
+
+
+
+    def insert_items(self, table, column_names, column_values):
+
+        column_values = str(column_values)
+        if column_values.split(",").__len__() > 1:
+            quoted_values = ""
+            for value in  column_values.split(","):
+                quoted_values += "\"" + value + "\"" + ","
+            column_values = quoted_values[:-1]
+        try:
+            self.cur.execute("INSERT INTO " + table + " (" + column_names + ") VALUES ( " + column_values + " ); ")
+            Misc().logging(table.split("_")[0], "Successfully added " + "( " + column_values + " )" + " to " + table + " table", "log")
+            #print "Successfully added " + "( " + column_values + " )" + " to " + table + " table"
+            return 1
+
+        except self.db.Error as err:
+            if err[0] == 1062:
+                Misc().logging(table.split("_")[0], "( " + column_values + " )" + " already exists in " + table, "log")
+                #print "( " + column_values + " )" + " already exists in " + table
+                return 0
+            else:
+                Misc().logging(table.split("_")[0], "Can't execute INSERT INTO " + table + " (" + column_names + ") VALUES ( " + column_values + " ); because of the follwing error: " + err.message, "error")
+                print err
+
+    def insert_multiple_items(self, table, columns):
+        insert_fields=""
+        insert_values=""
+        for column in columns:
+            insert_fields = str(column) + "," + insert_fields
+            insert_values = "\"" + str(columns[column]) + "\"" + "," + insert_values
+
+        insert_statement = "INSERT INTO " + table + " (" + insert_fields[:-1] + ") " + "VALUES (" + insert_values[:-1] + " );"
+        self.cur.execute(insert_statement)
+
+
+    def update_fields(self, table, id, id_value, columns):
+
+        id_value=str(id_value)
+        insert_statement=""
+
+        for column in columns:
+
+            insert_statement = insert_statement + column + " = \"" + str(columns[column]) + "\" , "
+        self.cur.execute("UPDATE " + table + " SET " + insert_statement[:-2] + " WHERE " +id+ " = "+ id_value + ";")
+
+
+#    def update_last_game_epoch(self, item_id, player_region, epoch):
+
+#        epoch = str(epoch)
+#        self.cur.execute("UPDATE " + player_region + "_summoners SET last_game_epoch='" + epoch + "' WHERE id=" + item_id + ";")
+
+    #single criteria, return values from a single column
+    def get_database_item(self, table, criteria_field, criteria_value, return_field, limit="", operator="="):
+
+        result=[]
+        criteria_value = str(criteria_value)
+        if limit:
+            limit = str(limit)
+            self.cur.execute("SELECT " + return_field + " FROM " + table + " WHERE " + criteria_field + operator + "\"" + str(criteria_value) + "\"" + " LIMIT " + limit + ";")
+
+        else:
+            self.cur.execute("SELECT " + return_field + " FROM " + table + " WHERE " + criteria_field + operator + "\"" + str(criteria_value) + "\";")
+
+        all_data = self.cur.fetchall()
+        if all_data:
+            for element in all_data:
+                result.append(list(element))
+            if result.__len__() == 1:
+                return result[0][0]
+            print result
+            return result
+
+
+    def get_all_items(self, table, column_name):
+
+        self.cur.execute("SELECT " + column_name + " FROM " + table)
+        data = self.cur.fetchall()
+        if data:
+            for element in data:
+                yield element[0]
+
+    def add_columns(self, table, columns):
+        statement=""
+        for column in columns:
+            statement = statement + " ADD COLUMN " + column + " " + columns[column] + " ,"
+        self.cur.execute("ALTER TABLE " + table + statement[:-2])
+
+
+#    def update_percentage(self, player_id, player_region, column, percentage):
+
+#        percentage = str(percentage)
+
+#        data = self.cur.execute("UPDATE " + player_region + "_summoners SET " + column + " = " + percentage + " WHERE id= " + player_id + ";")
+
+
+
+
+    def create_table(self, table_name, column_details, primary_key=None):
+        argument = ""
+        for column_name in column_details:
+            argument = argument + column_name + " " + str(column_details[column_name]) + ", "
+        if primary_key:
+            argument = argument + " PRIMARY KEY (" + primary_key + ")"
+        else:
+            argument = argument[:-2]
+        self.cur.execute("CREATE TABLE IF NOT EXISTS "+ table_name + " (" + argument + ");")
+
+    def get_column_names(self, table):
+        self.cur.execute("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA= '" + self.db_name + "' AND TABLE_NAME= '" + table + "';")
+        data = self.cur.fetchall()
+        for element in data:
+            yield element[0]
+
+    #multiple criteria, return values will be from a single column
+    def get_database_items(self, table, criterias, return_field):
+        argument=""
+        for criteria_field in criterias:
+            argument = argument + criteria_field + " = \"" + str(criterias[criteria_field]) + "\" AND "
+
+        self.cur.execute("SELECT " + return_field + " FROM " + table + " WHERE " + argument[:-4] +";")
+        data = self.cur.fetchall()
+        if data:
+            for element in data:
+                yield element[0]
+    #multiple criteria, return values from multiple columns but from the same row
+    def get_database_row_items(self, table, criterias, return_field):
+        argument = ""
+        for criteria_field in criterias:
+            argument = argument + criteria_field + " = \"" + str(criterias[criteria_field]) + "\" AND "
+
+        self.cur.execute("SELECT " + return_field + " FROM " + table + " WHERE " + argument[:-4] + ";")
+        data = self.cur.fetchall()
+        if data[0]:
+            for element in data[0]:
+                yield element
+
+    def get_item_in_range(self, table, return_field, search_item, lower_bound, upper_bound ):
+        upper_bound=str(upper_bound)
+        lower_bound=str(lower_bound)
+
+        self.cur.execute("SELECT " + return_field + " FROM " + table + " WHERE " + search_item + " BETWEEN " + lower_bound + " AND " + upper_bound + ";")
+        data = self.cur.fetchall()
+        if data:
+            for element in data:
+                yield element[0]
+
+
+
+    def get_row(self,table, criteria, criteria_value):
+        criteria_value = str(criteria_value)
+        self.cur.execute("SELECT * FROM " + table + " WHERE " +criteria +" = "+ criteria_value + " ;")
+        return self.cur.fetchall()[0]
+
+    def get_row_count(self, table):
+        data = self.cur.execute("SELECT COUNT(*) FROM " + table + " ;")
+        return self.cur.fetchone()[0]
+
+    def delete_content_of_table(self, table_name):
+        self.cur.execute("DELETE FROM " + table_name )
+
+    def delete_line(self, table, column, criteria):
+        criteria = str(criteria)
+        if criteria == "NULL":
+            self.cur.execute("DELETE FROM " + table + " WHERE " + column + " is NULL ;")
+        else:
+            self.cur.execute("DELETE FROM " + table + " WHERE " + column + " = " + criteria + " ;")
+
+    def get_sum(self, table, column):
+        self.cur.execute("SELECT SUM("+ column + ") FROM " + table + ";")
+        return self.cur.fetchone()[0]
+
+    def get_max(self, table, column):
+        self.cur.execute("SELECT MAX(" + column + ") FROM " + table + ";")
+        return self.cur.fetchone()[0]
+
+    def get_min(self, table, column):
+        self.cur.execute("SELECT MIN(" + column + ") FROM " + table + ";")
+        return self.cur.fetchone()[0]
+
+    def delete_column(self, table, column):
+        self.cur.execute("ALTER TABLE "+ table + " DROP COLUMN " + column + ";")
+
+    def update_column_values(self, table, column, value):
+        value = str(value)
+        self.cur.execute("UPDATE " + table + " SET " + column + " = " + value + ";")
+
+    def move_columns(self, table, column1, column2, column1_type, position):
+
+        self.cur.execute("ALTER TABLE "+ table + " CHANGE COLUMN "+ column1 + " " + column1 + " " + column1_type + " " + position + " " + column2 + ";")
+
+    def set_column_default_value(self, table, column, column_type = "INT UNSIGNED", default_value=0):
+
+        default_value = str(default_value)
+        self.cur.execute("ALTER TABLE "+ table + " MODIFY COLUMN " + column + " " + column_type + " default " + default_value + ";")
+
+    def rename_table(self, old_name, new_name):
+        self.cur.execute("RENAME TABLE " + old_name + " TO "+ new_name + ";")
+
+    def clone_table(self, new_table , existing_table):
+        m = Misc()
+        try:
+            self.cur.execute("CREATE TABLE " + new_table + " LIKE " +  existing_table+ ";")
+        except self.db.Error as err:
+            if err[0] == 1050:
+                m.logging(new_table.split("_")[0], "Table "+new_table + " already exists. Skipping ..", "error")
+                print "Table "+new_table + " already exists. Skipping .."
+            else:
+                print err
+
+    def replicate_table(self, old_table, new_table):
+        self.cur.execute("CREATE TABLE " + new_table + " LIKE " + old_table + ";")
+        self.cur.execute("INSERT " + new_table +  " SELECT * FROM " + old_table + ";")
+
+    def delete_table(self, table):
+        self.cur.execute("DROP TABLE IF EXISTS "+ table + ";")
+
+
+    def close_db(self):
+
+        self.db.commit()
+        self.db.close()
+        return
+    def commit_db(self):
+        self.db.commit()
+
+
+class Misc:
+    def __init__(self):
+        return
+
+    def epoch_to_timedate(self, epoch):
+        epoch_1 = datetime.datetime.fromtimestamp(float(epoch) / 1000.)
+        fmt = "%Y-%m-%d %H:%M:%S"
+        epoch_2 = epoch_1.strftime(fmt)
+        return epoch_2
+
+    def logging(self, region, message, type):
+        datenow = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        date = str(datetime.datetime.now().date())
+        if type == "error":
+            file_path = ERROR_FILES_PATH
+        elif type == "log":
+            file_path = LOG_FILES_PATH
+
+        with open(file_path + region + "-"+date, "a") as l_file:
+            l_file.write(datenow + "\t" + message + "\n")
+
+        with open(file_path + "All" + "-"+date, "a") as l_file:
+            l_file.write(datenow + "\t" + region +"\t"+ message + "\n")
+
+
+
+
+
+
+
