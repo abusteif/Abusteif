@@ -490,7 +490,7 @@ class Database:
     def commit_db(self):
         self.db.commit()
 
-class mysql_operations:
+class Mysql_operations:
 
     def __init__(self, database_details):
         self.database_details = database_details
@@ -501,8 +501,14 @@ class mysql_operations:
         self.cur.execute("CREATE DATABASE "+ database_name + ";")
 
     def export_database(self, database_name, database_dump_name):
-        subprocess.Popen("mysqldump -u " + self.database_details[1] + " -p " + database_name + " > " + database_dump_name,shell=True)
+        self.check_conf_file()
+        subprocess.Popen("mysqldump -u " + self.database_details[1] + " " + database_name + " > " + database_dump_name +".sql",shell=True)
 
+
+
+    def check_conf_file(self):
+       with open(os.path.expanduser("~/.my.cnf"), "a") as conf_file:
+           conf_file.write("[mysqldump]\nuser="+self.database_details[1]+"\npassword="+ self.database_details[2])
 
 class Misc:
     def __init__(self):
