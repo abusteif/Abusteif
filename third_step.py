@@ -22,8 +22,8 @@ class Third_step(threading.Thread):
 
     def run(self):
 
+        time.sleep(100)
         while True:
-            time.sleep(100)
             self.update_averages()
             self.update_final_stats()
             self.update_champ_stats()

@@ -10,11 +10,12 @@ import os.path
 from BeautifulSoup import BeautifulSoup
 import sys
 from collections import OrderedDict
+import subprocess
 
 ARAM_QUEUE1 = 450
 ARAM_QUEUE2 = 65
 
-API_KEY= 'RGAPI-04a191f8-ee3b-4a29-a1ba-e5457e98779c'
+API_KEY= 'RGAPI-5785d59f-4c72-42ba-8242-503895b7e4ad'
 DATABASE_DETAILS = ["localhost", "LoL_Analysis", "123456", "LoL_Analysis"]
 GAMES_FOLDERS_PATH = "/media/4TB/aram_games/"
 ERROR_FILES_PATH= "/home/abusteif/ARAM_Analysis/Error_Logs/"
@@ -488,6 +489,19 @@ class Database:
         return
     def commit_db(self):
         self.db.commit()
+
+class mysql_operations:
+
+    def __init__(self, database_details):
+        self.database_details = database_details
+        self.cur = MySQLdb.connect(host=database_details[0], user=database_details[1], passwd=database_details[2]).cursor()
+        self.cur.connection.autocommit(True)
+
+    def create_database(self, database_name):
+        self.cur.execute("CREATE DATABASE "+ database_name + ";")
+
+    def export_database(self, database_name, database_dump_name):
+        subprocess.Popen("mysqldump -u " + self.database_details[1] + " -p " + database_name + " > " + database_dump_name,shell=True)
 
 
 class Misc:
