@@ -42,13 +42,13 @@ class Second_step:
                     try:
                         json_game = json.loads(game.strip())
                     except ValueError:
-                        self.misc.logging(self.region,"Json error in file: " + str(player_id) + ", game: " + str(game_id) + ".. Ignoring", "error")
+                        self.misc.logging(self.region,"Json error in file: " + str(player_id) + ".. Ignoring", "error")
                         continue
                     output = Json_ops(json_game)
                     game_id = output.game_id()
 
                     if game_id == -1:
-                        self.misc.logging(self.region,"Found a non Json object in file: " + str(player_id) + ", game: " + str(game_id) + ".. Ignoring", "error")
+                        self.misc.logging(self.region,"Found a non Json object in file: " + str(player_id) + ".. Ignoring", "error")
                         print "Found a non Json object .. Ignoring"
                         continue
 

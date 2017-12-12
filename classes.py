@@ -16,11 +16,14 @@ ARAM_QUEUE1 = 450
 ARAM_QUEUE2 = 65
 
 API_KEY= 'RGAPI-5785d59f-4c72-42ba-8242-503895b7e4ad'
+CURRENT_PATCH="7.24"
 DATABASE_DETAILS = ["localhost", "LoL_Analysis", "123456", "LoL_Analysis"]
-GAMES_FOLDERS_PATH = "/media/4TB/aram_games/"
-ERROR_FILES_PATH= "/home/abusteif/ARAM_Analysis/Error_Logs/"
-LOG_FILES_PATH= "/home/abusteif/ARAM_Analysis/Logs/"
-MODELS_LOCATION = "/home/abusteif/ARAM_Analysis/"
+GAMES_FOLDERS_PATH = "/media/4TB/ARAM-RNG/Games/"
+ERROR_FILES_PATH= "/home/abusteif/ARAM-RNG/Error_Logs/"
+LOG_FILES_PATH= "/home/abusteif/ARAM-RNG/Logs/"
+DB_BACKUPS_PATH= "/media/4TB/ARAM-RNG/DB_ARCHIVE/"
+MODELS_LOCATION = "/home/abusteif/ARAM-RNG/TF_Models/"
+STATIC_DATA_PATH = "/home/abusteif/ARAM-RNG/Static_data"
 MAX_THREAD_NUM = 4
 REGIONS=["KR", "EUW1", "OC1", "NA1" ]
 #REGIONS = ["OC1"]
@@ -84,25 +87,29 @@ class URL_resolve:
         m = Misc()
         method_count = self.html_result.headers["X-Method-Rate-Limit-Count"]
         method_limit = self.html_result.headers["X-Method-Rate-Limit"]
-        app_count = self.html_result.headers["X-App-Rate-Limit-Count"]
-        app_limit = self.html_result.headers["X-App-Rate-Limit"]
+        if "X-App-Rate-Limit-Count" in self.html_result.headers:
+            app_count = self.html_result.headers["X-App-Rate-Limit-Count"]
+            app_limit = self.html_result.headers["X-App-Rate-Limit"]
+            if int(app_count.split(":")[0]) == 1:
+                URL_resolve.app_window = time.time()
+                URL_resolve.first_api_call = False
+            if int(app_limit.split(":")[0]) - int(app_count.split(":")[0]) < MAX_THREAD_NUM:
+                m.logging(self.region, "Rate limit for the region "+self.region + " is almost reached", "error")
+                print "Rate limit for the region "+self.region
+                time_wait =  time.time() - URL_resolve.app_window - int((app_limit.split(":")[1]).split(",")[0])
+                print time_wait
+                time.sleep(abs(time_wait))
+
 
         if status == 429:
             m.logging(self.region, "Rate limit has been reached for the region " + self.region + ". Sleeping for " + str(self.html_result.headers["Retry-After"]) + " seconds", "error")
             time.sleep(int(self.html_result.headers["Retry-After"]))
-        if int(app_count.split(":")[0]) == 1:
-            URL_resolve.app_window = time.time()
-            URL_resolve.first_api_call = False
+
         if int(method_limit.split(":")[0]) - int(method_count.split(":")[0])  < 3:
             m.logging(self.region, self.region + " has reached a rate limit for the method " + self.api_endpoint, "error")
             time.sleep(3)
 
-        if int(app_limit.split(":")[0]) - int(app_count.split(":")[0]) < MAX_THREAD_NUM:
-            m.logging(self.region, "Rate limit for the region "+self.region + " is almost reached", "error")
-            print "Rate limit for the region "+self.region
-            time_wait =  time.time() - URL_resolve.app_window - int((app_limit.split(":")[1]).split(",")[0])
-            print time_wait
-            time.sleep(abs(time_wait))
+
 
 
 
@@ -200,25 +207,54 @@ class Champ:
         self.champ_id = champ_id
         self.api_key = api_key
 
-    def getChampName(self, champ_id):
-        # get champ_id from the database (LoL_analytics -> champ_names_ids
-        champ_id = self.champ_id
+    def getChampDetails(self):
+        champ_id = str(self.champ_id)
+        champ_name_url = 'https://EUW1.api.riotgames.com/lol/static-data/v3/champions/' + champ_id +'?locale=en_US&tags=tags&api_key=' + self.api_key
+        json_champ = URL_resolve(champ_name_url, "EUW1", "/lol/static-data/v3/champions/{id}").request_to_json()
+        details = OrderedDict()
+        details = {"id":json_champ['id'] ,"name":json_champ['name'].encode('utf-8'), "class1":json_champ['tags'][0].encode('utf-8'), "class2":json_champ['tags'][1].encode('utf-8')}
+        return details
 
 
 # Only a single Static object should be used, hence we will be using local variables instead of class wide variables.
 
 class Static:
+    current_patch = CURRENT_PATCH
     def __init__(self, api_key):
         self.api_key = api_key
 
     def champs_list(self):
         champ_list = []
-        champ_list_url = 'https://oc1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&tags=tags&dataById=false&api_key=' + self.api_key
-        json_champs = URL_resolve(champ_list_url, "OC1", "/lol/static-data/v3/champions").request_to_json()
+        champ_list_url = 'https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&tags=tags&dataById=false&api_key=' + self.api_key
+        json_champs = URL_resolve(champ_list_url, "NA1", "/lol/static-data/v3/champions").request_to_json()
         for champ in json_champs['data'].values():
-            champ_list.append(champ['name'].encode('utf-8'))
-            #print champ_list
-'''
+            champ_list.append(champ['id'])
+            #champ_list.append(champ['name'].encode('utf-8'))
+        return champ_list
+
+    def get_current_version(self):
+        with open(STATIC_DATA_PATH, "r") as static_data:
+            for line in static_data.readlines():
+                if line.split("=")[0] == "version":
+                    return line.split("=")[1].strip()
+
+    def check_current_version(self):
+        current_patch_url = 'https://na1.api.riotgames.com/lol/static-data/v3/versions?api_key=' + self.api_key
+        json_current_patch=URL_resolve(current_patch_url, "NA1", "/lol/static-data/v3/versions" ).request_to_json()
+        return json_current_patch[0].encode('utf-8')
+
+    def update_current_version(self, new_version):
+        with open(STATIC_DATA_PATH, "r+") as static_data:
+            all_data = static_data.readlines()
+            static_data.seek(0)
+            for line in all_data:
+                if not line.split("=")[0] == "version":
+                    static_data.write(line)
+                else:
+                    static_data.write("version="+new_version)
+            static_data.truncate()
+
+''' 
     def champs_winrate(self):
         champs_WR = dict()
         LA_url = 'http://aram.lolalytics.com/grid/'
@@ -277,7 +313,7 @@ class Database:
         try:
             self.cur.execute("INSERT INTO " + table + " (" + column_names + ") VALUES ( " + column_values + " ); ")
             Misc().logging(table.split("_")[0], "Successfully added " + "( " + column_values + " )" + " to " + table + " table", "log")
-            #print "Successfully added " + "( " + column_values + " )" + " to " + table + " table"
+            #print "Successfully addedatabase_named " + "( " + column_values + " )" + " to " + table + " table"
             return 1
 
         except self.db.Error as err:
@@ -500,11 +536,9 @@ class Mysql_operations:
     def create_database(self, database_name):
         self.cur.execute("CREATE DATABASE "+ database_name + ";")
 
-    def export_database(self, database_name, database_dump_name):
+    def export_database(self, database_dump_name):
         self.check_conf_file()
-        subprocess.Popen("mysqldump -u " + self.database_details[1] + " " + database_name + " > " + database_dump_name +".sql",shell=True)
-
-
+        subprocess.call("mysqldump -u " + self.database_details[1] + " " + self.database_details[3] + " > " + DB_BACKUPS_PATH + database_dump_name +".sql",shell=True)
 
     def check_conf_file(self):
        with open(os.path.expanduser("~/.my.cnf"), "a") as conf_file:

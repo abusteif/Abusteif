@@ -1,3 +1,5 @@
-from classes import Mysql_operations, DATABASE_DETAILS
+from classes import Mysql_operations, DATABASE_DETAILS, DB_BACKUPS_PATH, Static,API_KEY
+from daily_checks import Daily_check
 
-Mysql_operations(DATABASE_DETAILS).export_database("LoL_Analysis", "/media/4TB/Database_archive/testing_python")
+Daily_check(DATABASE_DETAILS,API_KEY).check_version()
+
