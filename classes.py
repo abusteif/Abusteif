@@ -15,15 +15,15 @@ import subprocess
 ARAM_QUEUE1 = 450
 ARAM_QUEUE2 = 65
 
-API_KEY= 'RGAPI-5785d59f-4c72-42ba-8242-503895b7e4ad'
-CURRENT_PATCH="7.24"
+API_KEY= 'RGAPI-b8c9e648-5434-4cf2-8031-630928986c54'
 DATABASE_DETAILS = ["localhost", "LoL_Analysis", "123456", "LoL_Analysis"]
 GAMES_FOLDERS_PATH = "/media/4TB/ARAM-RNG/Games/"
 ERROR_FILES_PATH= "/home/abusteif/ARAM-RNG/Error_Logs/"
 LOG_FILES_PATH= "/home/abusteif/ARAM-RNG/Logs/"
 DB_BACKUPS_PATH= "/media/4TB/ARAM-RNG/DB_ARCHIVE/"
 MODELS_LOCATION = "/home/abusteif/ARAM-RNG/TF_Models/"
-STATIC_DATA_PATH = "/home/abusteif/ARAM-RNG/Static_data"
+STATIC_DATA_PATH = "/home/abusteif/ARAM-RNG/Static_data/"
+DEFAULT_REGION ="OC1"
 MAX_THREAD_NUM = 4
 REGIONS=["KR", "EUW1", "OC1", "NA1" ]
 #REGIONS = ["OC1"]
@@ -62,7 +62,7 @@ class URL_resolve:
 
             elif self.html_result.status_code == 404:
                 m.logging(self.region, self.url + " returned a 404 Error", "error")
-                #print self.url, " returned a 404 Error"
+                #print self.url, " retRGAPI-b8c9e648-5434-4cf2-8031-630928986c54urned a 404 Error"
                 self.html_result =-1
                 return
             else:
@@ -219,7 +219,6 @@ class Champ:
 # Only a single Static object should be used, hence we will be using local variables instead of class wide variables.
 
 class Static:
-    current_patch = CURRENT_PATCH
     def __init__(self, api_key):
         self.api_key = api_key
 
@@ -233,7 +232,7 @@ class Static:
         return champ_list
 
     def get_current_version(self):
-        with open(STATIC_DATA_PATH, "r") as static_data:
+        with open(STATIC_DATA_PATH+"Static_data", "r") as static_data:
             for line in static_data.readlines():
                 if line.split("=")[0] == "version":
                     return line.split("=")[1].strip()
@@ -244,7 +243,7 @@ class Static:
         return json_current_patch[0].encode('utf-8')
 
     def update_current_version(self, new_version):
-        with open(STATIC_DATA_PATH, "r+") as static_data:
+        with open(STATIC_DATA_PATH+"Static_data", "r+") as static_data:
             all_data = static_data.readlines()
             static_data.seek(0)
             for line in all_data:
@@ -347,10 +346,6 @@ class Database:
         self.cur.execute("UPDATE " + table + " SET " + insert_statement[:-2] + " WHERE " +id+ " = "+ id_value + ";")
 
 
-#    def update_last_game_epoch(self, item_id, player_region, epoch):
-
-#        epoch = str(epoch)
-#        self.cur.execute("UPDATE " + player_region + "_summoners SET last_game_epoch='" + epoch + "' WHERE id=" + item_id + ";")
 
     #single criteria, return values from a single column
     def get_database_item(self, table, criteria_field, criteria_value, return_field, limit="", operator="="):
@@ -389,15 +384,6 @@ class Database:
         self.cur.execute("ALTER TABLE " + table + statement[:-2])
 
 
-#    def update_percentage(self, player_id, player_region, column, percentage):
-
-#        percentage = str(percentage)
-
-#        data = self.cur.execute("UPDATE " + player_region + "_summoners SET " + column + " = " + percentage + " WHERE id= " + player_id + ";")
-
-
-
-
     def create_table(self, table_name, column_details, primary_key=None):
         argument = ""
         for column_name in column_details:
@@ -425,6 +411,7 @@ class Database:
         if data:
             for element in data:
                 yield element[0]
+
     #multiple criteria, return values from multiple columns but from the same row
     def get_database_row_items(self, table, criterias, return_field):
         argument = ""
@@ -538,21 +525,32 @@ class Mysql_operations:
 
     def export_database(self, database_dump_name):
         self.check_conf_file()
-        subprocess.call("mysqldump -u " + self.database_details[1] + " " + self.database_details[3] + " > " + DB_BACKUPS_PATH + database_dump_name +".sql",shell=True)
+        status = subprocess.call("mysqldump -u " + self.database_details[1] + " " + self.database_details[3] + " > " + DB_BACKUPS_PATH+ database_dump_name+ "_"  + str(datetime.datetime.now().date()) + ".sql",shell=True)
+        if status == 0:
+            Misc().logging(DEFAULT_REGION, "Database export was successful", "log")
+        else:
+            Misc().logging(DEFAULT_REGION, "Error while exporting Database. Status code: " + str(status), "error")
 
     def check_conf_file(self):
        with open(os.path.expanduser("~/.my.cnf"), "a") as conf_file:
            conf_file.write("[mysqldump]\nuser="+self.database_details[1]+"\npassword="+ self.database_details[2])
 
+    def import_tables(self, file_name):
+        self.check_conf_file()
+        if not file_name.split(".")[1]:
+            file_name = str(file_name) + ".sql"
+        status = subprocess.call("mysql -u " + self.database_details[1] + " " + self.database_details[
+            3] + " < " + STATIC_DATA_PATH + file_name, shell=True)
+        if status == 0:
+            Misc().logging(DEFAULT_REGION, "Successfully imported " + file_name + " tables", "log")
+        else:
+            Misc().logging(DEFAULT_REGION, "Error while importing " + file_name + " tables. Status code: " + str(status) , "error")
+
+
+
 class Misc:
     def __init__(self):
         return
-
-    def epoch_to_timedate(self, epoch):
-        epoch_1 = datetime.datetime.fromtimestamp(float(epoch) / 1000.)
-        fmt = "%Y-%m-%d %H:%M:%S"
-        epoch_2 = epoch_1.strftime(fmt)
-        return epoch_2
 
     def logging(self, region, message, type):
         datenow = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

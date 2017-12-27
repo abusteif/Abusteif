@@ -19,8 +19,7 @@ class Second_step:
     def update_tables(self, checked_games_players):
 
         #database = Database(DATABASE_DETAILS)
-        print checked_games_players
-        
+
        # misc = Misc()
         for player_id in checked_games_players:
 
@@ -34,8 +33,8 @@ class Second_step:
                 if os.stat(current_file).st_size == 0:
                     self.misc.logging(self.region, player_id + "' games file is empty. Skipping ..", "error")
                     continue
-                print player_id
-                
+                #print player_id
+
                 all_games = games_file.readlines()
                 for game in all_games:
                     champ_names = dict()

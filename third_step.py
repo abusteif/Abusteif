@@ -1,14 +1,11 @@
 from __future__ import division
-import Queue
 import threading
-import time
-import datetime
-import os.path
-import json
-import pika
+
 from classes import Game, Player, Misc, Database, API_KEY, GAMES_FOLDERS_PATH, ERROR_FILES_PATH, MAX_THREAD_NUM, REGIONS, DATABASE_DETAILS
 from stat_rating import Stat_rating
-from second_step_class import Second_step
+from select import select
+import sys
+import time
 
 class Third_step(threading.Thread):
     
@@ -22,8 +19,25 @@ class Third_step(threading.Thread):
 
     def run(self):
 
-        time.sleep(100)
+        time_check = time.time()
+
+        time.sleep(40)
+
+
         while True:
+
+            if time.time() - time_check >= 20:
+                timeout = 5
+                print self.player_region +": Hourly updates thread: Press any key to end hourly updates"
+                rlist, wlist, xlist = select([sys.stdin], [], [], timeout)
+
+                if rlist:
+                    print self.player_region +": Returning from Hourly updates thread"
+                    break
+                else:
+                    print self.player_region +": Hourly updates thread: No key stroke detected.. Continuing hourly updates"
+
+
             self.update_averages()
             self.update_final_stats()
             self.update_champ_stats()
