@@ -15,7 +15,9 @@ import ast
 
 ARAM_QUEUE1 = 450
 ARAM_QUEUE2 = 65
+STATIC_DATA_PATH="/home/abusteif/PycharmProjects/ARAM-RNG/Static_data/"
 
+'''
 API_KEY= 'RGAPI-b8c9e648-5434-4cf2-8031-630928986c54'
 DATABASE_DETAILS = ["localhost", "LoL_Analysis", "123456", "LoL_Analysis"]
 GAMES_FOLDERS_PATH = "/media/4TB/ARAM-RNG/Games/"
@@ -28,36 +30,48 @@ DEFAULT_REGION ="OC1"
 MAX_THREAD_NUM = 4
 REGIONS=["KR", "EUW1", "OC1", "NA1" ]
 #REGIONS = ["OC1"]
+'''
 
 with open(STATIC_DATA_PATH + "conf_data", "r") as conf_data:
     for line in conf_data.readlines():
-        try:
-            data = line.split("=")[0].strip()
-            value = line.split("=")[1].strip()
-            if data == "API_KEY":
-                API_KEY = value
-            elif data == "DATABASE_DETAILS":
-                DATABASE_DETAILS = ast.literal_eval(value)
-            elif data == "GAMES_FOLDERS_PATH":
-                GAMES_FOLDERS_PATH = value
-            elif data == "ERROR_FILES_PATH":
-                ERROR_FILES_PATH = value
-            elif data == "LOG_FILES_PATH":
-                LOG_FILES_PATH = value
-            elif data == "DB_BACKUPS_PATH":
-                DB_BACKUPS_PATH = value
-            elif data == "MODELS_LOCATION":
-                MODELS_LOCATION = value
-            elif data == "STATIC_DATA_PATH":
-                STATIC_DATA_PATH = value
-            elif data == "DEFAULT_REGION":
-                DEFAULT_REGION = value
-            elif data == "MAX_THREAD_NUM":
-                MAX_THREAD_NUM = value
-            elif data == "REGIONS":
-                REGIONS = ast.literal_eval(value)
-        except ValueError as e:
-            print e
+        if line.strip():
+            try:
+                data = line.split("=")[0].strip()
+                value = line.split("=")[1].strip()
+                if data == "API_KEY":
+                    API_KEY = value
+                elif data == "DATABASE_DETAILS":
+                    DATABASE_DETAILS = ast.literal_eval(value)
+                elif data == "GAMES_FOLDERS_PATH":
+                    GAMES_FOLDERS_PATH = value
+                elif data == "ERROR_FILES_PATH":
+                    ERROR_FILES_PATH = value
+                elif data == "LOG_FILES_PATH":
+                    LOG_FILES_PATH = value
+                elif data == "DB_BACKUPS_PATH":
+                    DB_BACKUPS_PATH = value
+                elif data == "MODELS_LOCATION":
+                    MODELS_LOCATION = value
+                elif data == "STATIC_DATA_PATH":
+                    STATIC_DATA_PATH = value
+                elif data == "DEFAULT_REGION":
+                    DEFAULT_REGION = value
+                elif data == "MAX_THREAD_NUM":
+                    MAX_THREAD_NUM = int(value)
+                elif data == "REGIONS":
+                    REGIONS = ast.literal_eval(value)
+                elif data == "SFTP_USERNAME":
+                    SFTP_USERNAME = value
+                elif data == "SFTP_PASSWORD":
+                    SFTP_PASSWORD = value
+                elif data == "SFTP_HOST":
+                    SFTP_HOST = value
+                elif data == "SFTP_PORT":
+                    SFTP_PORT = int(value)
+                elif data == "SFTP_REMOTE_PATH":
+                    SFTP_REMOTE_PATH = value
+            except ValueError as e:
+                print e
 
 
 
@@ -256,8 +270,8 @@ class Static:
 
     def champs_list(self):
         champ_list = []
-        champ_list_url = 'https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&tags=tags&dataById=false&api_key=' + self.api_key
-        json_champs = URL_resolve(champ_list_url, "NA1", "/lol/static-data/v3/champions").request_to_json()
+        champ_list_url = 'https://' + DEFAULT_REGION + '.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&tags=tags&dataById=false&api_key=' + self.api_key
+        json_champs = URL_resolve(champ_list_url, DEFAULT_REGION, "/lol/static-data/v3/champions").request_to_json()
         for champ in json_champs['data'].values():
             champ_list.append(champ['id'])
             #champ_list.append(champ['name'].encode('utf-8'))
@@ -270,8 +284,8 @@ class Static:
                     return line.split("=")[1].strip()
 
     def check_current_version(self):
-        current_patch_url = 'https://na1.api.riotgames.com/lol/static-data/v3/versions?api_key=' + self.api_key
-        json_current_patch=URL_resolve(current_patch_url, "NA1", "/lol/static-data/v3/versions" ).request_to_json()
+        current_patch_url = 'https://' + DEFAULT_REGION +'.api.riotgames.com/lol/static-data/v3/versions?api_key=' + self.api_key
+        json_current_patch=URL_resolve(current_patch_url, DEFAULT_REGION, "/lol/static-data/v3/versions" ).request_to_json()
         return json_current_patch[0].encode('utf-8')
 
     def update_current_version(self, new_version):
@@ -282,7 +296,7 @@ class Static:
                 if not line.split("=")[0].strip() == "VERSION":
                     conf_data.write(line)
                 else:
-                    conf_data.write("VERSION="+new_version)
+                    conf_data.write("VERSION="+new_version+"\n")
             conf_data.truncate()
 
 
@@ -541,12 +555,27 @@ class Mysql_operations:
         self.cur.execute("CREATE DATABASE "+ database_name + ";")
 
     def export_database(self, database_dump_name):
+        print DEFAULT_REGION
         self.check_conf_file()
-        status = subprocess.call("mysqldump -u " + self.database_details[1] + " " + self.database_details[3] + " > " + DB_BACKUPS_PATH+ database_dump_name+ "_"  + str(datetime.datetime.now().date()) + ".sql",shell=True)
+        i=1
+        while True:
+            if os.path.isfile(DB_BACKUPS_PATH+ database_dump_name+ "_"  + str(datetime.datetime.now().date())+".sql"):
+                print "ok"
+                if os.path.isfile(DB_BACKUPS_PATH + database_dump_name + "_" + str(datetime.datetime.now().date())+ "_"+str(i)+".sql"):
+                    i+=1
+                else:
+                    file_name = DB_BACKUPS_PATH + database_dump_name + "_" + str(datetime.datetime.now().date()) +"_"+str(i)+ ".sql"
+                    break
+            else:
+                file_name = DB_BACKUPS_PATH + database_dump_name + "_" + str(datetime.datetime.now().date())+".sql"
+                break
+        print file_name
+        status = subprocess.call("mysqldump -u " + self.database_details[1] + " " + self.database_details[3] + " > " + file_name,shell=True)
         if status == 0:
             Misc().logging(DEFAULT_REGION, "Database export was successful", "log")
         else:
             Misc().logging(DEFAULT_REGION, "Error while exporting Database. Status code: " + str(status), "error")
+        return
 
     def check_conf_file(self):
        with open(os.path.expanduser("~/.my.cnf"), "a") as conf_file:

@@ -94,6 +94,4 @@ class Second_step:
                 self.database.update_fields(self.region + "_summoners", "id", player_id, {"aram_games_percentage":100* aram_games/total_games, "won_games":won_games+wins, "win_rate":100*(won_games+wins)/aram_games})
                 self.database.update_fields(self.region + "_games", "id", game_id, {"duration":stats["game_duration"]})
 
-                
-
-
+            os.remove(os.path.join(self.games_folder, player_id))

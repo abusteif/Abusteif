@@ -1,6 +1,9 @@
 # encoding: utf-8
-from classes import Mysql_operations, Database, Static,Champ,REGIONS, Misc, DEFAULT_REGION
+from classes import Mysql_operations, Database, Static,Champ,REGIONS, Misc,\
+    DEFAULT_REGION, SFTP_PASSWORD, DATABASE_DETAILS,SFTP_USERNAME, SFTP_HOST, SFTP_PORT, SFTP_REMOTE_PATH,\
+    DB_BACKUPS_PATH, API_KEY
 import threading
+import paramiko
 
 
 class Daily_check(threading.Thread):
@@ -85,4 +88,17 @@ class Daily_check(threading.Thread):
                 self.database.delete_table(region + "_" + str(champ))
                 self.database.replicate_table("Base_champ", region + "_" + str(champ))
                 self.misc.logging(region, "table " +region + "_" + str(champ)+ " has been reset", "log")
+
+    def sftp_database(self):
+        Mysql_operations(self.database_details).export_database("daily_sftp_database")
+        transport = paramiko.Transport((SFTP_HOST, SFTP_PORT))
+        transport.connect(username=SFTP_USERNAME, password=SFTP_PASSWORD)
+        connection = paramiko.SFTPClient.from_transport(transport)
+
+        connection.put("/home/abusteif/ARAM-RNG/test", "/home/pi/Abusteif/sftp_test_folder/test_sftp")
+
+        connection.close()
+        transport.close()
+
+
 

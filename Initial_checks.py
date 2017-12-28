@@ -15,7 +15,8 @@ class Initial_check:
                         "datetime",
                         "MySQLdb",
                         "collections",
-                        "BeautifulSoup"]
+                        "BeautifulSoup",
+                        "paramiko"]
         print "Checking modules"
         for module in modules_list:
             try:
@@ -52,12 +53,12 @@ class Initial_check:
                 os.makedirs(project_location + "/" + folder)
 
         with open(project_location + "/conf_data", "a") as conf_data:
-            conf_data.write("GAMES_FOLDERS_PATH="+project_location+"/Games\n")
-            conf_data.write("ERROR_FILES_PATH="+project_location+"/Error_Logs\n")
-            conf_data.write("LOG_FILES_PATH="+project_location+"/Logs\n")
-            conf_data.write("DB_BACKUPS_PATH="+project_location+"/DB_ARCHIVE\n")
-            conf_data.write("MODELS_LOCATION="+project_location+"/TF_Models\n")
-            conf_data.write("STATIC_DATA_PATH="+project_location+"/Static_data")
+            conf_data.write("GAMES_FOLDERS_PATH="+project_location+"/Games/\n")
+            conf_data.write("ERROR_FILES_PATH="+project_location+"/Error_Logs/\n")
+            conf_data.write("LOG_FILES_PATH="+project_location+"/Logs\n/")
+            conf_data.write("DB_BACKUPS_PATH="+project_location+"/DB_ARCHIVE/\n")
+            conf_data.write("MODELS_LOCATION="+project_location+"/TF_Models/\n")
+            conf_data.write("STATIC_DATA_PATH="+project_location+"/Static_data/")
 
 
 if __name__ == '__main__':
