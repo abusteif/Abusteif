@@ -26,3 +26,4 @@ for region in REGIONS:
 
 for t in threads:
    t.join()
+#testing git
