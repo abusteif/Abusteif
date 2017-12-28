@@ -11,6 +11,7 @@ from BeautifulSoup import BeautifulSoup
 import sys
 from collections import OrderedDict
 import subprocess
+import ast
 
 ARAM_QUEUE1 = 450
 ARAM_QUEUE2 = 65
@@ -27,6 +28,37 @@ DEFAULT_REGION ="OC1"
 MAX_THREAD_NUM = 4
 REGIONS=["KR", "EUW1", "OC1", "NA1" ]
 #REGIONS = ["OC1"]
+
+with open(STATIC_DATA_PATH + "conf_data", "r") as conf_data:
+    for line in conf_data.readlines():
+        try:
+            data = line.split("=")[0].strip()
+            value = line.split("=")[1].strip()
+            if data == "API_KEY":
+                API_KEY = value
+            elif data == "DATABASE_DETAILS":
+                DATABASE_DETAILS = ast.literal_eval(value)
+            elif data == "GAMES_FOLDERS_PATH":
+                GAMES_FOLDERS_PATH = value
+            elif data == "ERROR_FILES_PATH":
+                ERROR_FILES_PATH = value
+            elif data == "LOG_FILES_PATH":
+                LOG_FILES_PATH = value
+            elif data == "DB_BACKUPS_PATH":
+                DB_BACKUPS_PATH = value
+            elif data == "MODELS_LOCATION":
+                MODELS_LOCATION = value
+            elif data == "STATIC_DATA_PATH":
+                STATIC_DATA_PATH = value
+            elif data == "DEFAULT_REGION":
+                DEFAULT_REGION = value
+            elif data == "MAX_THREAD_NUM":
+                MAX_THREAD_NUM = value
+            elif data == "REGIONS":
+                REGIONS = ast.literal_eval(value)
+        except ValueError as e:
+            print e
+
 
 
 class URL_resolve:
@@ -232,9 +264,9 @@ class Static:
         return champ_list
 
     def get_current_version(self):
-        with open(STATIC_DATA_PATH+"Static_data", "r") as static_data:
-            for line in static_data.readlines():
-                if line.split("=")[0] == "version":
+        with open(STATIC_DATA_PATH+"conf_data", "r") as conf_data:
+            for line in conf_data.readlines():
+                if line.split("=")[0].strip() == "VERSION":
                     return line.split("=")[1].strip()
 
     def check_current_version(self):
@@ -243,31 +275,16 @@ class Static:
         return json_current_patch[0].encode('utf-8')
 
     def update_current_version(self, new_version):
-        with open(STATIC_DATA_PATH+"Static_data", "r+") as static_data:
-            all_data = static_data.readlines()
-            static_data.seek(0)
+        with open(STATIC_DATA_PATH+"conf_data", "r+") as conf_data:
+            all_data = conf_data.readlines()
+            conf_data.seek(0)
             for line in all_data:
-                if not line.split("=")[0] == "version":
-                    static_data.write(line)
+                if not line.split("=")[0].strip() == "VERSION":
+                    conf_data.write(line)
                 else:
-                    static_data.write("version="+new_version)
-            static_data.truncate()
+                    conf_data.write("VERSION="+new_version)
+            conf_data.truncate()
 
-''' 
-    def champs_winrate(self):
-        champs_WR = dict()
-        LA_url = 'http://aram.lolalytics.com/grid/'
-        if not champs_WR:
-            LA_raw = URL_resolve(LA_url).assert_url()
-            LA_text = LA_raw.text.encode('utf8')
-            self.LA = BeautifulSoup(LA_text)
-            LA_body = self.LA.body.findAll('div', attrs={'class': 'gridcell filterbyname lane_All lane_Middle'})
-            for sect in LA_body:
-                name = sect.find('div', attrs={'class': 'gridtitlev2'}).text
-                WR = sect.find('div', attrs={'class': 'All'}).text
-                champs_WR[name] = WR
-        return sorted(champs_WR)
-'''
 
 class Database:
     def __init__(self, database_details):

@@ -4,6 +4,8 @@
     <list default="true" id="4989f691-08a9-4696-b7a7-483880d68e11" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ARAM-RNG.py" afterPath="$PROJECT_DIR$/ARAM-RNG.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Initial_checks.py" afterPath="$PROJECT_DIR$/Initial_checks.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes.py" afterPath="$PROJECT_DIR$/classes.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ARAM-RNG.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ARAM-RNG.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ARAM-RNG.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="29" column="8" lean-forward="false" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
+            <state relative-caret-position="398">
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -27,8 +29,8 @@
       <file leaf-file-name="classes.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1883">
-              <caret line="547" column="0" lean-forward="false" selection-start-line="547" selection-start-column="0" selection-end-line="547" selection-end-column="0" />
+            <state relative-caret-position="378">
+              <caret line="285" column="32" lean-forward="true" selection-start-line="277" selection-start-column="8" selection-end-line="285" selection-end-column="32" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -36,12 +38,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Initial_checks.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Initial_checks.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Initial_checks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="2" lean-forward="true" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
-              <folding />
+            <state relative-caret-position="168">
+              <caret line="45" column="36" lean-forward="false" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -61,8 +65,8 @@
       <file leaf-file-name="Regular_checks.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Regular_checks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="1355">
+              <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
               <folding>
                 <element signature="e#18#108#0" expanded="true" />
               </folding>
@@ -98,18 +102,6 @@
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="27" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="get_summoners.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/get_summoners.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="29" column="22" lean-forward="false" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#69#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -152,6 +144,8 @@
       <find>self.region</find>
       <find>print</find>
       <find>region</find>
+      <find>version</find>
+      <find>static_data</find>
     </findStrings>
     <replaceStrings>
       <replace>self.database</replace>
@@ -174,11 +168,11 @@
         <option value="$PROJECT_DIR$/third_step.py" />
         <option value="$PROJECT_DIR$/daily_checks.py" />
         <option value="$PROJECT_DIR$/initial_checks.py" />
-        <option value="$PROJECT_DIR$/Regular_checks.py" />
         <option value="$PROJECT_DIR$/first_step.py" />
-        <option value="$PROJECT_DIR$/Initial_checks.py" />
-        <option value="$PROJECT_DIR$/classes.py" />
         <option value="$PROJECT_DIR$/ARAM-RNG.py" />
+        <option value="$PROJECT_DIR$/Regular_checks.py" />
+        <option value="$PROJECT_DIR$/classes.py" />
+        <option value="$PROJECT_DIR$/Initial_checks.py" />
       </list>
     </option>
   </component>
@@ -243,7 +237,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ARAM-RNG">
+  <component name="RunManager" selected="Python.Initial_checks">
     <configuration name="ARAM-RNG" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -261,6 +255,40 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
+    <configuration name="Initial_checks" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ARAM-RNG" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Initial_checks.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="classes" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ARAM-RNG" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/classes.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration name="first_step" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -274,40 +302,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ARAM-RNG" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/first_step.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <configuration name="get_summoners" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ARAM-RNG" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/get_summoners.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <configuration name="initial_checks" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ARAM-RNG" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Regular_checks.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -332,17 +326,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.first_step" />
       <item index="1" class="java.lang.String" itemvalue="Python.test" />
-      <item index="2" class="java.lang.String" itemvalue="Python.initial_checks" />
-      <item index="3" class="java.lang.String" itemvalue="Python.get_summoners" />
-      <item index="4" class="java.lang.String" itemvalue="Python.ARAM-RNG" />
+      <item index="2" class="java.lang.String" itemvalue="Python.ARAM-RNG" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Initial_checks" />
+      <item index="4" class="java.lang.String" itemvalue="Python.classes" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.ARAM-RNG" />
-        <item index="1" class="java.lang.String" itemvalue="Python.first_step" />
-        <item index="2" class="java.lang.String" itemvalue="Python.test" />
-        <item index="3" class="java.lang.String" itemvalue="Python.initial_checks" />
-        <item index="4" class="java.lang.String" itemvalue="Python.get_summoners" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Initial_checks" />
+        <item index="1" class="java.lang.String" itemvalue="Python.classes" />
+        <item index="2" class="java.lang.String" itemvalue="Python.ARAM-RNG" />
+        <item index="3" class="java.lang.String" itemvalue="Python.first_step" />
+        <item index="4" class="java.lang.String" itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -409,7 +403,14 @@
       <option name="project" value="LOCAL" />
       <updated>1514423583408</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="testing git">
+      <created>1514423684747</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1514423684747</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -420,7 +421,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42638037" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42638037" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -719,19 +720,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reset_database.py" />
     <entry file="file://$PROJECT_DIR$/add_new_champ.py" />
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/get_summoners.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
           <caret line="29" column="22" lean-forward="false" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
           <folding>
-            <element signature="e#0#69#0" expanded="true" />
+            <element signature="e#0#69#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -767,16 +761,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/second_step_class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/first_step.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2232">
@@ -787,20 +771,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Regular_checks.py">
+    <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/second_step_class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Regular_checks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1355">
+          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
           <folding>
             <element signature="e#18#108#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ARAM-RNG.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1883">
-          <caret line="547" column="0" lean-forward="false" selection-start-line="547" selection-start-column="0" selection-end-line="547" selection-end-column="0" />
+        <state relative-caret-position="378">
+          <caret line="285" column="32" lean-forward="true" selection-start-line="277" selection-start-column="8" selection-end-line="285" selection-end-column="32" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -809,17 +819,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Initial_checks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="2" lean-forward="true" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ARAM-RNG.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="29" column="8" lean-forward="false" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="168">
+          <caret line="45" column="36" lean-forward="false" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
