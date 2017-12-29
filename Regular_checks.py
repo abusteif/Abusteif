@@ -4,7 +4,7 @@ from classes import Mysql_operations, Database, Static,Champ,REGIONS, Misc,\
     DB_BACKUPS_PATH, API_KEY
 import threading
 import paramiko
-
+import time
 
 class Daily_check(threading.Thread):
 
@@ -18,9 +18,18 @@ class Daily_check(threading.Thread):
 
     def all_checks(self):
 
-        self.misc.logging(DEFAULT_REGION, "Running the daily checks", "log")
-        self.misc.logging(DEFAULT_REGION, "Checking for a version change", "log")
-        self.check_version()
+        current_time = time.time()
+        while True:
+            if time.time()-current_time >= 3600*12:
+                self.misc.logging(DEFAULT_REGION, "Running the daily checks", "log")
+                self.misc.logging(DEFAULT_REGION, "Checking for a version change", "log")
+                self.check_version()
+                self.misc.logging(DEFAULT_REGION, "Checking for a new champ", "log")
+                self.check_for_new_champ()
+                self.misc.logging(DEFAULT_REGION, "Uploading a copy of the database", "log")
+                self.sftp_database()
+            else:
+                time.sleep(3600)
 
 
     def check_version(self):
@@ -33,8 +42,6 @@ class Daily_check(threading.Thread):
             self.misc.logging(DEFAULT_REGION, "A new patch has been deployed! the new version is " + online_version , "log")
             Mysql_operations(self.database_details).export_database(self.static.get_current_version())
             self.reset_database()
-            self.misc.logging(DEFAULT_REGION, "Checking for a new champ", "log")
-            self.check_for_new_champ()
             print 1
 
     def update_version(self, new_version):
@@ -90,13 +97,20 @@ class Daily_check(threading.Thread):
                 self.misc.logging(region, "table " +region + "_" + str(champ)+ " has been reset", "log")
 
     def sftp_database(self):
-        Mysql_operations(self.database_details).export_database("daily_sftp_database")
-        transport = paramiko.Transport((SFTP_HOST, SFTP_PORT))
-        transport.connect(username=SFTP_USERNAME, password=SFTP_PASSWORD)
-        connection = paramiko.SFTPClient.from_transport(transport)
+        local_file_name = Mysql_operations(self.database_details).export_database("daily_sftp_database")
+        remote_file_name = local_file_name.split("/")[-1]
+        try:
+            transport = paramiko.Transport((SFTP_HOST, SFTP_PORT))
+            transport.connect(username=SFTP_USERNAME, password=SFTP_PASSWORD)
+            connection = paramiko.SFTPClient.from_transport(transport)
 
-        connection.put("/home/abusteif/ARAM-RNG/test", "/home/pi/Abusteif/sftp_test_folder/test_sftp")
+            #transfer_status = connection.put(local_file_name, SFTP_REMOTE_PATH+remote_file_name)
 
+            connection.put(local_file_name, "/home/pi/Abusteif/sftp_test_folder/test")
+            self.misc.logging(DEFAULT_REGION, "Database upload successful ("+remote_file_name+")", "log")
+        except Exception as e:
+            self.misc.logging(DEFAULT_REGION, "Error while transferring database " + remote_file_name+" to the remote SFTP server. Error message: " + str(e), "error")
+            return
         connection.close()
         transport.close()
 

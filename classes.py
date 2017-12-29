@@ -569,13 +569,12 @@ class Mysql_operations:
             else:
                 file_name = DB_BACKUPS_PATH + database_dump_name + "_" + str(datetime.datetime.now().date())+".sql"
                 break
-        print file_name
         status = subprocess.call("mysqldump -u " + self.database_details[1] + " " + self.database_details[3] + " > " + file_name,shell=True)
         if status == 0:
             Misc().logging(DEFAULT_REGION, "Database export was successful", "log")
         else:
             Misc().logging(DEFAULT_REGION, "Error while exporting Database. Status code: " + str(status), "error")
-        return
+        return file_name
 
     def check_conf_file(self):
        with open(os.path.expanduser("~/.my.cnf"), "a") as conf_file:
