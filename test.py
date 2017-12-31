@@ -1,5 +1,10 @@
-from classes import Mysql_operations, DATABASE_DETAILS, DB_BACKUPS_PATH, Static,API_KEY
+from classes import Mysql_operations, DATABASE_DETAILS, DB_BACKUPS_PATH, Static,API_KEY, ROOT_MYSQL_DETAILS
 from Regular_checks import Daily_check
+from Initial_checks import Initial_check
 
-Daily_check(DATABASE_DETAILS,API_KEY).sftp_database()
+#Initial_check().all_initial_checks()
+Mysql_operations(ROOT_MYSQL_DETAILS).create_user(DATABASE_DETAILS)
+Mysql_operations(DATABASE_DETAILS).create_database(DATABASE_DETAILS)
+Mysql_operations(DATABASE_DETAILS).import_tables("Base_tables.sql")
+
 

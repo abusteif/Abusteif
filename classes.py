@@ -42,6 +42,9 @@ with open(STATIC_DATA_PATH + "conf_data", "r") as conf_data:
                     API_KEY = value
                 elif data == "DATABASE_DETAILS":
                     DATABASE_DETAILS = ast.literal_eval(value)
+                elif data == "ROOT_MYSQL_DETAILS":
+                    ROOT_MYSQL_DETAILS = ast.literal_eval(value)
+
                 elif data == "GAMES_FOLDERS_PATH":
                     GAMES_FOLDERS_PATH = value
                 elif data == "ERROR_FILES_PATH":
@@ -70,6 +73,7 @@ with open(STATIC_DATA_PATH + "conf_data", "r") as conf_data:
                     SFTP_PORT = int(value)
                 elif data == "SFTP_REMOTE_PATH":
                     SFTP_REMOTE_PATH = value
+
             except ValueError as e:
                 print e
 
@@ -551,8 +555,23 @@ class Mysql_operations:
         self.cur = MySQLdb.connect(host=database_details[0], user=database_details[1], passwd=database_details[2]).cursor()
         self.cur.connection.autocommit(True)
 
-    def create_database(self, database_name):
-        self.cur.execute("CREATE DATABASE "+ database_name + ";")
+    def create_user(self, user_details):
+        try:
+            self.cur.execute("CREATE USER "+ user_details[1] + "@" + user_details[0] + " IDENTIFIED BY " + "\"" +str(user_details[2])+"\";")
+            Misc().logging(DEFAULT_REGION, "User "+ user_details[1] + " successfully created", "log")
+        except Exception as e:
+            Misc().logging(DEFAULT_REGION, "Error while creating user " + user_details[1] + ". Error message: " + str(e), "error")
+        try:
+            self.cur.execute("GRANT ALL PRIVILEGES ON *.* TO " + user_details[1] +"@"+user_details[0]+";")
+        except Exception as e:
+            Misc().logging(DEFAULT_REGION, "Error while granting permission to user " + user_details[1] + ". Error message: " + str(e), "error")
+
+    def create_database(self, user_details):
+        try:
+            self.cur.execute("CREATE DATABASE "+ user_details[3] + ";")
+            Misc().logging(DEFAULT_REGION, "Database " + user_details[3] + " successfully created", "log")
+        except Exception as e:
+            Misc().logging(DEFAULT_REGION, "Error while creating database " + user_details[3] + ". Error message: " + str(e), "error")
 
     def export_database(self, database_dump_name):
         print DEFAULT_REGION
@@ -577,15 +596,78 @@ class Mysql_operations:
         return file_name
 
     def check_conf_file(self):
-       with open(os.path.expanduser("~/.my.cnf"), "a") as conf_file:
-           conf_file.write("[mysqldump]\nuser="+self.database_details[1]+"\npassword="+ self.database_details[2])
+        with open(os.path.expanduser("~/.my.cnf"), "a+") as conf_file:
+            all_data = list(conf_file.readlines())
+            conf_file.seek(0)
+            conf_file.truncate()
+            mysql_end = 0
+            mysql_start = 0
+            mysqldump_start = 0
+            mysqldump_end = 0
+            mysqldump = False
+            mysql = False
+            for i in range(all_data.__len__()):
+                if all_data[i] == "[mysqldump]\n":
+                    for j in range(1, all_data.__len__()-i, 1):
+                        if "[" in all_data[i + j] and "]" in all_data[i + j]:
+                            mysqldump_start = i
+                            mysqldump_end = j + i
+                            break
+                        mysqldump_start = i
+                        mysqldump_end = i+ j
+                if all_data[i] == "[mysql]\n":
+                    for j in range(1, all_data.__len__()-i, 1):
+                        if "[" in all_data[i + j] and "]" in all_data[i + j]:
+                            mysql_start = i
+                            mysql_end = j + i
+                            break
+                        mysql_end = i + j
+
+            print mysql_start, mysql_end
+            print mysqldump_start, mysqldump_end
+            for i in range(mysqldump_start, mysqldump_end):
+                if all_data[i] == "user="+self.database_details[1]+"\n":
+                    if all_data[i+1] == "password=\""+ self.database_details[2]+"\"\n":
+                        mysqldump = True
+            for i in range(mysql_start, mysql_end):
+                if all_data[i] == "user="+self.database_details[1]+"\n":
+                    if all_data[i+1] == "password=\""+ self.database_details[2]+"\"\n":
+                        mysql = True
+            print mysql, mysqldump
+
+            if all_data:
+                for i in range(all_data.__len__()):
+                    if not mysql_start == mysql_end:
+                        if mysql == False:
+                            if i == mysql_start+1:
+                                conf_file.write("user=" + self.database_details[1] + "\npassword=\"" + self.database_details[2] + "\"\n")
+                                continue
+                    if mysql == False:
+                        conf_file.write("[mysql]\nuser=" + self.database_details[1] + "\npassword=\"" + self.database_details[2] + "\"\n")
+                        mysql = True
+                        continue
+
+                    if not mysqldump_start == mysqldump_end:
+                        if mysqldump == False:
+                            if i == mysqldump+1:
+                                conf_file.write("user=" + self.database_details[1] + "\npassword=\"" + self.database_details[2] + "\"\n")
+                                continue
+
+                    if mysqldump == False:
+                        conf_file.write("[mysqldump]\nuser=" + self.database_details[1] + "\npassword=\"" + self.database_details[2] + "\"\n")
+                        mysqldump = True
+                        continue
+                    conf_file.write(all_data[i])
+            else:
+                conf_file.write("[mysql]\nuser=" + self.database_details[1] + "\npassword=\"" + self.database_details[2] + "\"\n")
+                conf_file.write("[mysqldump]\nuser=" + self.database_details[1] + "\npassword=\"" + self.database_details[2] + "\"\n")
+
 
     def import_tables(self, file_name):
         self.check_conf_file()
-        if not file_name.split(".")[1]:
+        if file_name.split(".").__len__() == 1:
             file_name = str(file_name) + ".sql"
-        status = subprocess.call("mysql -u " + self.database_details[1] + " " + self.database_details[
-            3] + " < " + STATIC_DATA_PATH + file_name, shell=True)
+        status = subprocess.call("mysql -u " + self.database_details[1] + " " + self.database_details[3] + " < " + STATIC_DATA_PATH + file_name, shell=True)
         if status == 0:
             Misc().logging(DEFAULT_REGION, "Successfully imported " + file_name + " tables", "log")
         else:
