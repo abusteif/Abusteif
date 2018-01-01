@@ -6,7 +6,7 @@ import timeit
 import time
 import datetime
 import MySQLdb
-import os.path
+import os
 from BeautifulSoup import BeautifulSoup
 import sys
 from collections import OrderedDict
@@ -15,7 +15,10 @@ import ast
 
 ARAM_QUEUE1 = 450
 ARAM_QUEUE2 = 65
-STATIC_DATA_PATH="/home/abusteif/PycharmProjects/ARAM-RNG/Static_data/"
+
+project_location = os.path.dirname(os.path.realpath(__file__))
+
+STATIC_DATA_PATH=project_location+"/Static_data/"
 
 '''
 API_KEY= 'RGAPI-b8c9e648-5434-4cf2-8031-630928986c54'
