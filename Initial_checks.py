@@ -15,8 +15,12 @@ class Initial_check:
         misc.logging(DEFAULT_REGION, "Necessary modules successfully installed","log")
         misc.logging(DEFAULT_REGION, "Checking files and folders", "log")
         self.check_files_and_folders()
+        misc.logging(DEFAULT_REGION, "Creating Database and user", "log")
+        self.create_database_and_user()
         misc.logging(DEFAULT_REGION, "Loading the Base database tables", "log")
         self.load_Base_tables()
+        misc.logging(DEFAULT_REGION, "Creating regions tables", "log")
+        self.create_region_tables()
 
     def check_modules(self):
         modules_list = ["requests",
@@ -36,15 +40,9 @@ class Initial_check:
                 print module + " not found. Installing using pip"
                 pip.main(['install', module])
 
-    def load_Base_tables(self):
-        from classes import  STATIC_DATA_PATH ,DATABASE_DETAILS, Database, Mysql_operations
-        Mysql_operations(DATABASE_DETAILS).import_tables("Base_tables.sql")
-
-
     def check_files_and_folders(self):
         from classes import REGIONS, Misc, DEFAULT_REGION
         project_location = os.path.dirname(os.path.realpath(__file__))
-        print project_location
         with open(project_location + "/conf_data", "r") as conf_data:
             for line in conf_data.readlines():
                 if line.strip():
@@ -84,15 +82,41 @@ class Initial_check:
         Misc().logging(DEFAULT_REGION, "Folders and files check completed", "log")
 
 
-if __name__ == '__main__':
-    Initial_check().check_files_and_folders()
-    with open("/home/abusteif/ARAM-RNG/Static_data/conf_data", "r") as conf_data:
-        for line in conf_data.readlines():
-            data = line.split("=")
-            if data[0].strip() == "API_KEY":
-                API_KEY = data[1].strip()
-            elif data[0].strip() == "DATABASE_DETAILS":
-                DATABASE_DETAILS = data[1].strip()
+    def create_database_and_user(self):
+        from classes import Mysql_operations, DATABASE_DETAILS, ROOT_MYSQL_DETAILS
+        Mysql_operations(ROOT_MYSQL_DETAILS).create_user(DATABASE_DETAILS)
+        Mysql_operations(DATABASE_DETAILS).create_database(DATABASE_DETAILS)
 
-        DATABASE_DETAILS = ast.literal_eval(DATABASE_DETAILS)
-        print DATABASE_DETAILS[0]
+    def load_Base_tables(self):
+        from classes import  DATABASE_DETAILS, Mysql_operations
+        Mysql_operations(DATABASE_DETAILS).import_tables("Base_tables.sql")
+
+
+
+
+    def create_region_tables(self):
+        from classes import DATABASE_DETAILS, Database, REGIONS
+
+        database = Database(DATABASE_DETAILS)
+
+        tables = ["averages", "champ_stats", "final_stats", "game_stats", "games", "games_checked", "players_checked",
+                  "summoners"]
+
+        for region in REGIONS:
+
+            all_champs = list(database.get_all_items("Base_champ_list", "id"))
+            for table in tables:
+                database.clone_table(region + "_" + table, "Base_" + table)
+
+
+            for champ in all_champs:
+                database.clone_table(region + "_" + str(champ), "Base_champ")
+
+            for i in range(3):
+                database.insert_items(region + "_final_stats", "game_id", i)
+
+            for champ in all_champs:
+                database.insert_items(region + "_averages", "champ_id", champ)
+                database.insert_items(region + "_champ_stats", "id, name", str(champ) +
+                                      " , " + database.get_database_item("Base_champ_list", "id", champ, "name") )
+        database.close_db()

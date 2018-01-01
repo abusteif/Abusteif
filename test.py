@@ -2,9 +2,8 @@ from classes import Mysql_operations, DATABASE_DETAILS, DB_BACKUPS_PATH, Static,
 from Regular_checks import Daily_check
 from Initial_checks import Initial_check
 
-#Initial_check().all_initial_checks()
-Mysql_operations(ROOT_MYSQL_DETAILS).create_user(DATABASE_DETAILS)
-Mysql_operations(DATABASE_DETAILS).create_database(DATABASE_DETAILS)
+Initial_check().all_initial_checks()
+
 Mysql_operations(DATABASE_DETAILS).import_tables("Base_tables.sql")
 
 

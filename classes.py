@@ -400,7 +400,6 @@ class Database:
                 result.append(list(element))
             if result.__len__() == 1:
                 return result[0][0]
-            print result
             return result
 
 
@@ -525,6 +524,7 @@ class Database:
         m = Misc()
         try:
             self.cur.execute("CREATE TABLE " + new_table + " LIKE " +  existing_table+ ";")
+            m.logging(new_table.split("_")[0],  "Table "+new_table + " Successfully created", "log")
         except self.db.Error as err:
             if err[0] == 1050:
                 m.logging(new_table.split("_")[0], "Table "+new_table + " already exists. Skipping ..", "error")
@@ -623,8 +623,7 @@ class Mysql_operations:
                             break
                         mysql_end = i + j
 
-            print mysql_start, mysql_end
-            print mysqldump_start, mysqldump_end
+
             for i in range(mysqldump_start, mysqldump_end):
                 if all_data[i] == "user="+self.database_details[1]+"\n":
                     if all_data[i+1] == "password=\""+ self.database_details[2]+"\"\n":
@@ -633,7 +632,6 @@ class Mysql_operations:
                 if all_data[i] == "user="+self.database_details[1]+"\n":
                     if all_data[i+1] == "password=\""+ self.database_details[2]+"\"\n":
                         mysql = True
-            print mysql, mysqldump
 
             if all_data:
                 for i in range(all_data.__len__()):
