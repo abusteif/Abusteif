@@ -41,7 +41,7 @@ class Initial_check:
     def check_files_and_folders(self):
         from classes import REGIONS, Misc, DEFAULT_REGION
         project_location = os.path.dirname(os.path.realpath(__file__))
-        with open(project_location + "/conf_data", "r") as conf_data:
+        with open(project_location + "/Static_data/conf_data", "r") as conf_data:
             for line in conf_data.readlines():
                 if line.strip():
                         data = line.split("=")[0].strip()
@@ -51,7 +51,7 @@ class Initial_check:
                                 regions = ast.literal_eval(value)
 
 
-        folders_to_create = ["Games", "Error_logs", "Logs", "DB_ARCHIVE", "TF_Models", "Static_data"]
+        folders_to_create = ["Games", "Error_logs", "Logs", "DB_ARCHIVE", "TF_Models"]
         for region in REGIONS:
             folders_to_create.append("Games/"+region)
 
@@ -61,7 +61,7 @@ class Initial_check:
 
 
         paths = ["GAMES_FOLDERS_PATH", "ERROR_FILES_PATH", "LOG_FILES_PATH", "DB_BACKUPS_PATH", "MODELS_LOCATION", "STATIC_DATA_PATH"]
-        with open(project_location + "/conf_data", "r+") as conf_data:
+        with open(project_location + "/Static_data/conf_data", "r+") as conf_data:
             all_data = conf_data.readlines()
             conf_data.seek(0)
             for line in all_data:
@@ -78,7 +78,7 @@ class Initial_check:
             conf_data.write("DB_BACKUPS_PATH=" + project_location + "/DB_ARCHIVE/\n")
             conf_data.write("MODELS_LOCATION=" + project_location + "/TF_Models/\n")
             conf_data.write("STATIC_DATA_PATH=" + project_location + "/Static_data/")
-        Misc().logging(DEFAULT_REGION, "Folders and files check completed", "log")
+            Misc().logging(DEFAULT_REGION, "Folders and files check completed", "log")
 
 
     def create_database_and_user(self):
