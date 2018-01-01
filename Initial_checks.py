@@ -12,8 +12,7 @@ class Initial_check:
         self.check_modules()
         from classes import Misc, DEFAULT_REGION
         misc = Misc()
-        misc.logging(DEFAULT_REGION, "Necessary modules successfully installed","log")
-        misc.logging(DEFAULT_REGION, "Checking files and folders", "log")
+
         self.check_files_and_folders()
         misc.logging(DEFAULT_REGION, "Creating Database and user", "log")
         self.create_database_and_user()
@@ -27,7 +26,6 @@ class Initial_check:
                         "json",
                         "time",
                         "datetime",
-                        "MySQLdb",
                         "collections",
                         "BeautifulSoup",
                         "paramiko"]
