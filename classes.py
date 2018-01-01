@@ -79,7 +79,7 @@ with open(STATIC_DATA_PATH + "conf_data", "r") as conf_data:
 
             except ValueError as e:
                 print e
-
+    print LOG_FILES_PATH
 
 
 class URL_resolve:

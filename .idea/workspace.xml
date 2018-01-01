@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4989f691-08a9-4696-b7a7-483880d68e11" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Initial_checks.py" afterPath="$PROJECT_DIR$/Initial_checks.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes.py" afterPath="$PROJECT_DIR$/classes.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,11 +24,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="classes.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="classes.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="27" column="11" lean-forward="false" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+            <state relative-caret-position="177">
+              <caret line="66" column="39" lean-forward="true" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -36,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Initial_checks.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Initial_checks.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Initial_checks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
-              <caret line="63" column="60" lean-forward="false" selection-start-line="63" selection-start-column="51" selection-end-line="63" selection-end-column="60" />
+            <state relative-caret-position="-89">
+              <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -167,9 +167,9 @@
         <option value="$PROJECT_DIR$/ARAM-RNG.py" />
         <option value="$PROJECT_DIR$/conf_data" />
         <option value="$PROJECT_DIR$/Static_data/conf_data" />
-        <option value="$PROJECT_DIR$/classes.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/Initial_checks.py" />
+        <option value="$PROJECT_DIR$/classes.py" />
       </list>
     </option>
   </component>
@@ -482,7 +482,14 @@
       <option name="project" value="LOCAL" />
       <updated>1514823512471</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="conf_data location updated">
+      <created>1514824549838</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1514824549838</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -525,7 +532,8 @@
     <MESSAGE value="completed the .my.cnf file check" />
     <MESSAGE value="completed the initial_checks class" />
     <MESSAGE value="Adding conf data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding conf data" />
+    <MESSAGE value="conf_data location updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="conf_data location updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -866,6 +874,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Initial_checks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-89">
+          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ARAM-RNG.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -876,20 +894,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="27" column="11" lean-forward="false" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+        <state relative-caret-position="177">
+          <caret line="66" column="39" lean-forward="true" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Initial_checks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="63" column="60" lean-forward="false" selection-start-line="63" selection-start-column="51" selection-end-line="63" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
