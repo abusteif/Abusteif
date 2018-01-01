@@ -61,6 +61,7 @@ class Initial_check:
             if not os.path.exists(project_location + "/" + folder):
                 os.makedirs(project_location + "/" + folder)
 
+
         paths = ["GAMES_FOLDERS_PATH", "ERROR_FILES_PATH", "LOG_FILES_PATH", "DB_BACKUPS_PATH", "MODELS_LOCATION", "STATIC_DATA_PATH"]
         with open(project_location + "/conf_data", "r+") as conf_data:
             all_data = conf_data.readlines()
