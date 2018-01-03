@@ -1,6 +1,6 @@
 
 from Initial_checks import Initial_check
-#Initial_check().check_modules()
+Initial_check().check_modules()
 
 import threading
 

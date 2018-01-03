@@ -104,9 +104,9 @@ class Daily_check(threading.Thread):
             transport.connect(username=SFTP_USERNAME, password=SFTP_PASSWORD)
             connection = paramiko.SFTPClient.from_transport(transport)
 
-            #transfer_status = connection.put(local_file_name, SFTP_REMOTE_PATH+remote_file_name)
+            connection.put(local_file_name, SFTP_REMOTE_PATH+remote_file_name)
 
-            connection.put(local_file_name, "/home/pi/Abusteif/sftp_test_folder/test")
+            #connection.put(local_file_name, "/home/pi/Abusteif/sftp_test_folder/test")
             self.misc.logging(DEFAULT_REGION, "Database upload successful ("+remote_file_name+")", "log")
         except Exception as e:
             self.misc.logging(DEFAULT_REGION, "Error while transferring database " + remote_file_name+" to the remote SFTP server. Error message: " + str(e), "error")

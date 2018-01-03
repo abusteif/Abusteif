@@ -13,14 +13,14 @@ start_time = time.time()
 if player_region == 'EUW1':
     player_list=[28809850]
 elif player_region == 'KR':
-    player_list=[758670]
+    player_list=[209305531, 5977905, 2620061, 6476762, 7835424, 200579114]
 elif player_region == 'NA1':
-    player_list = [240428669]
+    player_list = [31273666, 209000695, 206087402, 36584704, 232202464, 42732981]
 elif player_region == 'OC1':
-    player_list = [201441575]
+    player_list = [200615925, 200059234, 200286310, 200008599, 201844220, 200236338]
 
 
-#The purpose of the function below is to gather as many players that play mainly ARAM games as possible.
+#The purpose of the function below is to find as many players that play mainly ARAM games as possible.
 #This is done by recursively going through players' games and extracting the 10 participants' ID's
 def get_players(player_list, player_region, database, api_key,  i, j):
 
@@ -33,8 +33,8 @@ def get_players(player_list, player_region, database, api_key,  i, j):
         print player_list
         player_o = Player(player_region, api_key, account_id=player)
         #player_o = Player(player, player_region, api_key)
-        recent_games = player_o.get_games()
-        if recent_games == -1:
+        recent_games = player_o.get_games(count=10)
+        if recent_games == -1 or recent_games.__len__() < 20:
             continue
         for game in recent_games:
             #time.sleep(0.61)
@@ -50,11 +50,6 @@ def get_players(player_list, player_region, database, api_key,  i, j):
                         player_list1.append(current_player)
                         if not database.insert_items(player_region+"_players_checked", "id", str(current_player)):
                             database.update_numberof_games(player_region+"_players_checked", "id" ,str(current_player),  "times_hit", 1)
-
-#                j = j + 1
-#                if j==50:
-#                    print "Commiting"
-#                    database.commit_db()
 
                 get_players(player_list1, player_region, database, api_key, i, j)
 
