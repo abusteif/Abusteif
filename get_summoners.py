@@ -1,4 +1,4 @@
-from classes import Database, Player, Game, API_KEY, DATABASE_DETAILS
+from classes import Database, Player, Game, API_KEY, DATABASE_DETAILS, Misc
 from processing_classes_2 import Json_ops
 import time
 
@@ -19,7 +19,8 @@ elif player_region == 'NA1':
 elif player_region == 'OC1':
     player_list = [200615925, 200059234, 200286310, 200008599, 201844220, 200236338]
 
-
+misc = Misc()
+misc.logging(player_region, "Running the summoner retreivel algorithm", "log")
 #The purpose of the function below is to find as many players that play mainly ARAM games as possible.
 #This is done by recursively going through players' games and extracting the 10 participants' ID's
 def get_players(player_list, player_region, database, api_key,  i, j):
@@ -36,7 +37,8 @@ def get_players(player_list, player_region, database, api_key,  i, j):
         recent_games = player_o.get_games()
         if recent_games == -1 or recent_games.__len__() < 20:
             continue
-        for game in recent_games[:20]:
+        print list(recent_games)[:20]
+        for game in list(recent_games)[:20]:
             #time.sleep(0.61)
             if not database.insert_items(player_region+"_games_checked", "id", str(game) ):
                 database.update_numberof_games(player_region+"_games_checked", "id", str(game) , "times_hit", 1)
@@ -58,6 +60,7 @@ def get_players(player_list, player_region, database, api_key,  i, j):
 
 get_players(player_list, player_region, database, API_KEY, 4, 0)
 
+misc.logging(player_region, "Summoner retreival algorithm completed", "log")
 print("Time taken: %s seconds ---" % (time.time() - start_time))
 
 
