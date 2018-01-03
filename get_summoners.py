@@ -33,10 +33,10 @@ def get_players(player_list, player_region, database, api_key,  i, j):
         print player_list
         player_o = Player(player_region, api_key, account_id=player)
         #player_o = Player(player, player_region, api_key)
-        recent_games = player_o.get_games(count=10)
+        recent_games = player_o.get_games()
         if recent_games == -1 or recent_games.__len__() < 20:
             continue
-        for game in recent_games:
+        for game in recent_games[:20]:
             #time.sleep(0.61)
             if not database.insert_items(player_region+"_games_checked", "id", str(game) ):
                 database.update_numberof_games(player_region+"_games_checked", "id", str(game) , "times_hit", 1)
