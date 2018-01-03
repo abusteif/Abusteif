@@ -2,7 +2,7 @@ from classes import Database, Player, Game, API_KEY, DATABASE_DETAILS
 from processing_classes_2 import Json_ops
 import time
 
-player_region='EUW1'
+player_region='OC1'
 database=Database(DATABASE_DETAILS)
 
 start_time = time.time()
