@@ -82,7 +82,9 @@ with open(STATIC_DATA_PATH + "conf_data", "r") as conf_data:
 
 
 class URL_resolve:
-    first_api_call = True
+
+    app_window = dict()
+    method_window = dict()
 
     def __init__(self, url, region, api_endpoint):
         self.url = url
@@ -135,6 +137,42 @@ class URL_resolve:
         json_result = json.loads(self.html_result.text)
         return json_result
 
+
+    def handle_rate_limit(self,status = 200):
+        m = Misc()
+        method_count = self.html_result.headers["X-Method-Rate-Limit-Count"].split(",")[0]
+        method_limit = self.html_result.headers["X-Method-Rate-Limit"].split(",")[0]
+        if "X-App-Rate-Limit-Count" in self.html_result.headers:
+            app_count = self.html_result.headers["X-App-Rate-Limit-Count"].split(",")
+            print app_count
+            app_limit = self.html_result.headers["X-App-Rate-Limit"].split(",")
+            for count in range(app_count.__len__()):
+                if int(app_count[count].split(":")[0]) == 1:
+                    URL_resolve.app_window[count] = time.time()
+
+            for count in range(app_count.__len__()):
+                if int(app_limit[count].split(":")[0]) - int(app_count[count].split(":")[0]) < MAX_THREAD_NUM:
+                    m.logging(self.region, "Rate limit for the region "+self.region + " is almost reached", "error")
+                    print "Rate limit for the region "+self.region
+                    app_time_wait =  int((app_limit[count].split(":")[1])) - time.time() - URL_resolve.app_window[count]
+                    print app_time_wait
+                    time.sleep(abs(app_time_wait))
+
+
+        if status == 429:
+            m.logging(self.region, "Rate limit has been reached for the region " + self.region + ". Sleeping for " + str(self.html_result.headers["Retry-After"]) + " seconds", "error")
+            time.sleep(int(self.html_result.headers["Retry-After"]))
+        if int(method_count.split(":")[0]) == 1:
+            URL_resolve.method_window[self.api_endpoint] = time.time()
+
+        print int(method_limit.split(":")[0]) - int(method_count.split(":")[0])
+        if int(method_limit.split(":")[0]) - int(method_count.split(":")[0])  < MAX_THREAD_NUM:
+            m.logging(self.region, self.region + " has reached a rate limit for the method " + self.api_endpoint, "error")
+            method_time_wait = int((method_limit.split(":")[1])) - time.time() - URL_resolve.method_window[self.api_endpoint]
+            print method_time_wait
+            time.sleep(abs(method_time_wait))
+
+'''
     def handle_rate_limit(self,status = 200):
         m = Misc()
         method_count = self.html_result.headers["X-Method-Rate-Limit-Count"]
@@ -142,6 +180,7 @@ class URL_resolve:
         if "X-App-Rate-Limit-Count" in self.html_result.headers:
             app_count = self.html_result.headers["X-App-Rate-Limit-Count"]
             app_limit = self.html_result.headers["X-App-Rate-Limit"]
+
             if int(app_count.split(":")[0]) == 1:
                 URL_resolve.app_window = time.time()
                 URL_resolve.first_api_call = False
@@ -160,7 +199,7 @@ class URL_resolve:
         if int(method_limit.split(":")[0]) - int(method_count.split(":")[0])  < 3:
             m.logging(self.region, self.region + " has reached a rate limit for the method " + self.api_endpoint, "error")
             time.sleep(3)
-
+'''
 
 
 
