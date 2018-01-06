@@ -154,7 +154,7 @@ class URL_resolve:
                 if int(app_limit[count].split(":")[0]) - int(app_count[count].split(":")[0]) < MAX_THREAD_NUM:
                     m.logging(self.region, "Rate limit for the region "+self.region + " is almost reached", "error")
                     print "Rate limit for the region "+self.region
-                    app_time_wait =  int((app_limit[count].split(":")[1])) - time.time() - URL_resolve.app_window[count]
+                    app_time_wait =  int((app_limit[count].split(":")[1])) - time.time() + URL_resolve.app_window[count]
                     print app_time_wait
                     time.sleep(abs(app_time_wait))
 
@@ -168,7 +168,7 @@ class URL_resolve:
         print int(method_limit.split(":")[0]) - int(method_count.split(":")[0])
         if int(method_limit.split(":")[0]) - int(method_count.split(":")[0])  < MAX_THREAD_NUM:
             m.logging(self.region, self.region + " has reached a rate limit for the method " + self.api_endpoint, "error")
-            method_time_wait = int((method_limit.split(":")[1])) - time.time() - URL_resolve.method_window[self.api_endpoint]
+            method_time_wait = int((method_limit.split(":")[1])) - time.time() + URL_resolve.method_window[self.api_endpoint]
             print method_time_wait
             time.sleep(abs(method_time_wait))
 

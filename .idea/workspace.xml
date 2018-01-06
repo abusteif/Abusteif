@@ -4,8 +4,6 @@
     <list default="true" id="4989f691-08a9-4696-b7a7-483880d68e11" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes.py" afterPath="$PROJECT_DIR$/classes.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/get_summoners.py" afterPath="$PROJECT_DIR$/get_summoners.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.py" afterPath="$PROJECT_DIR$/test.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,8 +37,8 @@
       <file leaf-file-name="classes.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="152" column="52" lean-forward="true" selection-start-line="152" selection-start-column="52" selection-end-line="152" selection-end-column="52" />
+            <state relative-caret-position="210">
+              <caret line="162" column="85" lean-forward="true" selection-start-line="162" selection-start-column="85" selection-end-line="162" selection-end-column="85" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -63,8 +61,8 @@
       <file leaf-file-name="conf_data" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Static_data/conf_data">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="1" column="51" lean-forward="false" selection-start-line="1" selection-start-column="51" selection-end-line="1" selection-end-column="51" />
+            <state relative-caret-position="342">
+              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -550,7 +548,14 @@
       <option name="project" value="LOCAL" />
       <updated>1514987407674</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="updated rate limit handling">
+      <created>1515252117676</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1515252117676</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -596,7 +601,8 @@
     <MESSAGE value="conf_data location updated" />
     <MESSAGE value="small fixes" />
     <MESSAGE value="updated get_summoners" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated get_summoners" />
+    <MESSAGE value="updated rate limit handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated rate limit handling" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -902,14 +908,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Static_data/conf_data">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="51" lean-forward="false" selection-start-line="1" selection-start-column="51" selection-end-line="1" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/first_step.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -917,14 +915,6 @@
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ARAM-RNG.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="10" lean-forward="false" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -948,6 +938,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Static_data/conf_data">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARAM-RNG.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="10" lean-forward="false" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/get_summoners.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="613">
@@ -958,8 +964,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="152" column="52" lean-forward="true" selection-start-line="152" selection-start-column="52" selection-end-line="152" selection-end-column="52" />
+        <state relative-caret-position="210">
+          <caret line="162" column="85" lean-forward="true" selection-start-line="162" selection-start-column="85" selection-end-line="162" selection-end-column="85" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
