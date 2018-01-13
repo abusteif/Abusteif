@@ -1,4 +1,4 @@
-from classes import Database, Player, Game, API_KEY, DATABASE_DETAILS, Misc
+from classes import Database, Player, Game, API_KEY, DATABASE_DETAILS, Misc, REGIONS
 from processing_classes_2 import Json_ops
 import time
 import threading
@@ -71,6 +71,15 @@ class Get_summoners(threading.Thread):
                     self.get_players(player_list1, player_region, database, api_key, i, j)
 
 
+if __name__ == '__main__':
 
+    threads=[]
+    for region in REGIONS:
+        thread1 = Get_summoners(region, DATABASE_DETAILS)
+        thread1.daemon = True
+        thread1.start()
+        threads.append(thread1)
+    for t in threads:
+       t.join()
 
 
