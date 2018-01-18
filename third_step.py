@@ -1,7 +1,7 @@
 from __future__ import division
 import threading
 
-from classes import Game, Player, Misc, Database, API_KEY, GAMES_FOLDERS_PATH, ERROR_FILES_PATH, MAX_THREAD_NUM, REGIONS, DATABASE_DETAILS
+from classes import Game, Player, Misc, Database, STATIC_DATA_PATH, DATABASE_DETAILS,DEFAULT_REGION
 from stat_rating import Stat_rating
 from select import select
 import sys
@@ -20,29 +20,29 @@ class Third_step(threading.Thread):
     def run(self):
 
         time_check = time.time()
+        checking_period = 10
 
-        time.sleep(40)
+        time.sleep(100)
 
 
         while True:
 
-            if time.time() - time_check >= 20:
-                timeout = 5
-                print self.player_region +": Hourly updates thread: Press any key to end hourly updates"
-                rlist, wlist, xlist = select([sys.stdin], [], [], timeout)
-
-                if rlist:
-                    print self.player_region +": Returning from Hourly updates thread"
-                    break
-                else:
-                    print self.player_region +": Hourly updates thread: No key stroke detected.. Continuing hourly updates"
+            if time.time() - time_check >= checking_period:
+                time_check = time.time()
+                with open(STATIC_DATA_PATH + "End_Exec", "r") as end_check:
+                    status = list(end_check.readlines())[0].strip()
+                    print status
+                    if status == "True":
+                        self.m.logging(DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will exit now", "log")
+                        print DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will exit now"
+                        break
 
 
             self.update_averages()
             self.update_final_stats()
             self.update_champ_stats()
             self.update_game_stats()
-            time.sleep(3600)
+            time.sleep(checking_period)
 
     def update_averages(self):
 

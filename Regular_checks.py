@@ -1,11 +1,14 @@
 # encoding: utf-8
 from classes import Mysql_operations, Database, Static,Champ,REGIONS, Misc,\
     DEFAULT_REGION, SFTP_PASSWORD, DATABASE_DETAILS,SFTP_USERNAME, SFTP_HOST, SFTP_PORT, SFTP_REMOTE_PATH,\
-    DB_BACKUPS_PATH, API_KEY
+    DB_BACKUPS_PATH, API_KEY, STATIC_DATA_PATH
 import threading
 import paramiko
 import time
+from select import select
+import sys
 
+checking_period = 10
 class Daily_check(threading.Thread):
 
     def __init__(self, database_details, api_key):
@@ -16,11 +19,20 @@ class Daily_check(threading.Thread):
         self.static = Static(api_key)
         self.misc = Misc()
 
-    def all_checks(self):
+    def run(self):
 
-        current_time = time.time()
+        time_check = time.time()
+
         while True:
-            if time.time()-current_time >= 3600*12:
+            if time.time() - time_check >= checking_period:
+                time_check = time.time()
+                with open(STATIC_DATA_PATH + "End_Exec", "r") as end_check:
+                    status = list(end_check.readlines())[0].strip()
+                    print status
+                    if status == "True":
+                        self.misc.logging(DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will exit now", "log")
+                        print DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will exit now"
+                        break
                 self.misc.logging(DEFAULT_REGION, "Running the daily checks", "log")
                 self.misc.logging(DEFAULT_REGION, "Checking for a version change", "log")
                 self.check_version()
@@ -29,7 +41,7 @@ class Daily_check(threading.Thread):
                 self.misc.logging(DEFAULT_REGION, "Uploading a copy of the database", "log")
                 self.sftp_database()
             else:
-                time.sleep(3600)
+                time.sleep(checking_period)
 
 
     def check_version(self):

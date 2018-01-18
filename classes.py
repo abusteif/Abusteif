@@ -43,6 +43,8 @@ with open(STATIC_DATA_PATH + "conf_data", "r") as conf_data:
                 value = line.split("=")[1].strip()
                 if data == "API_KEY":
                     API_KEY = value
+                elif data == "PATCH_DATE":
+                    PATCH_DATE = int(value)
                 elif data == "DATABASE_DETAILS":
                     DATABASE_DETAILS = ast.literal_eval(value)
                 elif data == "ROOT_MYSQL_DETAILS":
@@ -144,7 +146,6 @@ class URL_resolve:
         method_limit = self.html_result.headers["X-Method-Rate-Limit"].split(",")[0]
         if "X-App-Rate-Limit-Count" in self.html_result.headers:
             app_count = self.html_result.headers["X-App-Rate-Limit-Count"].split(",")
-            print app_count
             app_limit = self.html_result.headers["X-App-Rate-Limit"].split(",")
             for count in range(app_count.__len__()):
                 if int(app_count[count].split(":")[0]) == 1:
@@ -165,47 +166,11 @@ class URL_resolve:
         if int(method_count.split(":")[0]) == 1:
             URL_resolve.method_window[self.api_endpoint] = time.time()
 
-        print int(method_limit.split(":")[0]) - int(method_count.split(":")[0])
         if int(method_limit.split(":")[0]) - int(method_count.split(":")[0])  < MAX_THREAD_NUM:
             m.logging(self.region, self.region + " has reached a rate limit for the method " + self.api_endpoint, "error")
             method_time_wait = int((method_limit.split(":")[1])) - time.time() + URL_resolve.method_window[self.api_endpoint]
             print method_time_wait
             time.sleep(abs(method_time_wait))
-
-'''
-    def handle_rate_limit(self,status = 200):
-        m = Misc()
-        method_count = self.html_result.headers["X-Method-Rate-Limit-Count"]
-        method_limit = self.html_result.headers["X-Method-Rate-Limit"]
-        if "X-App-Rate-Limit-Count" in self.html_result.headers:
-            app_count = self.html_result.headers["X-App-Rate-Limit-Count"]
-            app_limit = self.html_result.headers["X-App-Rate-Limit"]
-
-            if int(app_count.split(":")[0]) == 1:
-                URL_resolve.app_window = time.time()
-                URL_resolve.first_api_call = False
-            if int(app_limit.split(":")[0]) - int(app_count.split(":")[0]) < MAX_THREAD_NUM:
-                m.logging(self.region, "Rate limit for the region "+self.region + " is almost reached", "error")
-                print "Rate limit for the region "+self.region
-                time_wait =  time.time() - URL_resolve.app_window - int((app_limit.split(":")[1]).split(",")[0])
-                print time_wait
-                time.sleep(abs(time_wait))
-
-
-        if status == 429:
-            m.logging(self.region, "Rate limit has been reached for the region " + self.region + ". Sleeping for " + str(self.html_result.headers["Retry-After"]) + " seconds", "error")
-            time.sleep(int(self.html_result.headers["Retry-After"]))
-
-        if int(method_limit.split(":")[0]) - int(method_count.split(":")[0])  < 3:
-            m.logging(self.region, self.region + " has reached a rate limit for the method " + self.api_endpoint, "error")
-            time.sleep(3)
-'''
-
-
-
-
-        #print method_count, method_limit, app_count, app_limit, "\n"
-
 
 
 
@@ -338,9 +303,11 @@ class Static:
             all_data = conf_data.readlines()
             conf_data.seek(0)
             for line in all_data:
-                if not line.split("=")[0].strip() == "VERSION":
+                if not line.split("=")[0].strip() == "VERSION" and not line.split("=")[0].strip() == "PATCH_DATE":
                     conf_data.write(line)
-                else:
+                elif line.split("=")[0].strip() == "PATCH_DATE":
+                    conf_data.write("PATCH_DATE="+str(int(round(time.time() * 100)))+"\n")
+                elif line.split("=")[0].strip() == "VERSION":
                     conf_data.write("VERSION="+new_version+"\n")
             conf_data.truncate()
 
@@ -569,7 +536,6 @@ class Database:
         except self.db.Error as err:
             if err[0] == 1050:
                 m.logging(new_table.split("_")[0], "Table "+new_table + " already exists. Skipping ..", "error")
-                print "Table "+new_table + " already exists. Skipping .."
             else:
                 print err
 

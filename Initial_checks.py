@@ -80,6 +80,13 @@ class Initial_check:
             conf_data.write("STATIC_DATA_PATH=" + project_location + "/Static_data/")
             Misc().logging(DEFAULT_REGION, "Folders and files check completed", "log")
 
+        with open(project_location + "/Static_data/End_Exec", "r+") as end_exec:
+            end_exec.seek(0)
+            end_exec.truncate()
+            end_exec.write("False")
+            Misc().logging(DEFAULT_REGION, "End of execution file reset", "log")
+
+
 
     def create_database_and_user(self):
         from classes import Mysql_operations, DATABASE_DETAILS, ROOT_MYSQL_DETAILS
