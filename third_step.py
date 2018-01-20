@@ -35,11 +35,11 @@ class Third_step(threading.Thread):
                         break
 
 
-            self.update_averages()
-            self.update_final_stats()
-            self.update_champ_stats()
-            self.update_game_stats()
-            time.sleep(checking_period)
+                self.update_averages()
+                self.update_final_stats()
+                self.update_champ_stats()
+                self.update_game_stats()
+                time.sleep(checking_period)
 
     def update_averages(self):
 
