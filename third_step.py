@@ -20,10 +20,7 @@ class Third_step(threading.Thread):
     def run(self):
 
         time_check = time.time()
-        checking_period = 10
-
-        time.sleep(100)
-
+        checking_period = 3600
 
         while True:
 
