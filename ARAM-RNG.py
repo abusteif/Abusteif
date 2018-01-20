@@ -11,10 +11,6 @@ from Regular_checks import Daily_check
 
 queueLock = threading.Lock()
 threads=[]
-REGIONS=["OC1"]
-MAX_THREAD_NUM=1
-
-
 
 for region in REGIONS:
     for i in range(MAX_THREAD_NUM):

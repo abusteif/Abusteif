@@ -127,7 +127,7 @@ class Data_collector (threading.Thread):
                                     for line in end_check.readlines():
                                         if line.strip() == "True":
                                             m.logging(self.player_region, str(self.threadID) + ": End of execution was requested. This thread will exit now", "log")
-                                            print str(self.threadID) + ": End of execution was requested. This thread will exit"
+                                            print str(self.threadID) + ": End of execution was requested. This thread will now exit."
                                             keep_running = False
 
                 else:

@@ -31,7 +31,7 @@ class Daily_check(threading.Thread):
                     print status
                     if status == "True":
                         self.misc.logging(DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will exit now", "log")
-                        print DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will exit now"
+                        print DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will now exit."
                         break
                 self.misc.logging(DEFAULT_REGION, "Running the daily checks", "log")
                 self.misc.logging(DEFAULT_REGION, "Checking for a version change", "log")

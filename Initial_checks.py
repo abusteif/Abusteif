@@ -80,7 +80,7 @@ class Initial_check:
             conf_data.write("STATIC_DATA_PATH=" + project_location + "/Static_data/")
             Misc().logging(DEFAULT_REGION, "Folders and files check completed", "log")
 
-        with open(project_location + "/Static_data/End_Exec", "r+") as end_exec:
+        with open(project_location + "/Static_data/End_Exec", "a+") as end_exec:
             end_exec.seek(0)
             end_exec.truncate()
             end_exec.write("False")
