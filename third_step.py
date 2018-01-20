@@ -39,6 +39,7 @@ class Third_step(threading.Thread):
                 self.update_final_stats()
                 self.update_champ_stats()
                 self.update_game_stats()
+            else:
                 time.sleep(checking_period)
 
     def update_averages(self):
