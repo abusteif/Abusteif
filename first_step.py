@@ -24,7 +24,7 @@ class Data_collector (threading.Thread):
         num_games_to_get = 5
 
         time_check = time.time()
-        checking_period = 10
+        checking_period = 100
 
         keep_running = True
         m = Misc()
