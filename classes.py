@@ -354,7 +354,7 @@ class Database:
             column_values = quoted_values[:-1]
         try:
             self.cur.execute("INSERT INTO " + table + " (" + column_names + ") VALUES ( " + column_values + " ); ")
-            Misc().logging(table.split("_")[0], "Successfully added " + "( " + column_values + " )" + " to " + table + " table", "log")
+            #Misc().logging(table.split("_")[0], "Successfully added " + "( " + column_values + " )" + " to " + table + " table", "log")
             #print "Successfully addedatabase_named " + "( " + column_values + " )" + " to " + table + " table"
             return 1
 

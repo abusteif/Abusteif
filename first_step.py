@@ -41,6 +41,7 @@ class Data_collector (threading.Thread):
 
         while True:
             for one_player in list(database.get_all_items(self.player_region + "_players_checked", "id"))[start_position: end_position]:
+                m.logging(self.player_region, self.player_region + ": Thread "+self.threadID + "\n", "log")
                 #print keep_running
                 if keep_running == True:
                     player_id = str(one_player)
