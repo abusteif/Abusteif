@@ -360,7 +360,7 @@ class Database:
 
         except self.db.Error as err:
             if err[0] == 1062:
-                Misc().logging(table.split("_")[0], "( " + column_values + " )" + " already exists in " + table, "log")
+                #Misc().logging(table.split("_")[0], "( " + column_values + " )" + " already exists in " + table, "log")
                 #print "( " + column_values + " )" + " already exists in " + table
                 return 0
             else:
