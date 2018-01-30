@@ -41,16 +41,13 @@ class Data_collector (threading.Thread):
 
         while True:
             for one_player in list(database.get_all_items(self.player_region + "_players_checked", "id"))[start_position: end_position]:
-                m.logging(self.player_region, self.player_region + ": Thread "+str(self.threadID) + "\n", "log")
-                #print keep_running
                 if keep_running == True:
                     player_id = str(one_player)
                     print player_id
                     player = Player( self.player_region,API_KEY,account_id=player_id )
 
                     # Check if player already exists in players table. If not, add them.
-                    m.logging(self.player_region, "Checking player: " + str(player_id), "log")
-                    #print str(self.threadID) + " Checking player: " + str(player_id)
+            ##        m.logging(self.player_region, "Checking player: " + str(player_id), "log")
                     database.insert_items(self.player_region + "_summoners", "id", player_id)
 
                     # Get the timestamp of the last checked game
@@ -59,7 +56,6 @@ class Data_collector (threading.Thread):
                         current_last_game_epoch = PATCH_DATE
 
 
-                    # recent_games = player.get_recent_games(current_last_game_epoch)
                     recent_games = player.get_games(current_last_game_epoch, count=num_games_to_get)
 
                     if recent_games == -1:
@@ -73,15 +69,12 @@ class Data_collector (threading.Thread):
 
                     # If the player has played new games since the last check, update the overall number of games and the time of the last played game.
                     if not current_last_game_epoch == player.date_last_game:
-                        #database.update_fields(self.player_region + "_summoners", "id", player_id, {"last_file_update": last_check_tag, "last_game_epoch": player.date_last_game})
                         database.update_fields(self.player_region + "_summoners", "id", player_id, {"last_game_epoch": player.date_last_game})
 
-                        m.logging(self.player_region, "Player " + str(player_id) + " played new games since last check", "log" )
-                        #print "Player " + str(player_id) + " played new games since last check"
+            ##            m.logging(self.player_region, "Player " + str(player_id) + " played new games since last check", "log" )
 
-                    else:
-                        m.logging(self.player_region, "Player " + str(player_id) + " Didn't play any new games since last check", "log")
-                        #print "Player " + str(player_id) + " Didn't play any new games since last check"
+            ##        else:
+            ##            m.logging(self.player_region, "Player " + str(player_id) + " Didn't play any new games since last check", "log")
 
                     # If the games are ARAM games, update the table with new number of aram games and the new percentage of played aram games.
                     if player.aram_games is not 0:
@@ -95,8 +88,7 @@ class Data_collector (threading.Thread):
                     games = []
                     if not player.aram_games == 0:
 
-                        m.logging(self.player_region, "Updating " + player_id + "'s file with recent ARAM games", "log" )
-                        #print "Updating " + player_id + "'s file with recent ARAM games"
+            ##            m.logging(self.player_region, "Updating " + player_id + "'s file with recent ARAM games", "log" )
                         player_file = os.path.join(aram_files_path, player_id)
                         with open(player_file, 'a') as player_history:
                             for game_id in recent_games:
@@ -110,12 +102,14 @@ class Data_collector (threading.Thread):
                                         m.logging(self.player_region, "Error while saving games " + game_id + " for " + player_id, "error")
                                         continue
 
-                    else:
-                        m.logging(self.player_region, player_id + " did not play any ARAM games recently", "log")
-                        #print "No ARAM games recently played"
+            ##        else:
+            ##            m.logging(self.player_region, player_id + " did not play any ARAM games recently", "log")
+
+                    m.logging(self.player_region, self.player_region + "- Thread: " + str(self.threadID) + ", Player: " + str(player_id) +
+                              ", ARAM: " + str(player.aram_games), "log")
+
                     if games:
                         checked_players_games[player_id] = games
-                    #print games
                     player_count += 1
 
                     if player_count % 2 == 0:

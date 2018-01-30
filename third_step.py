@@ -21,7 +21,7 @@ class Third_step(threading.Thread):
 
         time_check = time.time()
         checking_period = 3600
-
+        self.m.logging(DEFAULT_REGION, "Running the Regular checks thread for the first time", "log")
         while True:
 
             if time.time() - time_check >= checking_period:
@@ -34,7 +34,7 @@ class Third_step(threading.Thread):
                         print DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will now exit."
                         break
 
-
+                self.m.logging(DEFAULT_REGION, "Running the Regular checks thread (hourly runs)", "log")
                 self.update_averages()
                 self.update_final_stats()
                 self.update_champ_stats()
@@ -45,7 +45,6 @@ class Third_step(threading.Thread):
     def update_averages(self):
 
         self.m.logging(self.player_region, "Updating the averages for region " + self.player_region, "log")
-        #time.sleep(1000)
         one_off_values_avg = dict()
 
         columns = list(self.database.get_column_names("Base_champ"))
