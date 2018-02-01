@@ -11,7 +11,7 @@ from Regular_checks import Daily_check
 
 queueLock = threading.Lock()
 threads=[]
-'''
+
 for region in REGIONS:
     for i in range(MAX_THREAD_NUM):
         data_collect_thread = Data_collector(i, region, queueLock)
@@ -24,7 +24,7 @@ for region in REGIONS:
     tables_update_thread.start()
     threads.append(tables_update_thread)
     
-'''
+
 regular_updates_thread = Daily_check(DATABASE_DETAILS, API_KEY)
 regular_updates_thread.daemon = True
 regular_updates_thread.start()

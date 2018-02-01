@@ -8,7 +8,7 @@ import time
 from select import select
 import sys
 
-checking_period = 1
+checking_period = 3600
 class Daily_check(threading.Thread):
 
     def __init__(self, database_details, api_key):
