@@ -21,7 +21,7 @@ class Third_step(threading.Thread):
 
         time_check = time.time()
         checking_period = 3600
-        self.m.logging(DEFAULT_REGION, "Running the Regular checks thread for the first time", "log")
+        self.m.logging(DEFAULT_REGION, "Running the Regular updates thread for the first time", "log")
         while True:
 
             if time.time() - time_check >= checking_period:
@@ -34,7 +34,7 @@ class Third_step(threading.Thread):
                         print DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will now exit."
                         break
 
-                self.m.logging(DEFAULT_REGION, "Running the Regular checks thread (hourly runs)", "log")
+                self.m.logging(DEFAULT_REGION, "Running the Regular updates thread (hourly runs)", "log")
                 self.update_averages()
                 self.update_final_stats()
                 self.update_champ_stats()

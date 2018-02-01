@@ -43,7 +43,7 @@ class Data_collector (threading.Thread):
             for one_player in list(database.get_all_items(self.player_region + "_players_checked", "id"))[start_position: end_position]:
                 if keep_running == True:
                     player_id = str(one_player)
-                    print player_id
+                    #print player_id
                     player = Player( self.player_region,API_KEY,account_id=player_id )
 
                     # Check if player already exists in players table. If not, add them.

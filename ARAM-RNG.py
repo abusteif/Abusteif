@@ -1,6 +1,6 @@
 
 from Initial_checks import Initial_check
-Initial_check().all_initial_checks()
+#Initial_check().all_initial_checks()
 
 import threading
 
@@ -27,8 +27,8 @@ for region in REGIONS:
 
 regular_updates_thread = Daily_check(DATABASE_DETAILS, API_KEY)
 regular_updates_thread.daemon = True
-regular_updates_thread.start()
-threads.append(regular_updates_thread)
+#regular_updates_thread.start()
+#threads.append(regular_updates_thread)
 
 
 for t in threads:
