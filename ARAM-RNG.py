@@ -27,8 +27,8 @@ for region in REGIONS:
 '''
 regular_updates_thread = Daily_check(DATABASE_DETAILS, API_KEY)
 regular_updates_thread.daemon = True
-#regular_updates_thread.start()
-#threads.append(regular_updates_thread)
+regular_updates_thread.start()
+threads.append(regular_updates_thread)
 
 
 for t in threads:
