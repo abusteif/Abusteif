@@ -4,6 +4,7 @@
     <list default="true" id="4989f691-08a9-4696-b7a7-483880d68e11" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ARAM-RNG.py" afterPath="$PROJECT_DIR$/ARAM-RNG.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Regular_checks.py" afterPath="$PROJECT_DIR$/Regular_checks.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,8 +18,18 @@
       <file leaf-file-name="ARAM-RNG.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ARAM-RNG.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+            <state relative-caret-position="468">
+              <caret line="26" column="3" lean-forward="false" selection-start-line="26" selection-start-column="3" selection-end-line="26" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Initial_checks.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Initial_checks.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="10" column="8" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -71,8 +82,8 @@
       <file leaf-file-name="Regular_checks.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Regular_checks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="27" column="40" lean-forward="false" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
+            <state relative-caret-position="180">
+              <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
               <folding>
                 <element signature="e#18#249#0" expanded="true" />
               </folding>
@@ -158,11 +169,11 @@
         <option value="$PROJECT_DIR$/../DJANGO_ARAM_ARNG/mysite/mysite/urls.py" />
         <option value="$PROJECT_DIR$/../DJANGO_ARAM_ARNG/mysite/mysite/settings.py" />
         <option value="$PROJECT_DIR$/classes.py" />
-        <option value="$PROJECT_DIR$/Regular_checks.py" />
         <option value="$PROJECT_DIR$/first_step.py" />
         <option value="$PROJECT_DIR$/third_step.py" />
         <option value="$PROJECT_DIR$/Static_data/conf_data" />
         <option value="$PROJECT_DIR$/second_step_class.py" />
+        <option value="$PROJECT_DIR$/Regular_checks.py" />
         <option value="$PROJECT_DIR$/ARAM-RNG.py" />
       </list>
     </option>
@@ -623,7 +634,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517477408993</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="trying to fix the random thread interuptions">
+      <created>1517477489553</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1517477489553</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -946,13 +964,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Initial_checks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1692">
-          <caret line="97" column="50" lean-forward="false" selection-start-line="97" selection-start-column="50" selection-end-line="97" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6282">
@@ -966,16 +977,6 @@
         <state relative-caret-position="36">
           <caret line="2" column="51" lean-forward="false" selection-start-line="2" selection-start-column="51" selection-end-line="2" selection-end-column="51" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Regular_checks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="27" column="40" lean-forward="false" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
-          <folding>
-            <element signature="e#18#249#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1014,10 +1015,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Initial_checks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="10" column="8" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Regular_checks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+          <folding>
+            <element signature="e#18#249#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ARAM-RNG.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+        <state relative-caret-position="468">
+          <caret line="26" column="3" lean-forward="false" selection-start-line="26" selection-start-column="3" selection-end-line="26" selection-end-column="3" />
           <folding />
         </state>
       </provider>
