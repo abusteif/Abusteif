@@ -4,9 +4,6 @@
     <list default="true" id="4989f691-08a9-4696-b7a7-483880d68e11" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ARAM-RNG.py" afterPath="$PROJECT_DIR$/ARAM-RNG.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/first_step.py" afterPath="$PROJECT_DIR$/first_step.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/second_step_class.py" afterPath="$PROJECT_DIR$/second_step_class.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/third_step.py" afterPath="$PROJECT_DIR$/third_step.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ARAM-RNG.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ARAM-RNG.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ARAM-RNG.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="1" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+            <state relative-caret-position="144">
+              <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -59,7 +56,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="first_step.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="first_step.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/first_step.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-783">
@@ -165,8 +162,8 @@
         <option value="$PROJECT_DIR$/first_step.py" />
         <option value="$PROJECT_DIR$/third_step.py" />
         <option value="$PROJECT_DIR$/Static_data/conf_data" />
-        <option value="$PROJECT_DIR$/ARAM-RNG.py" />
         <option value="$PROJECT_DIR$/second_step_class.py" />
+        <option value="$PROJECT_DIR$/ARAM-RNG.py" />
       </list>
     </option>
   </component>
@@ -619,7 +616,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517307174384</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="trying to fix the random thread interuptions">
+      <created>1517477408993</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1517477408993</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -674,7 +678,8 @@
     <MESSAGE value="updated checking periods" />
     <MESSAGE value="commented out the insert logging and added thread reporting" />
     <MESSAGE value="less logs and tried to fix the regular updates thread" />
-    <option name="LAST_COMMIT_MESSAGE" value="less logs and tried to fix the regular updates thread" />
+    <MESSAGE value="trying to fix the random thread interuptions" />
+    <option name="LAST_COMMIT_MESSAGE" value="trying to fix the random thread interuptions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -981,14 +986,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ARAM-RNG.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="1" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/third_step.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
@@ -1014,6 +1011,14 @@
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARAM-RNG.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
