@@ -93,6 +93,7 @@ class Second_step:
                 [aram_games, total_games, won_games] = self.database.get_database_row_items(self.region+"_summoners", {"id": player_id}, "aram_games, total_games, won_games")
                 self.database.update_fields(self.region + "_summoners", "id", player_id, {"aram_games_percentage":100* aram_games/total_games, "won_games":won_games+wins, "win_rate":100*(won_games+wins)/aram_games})
             try:
+                print "herehehehe"
                 os.remove(os.path.join(self.games_folder, player_id))
             except OSError as e:
                 self.misc.logging(self.region, "Error while deleting game file: " + e.message, "error")
