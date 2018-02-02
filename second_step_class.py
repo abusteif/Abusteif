@@ -88,10 +88,11 @@ class Second_step:
                                 #print stats
                                 self.database.update_fields(self.region + "_" + str(champ), "game_id", game_id, stats)
                                 self.database.update_numberof_games(self.region + "_champ_stats", "id", champ, "games_analysed", 1)
-                        print stats["game_duration"]
                         self.database.update_fields(self.region + "_games", "id", game_id,{"duration": stats["game_duration"]})
 
                 [aram_games, total_games, won_games] = self.database.get_database_row_items(self.region+"_summoners", {"id": player_id}, "aram_games, total_games, won_games")
                 self.database.update_fields(self.region + "_summoners", "id", player_id, {"aram_games_percentage":100* aram_games/total_games, "won_games":won_games+wins, "win_rate":100*(won_games+wins)/aram_games})
-
-            os.remove(os.path.join(self.games_folder, player_id))
+            try:
+                os.remove(os.path.join(self.games_folder, player_id))
+            except OSError as e:
+                self.misc.logging(self.region, "Error while deleting game file: " + e.message, "error")
