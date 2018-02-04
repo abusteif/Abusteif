@@ -20,20 +20,6 @@ project_location = os.path.dirname(os.path.realpath(__file__))
 
 STATIC_DATA_PATH=project_location+"/Static_data/"
 
-'''
-API_KEY= 'RGAPI-b8c9e648-5434-4cf2-8031-630928986c54'
-DATABASE_DETAILS = ["localhost", "LoL_Analysis", "123456", "LoL_Analysis"]
-GAMES_FOLDERS_PATH = "/media/4TB/ARAM-RNG/Games/"
-ERROR_FILES_PATH= "/home/abusteif/ARAM-RNG/Error_Logs/"
-LOG_FILES_PATH= "/home/abusteif/ARAM-RNG/Logs/"
-DB_BACKUPS_PATH= "/media/4TB/ARAM-RNG/DB_ARCHIVE/"
-MODELS_LOCATION = "/home/abusteif/ARAM-RNG/TF_Models/"
-STATIC_DATA_PATH = "/home/abusteif/ARAM-RNG/Static_data/"
-DEFAULT_REGION ="OC1"
-MAX_THREAD_NUM = 4
-REGIONS=["KR", "EUW1", "OC1", "NA1" ]
-#REGIONS = ["OC1"]
-'''
 
 with open(STATIC_DATA_PATH + "conf_data", "r") as conf_data:
     for line in conf_data.readlines():
@@ -101,8 +87,8 @@ class URL_resolve:
                 try:
                     self.html_result = requests.get(self.url)
                 except requests.exceptions.RequestException as e:
-                    m.logging(self.region," Retrying after encountering the following error: " + str(e.message) ,"error")
-                    #print " Retrying after encountering the following error: " + str(e.message)
+                    #m.logging(self.region," Retrying after encountering the following error: " + str(e.message) ,"error")
+                    print " Retrying after encountering the following error: " + str(e.message)
                     continue
                 break
             if self.html_result.status_code == 200:
@@ -154,9 +140,9 @@ class URL_resolve:
             for count in range(app_count.__len__()):
                 if int(app_limit[count].split(":")[0]) - int(app_count[count].split(":")[0]) < MAX_THREAD_NUM:
                     m.logging(self.region, "Rate limit for the region "+self.region + " is almost reached", "error")
-                    print "Rate limit for the region "+self.region
+        ##            print "Rate limit for the region "+self.region
                     app_time_wait =  int((app_limit[count].split(":")[1])) - time.time() + URL_resolve.app_window[count]
-                    print app_time_wait
+        ##            print app_time_wait
                     time.sleep(abs(app_time_wait))
 
 
@@ -325,8 +311,13 @@ class Database:
     def update_numberof_games(self, table, id, id_value, column, number):
         number = str(number)
         id_value=str(id_value)
-        data = self.cur.execute("UPDATE " + table + " SET " + column + " = " + column + " + " + number + " WHERE " + id + " = " + id_value + ";")
-
+        counter = 3
+        while counter > 0:
+            try:
+                counter -=1
+                self.cur.execute("UPDATE " + table + " SET " + column + " = " + column + " + " + number + " WHERE " + id + " = " + id_value + ";")
+            except MySQLdb.Error as e:
+                Misc().logging(DEFAULT_REGION, "MYSQL error with ", "error")
         return
 
     def update_multiple_fields(self, table, id, id_value, columns_values):

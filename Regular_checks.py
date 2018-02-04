@@ -38,8 +38,8 @@ class Daily_check(threading.Thread):
                 self.check_version()
                 self.misc.logging(DEFAULT_REGION, "Checking for a new champ", "log")
                 self.check_for_new_champ()
-                self.misc.logging(DEFAULT_REGION, "Uploading a copy of the database", "log")
-                self.sftp_database()
+                #self.misc.logging(DEFAULT_REGION, "Uploading a copy of the database", "log")
+                #self.sftp_database()
             else:
                 time.sleep(checking_period)
 
