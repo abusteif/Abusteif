@@ -316,6 +316,7 @@ class Database:
             try:
                 counter -=1
                 self.cur.execute("UPDATE " + table + " SET " + column + " = " + column + " + " + number + " WHERE " + id + " = " + id_value + ";")
+                break
             except MySQLdb.Error as e:
                 Misc().logging(DEFAULT_REGION, "MYSQL error with ", "error")
         return
