@@ -88,7 +88,10 @@ class URL_resolve:
                     self.html_result = requests.get(self.url)
                 except requests.exceptions.RequestException as e:
                     #m.logging(self.region," Retrying after encountering the following error: " + str(e.message) ,"error")
-                    print " Retrying after encountering the following error: " + str(e.message)
+                    print self.url
+                    print time.time()
+                    print e.message
+                    #print " Retrying after encountering the following error: " + str(e.message)
                     continue
                 break
             if self.html_result.status_code == 200:
@@ -127,9 +130,16 @@ class URL_resolve:
 
 
     def handle_rate_limit(self,status = 200):
+        print self.html_result.headers
         m = Misc()
         method_count = self.html_result.headers["X-Method-Rate-Limit-Count"].split(",")[0]
         method_limit = self.html_result.headers["X-Method-Rate-Limit"].split(",")[0]
+
+        if status == 429:
+            if "Retry-After" in self.html_result.headers:
+                m.logging(self.region, "Rate limit has been reached for the region " + self.region + ". Sleeping for " + str(self.html_result.headers["Retry-After"]) + " seconds", "error")
+                time.sleep(int(self.html_result.headers["Retry-After"]))
+
         if "X-App-Rate-Limit-Count" in self.html_result.headers:
             app_count = self.html_result.headers["X-App-Rate-Limit-Count"].split(",")
             app_limit = self.html_result.headers["X-App-Rate-Limit"].split(",")
@@ -143,12 +153,10 @@ class URL_resolve:
         ##            print "Rate limit for the region "+self.region
                     app_time_wait =  int((app_limit[count].split(":")[1])) - time.time() + URL_resolve.app_window[count]
         ##            print app_time_wait
-                    time.sleep(abs(app_time_wait))
+                    time.sleep(abs(app_time_wait-10))
 
 
-        if status == 429:
-            m.logging(self.region, "Rate limit has been reached for the region " + self.region + ". Sleeping for " + str(self.html_result.headers["Retry-After"]) + " seconds", "error")
-            time.sleep(int(self.html_result.headers["Retry-After"]))
+
         if int(method_count.split(":")[0]) == 1:
             URL_resolve.method_window[self.api_endpoint] = time.time()
 
