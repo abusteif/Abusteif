@@ -152,7 +152,7 @@ class URL_resolve:
         ##            print "Rate limit for the region "+self.region
                     app_time_wait =  int((app_limit[count].split(":")[1])) - time.time() + URL_resolve.app_window[count]
         ##            print app_time_wait
-                    time.sleep(abs(app_time_wait-10))
+                    time.sleep(abs(app_time_wait))
 
 
 
