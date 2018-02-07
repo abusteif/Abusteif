@@ -79,6 +79,9 @@ class Initial_check:
             conf_data.write("MODELS_LOCATION=" + project_location + "/TF_Models/\n")
             conf_data.write("STATIC_DATA_PATH=" + project_location + "/Static_data/")
 
+        with open(project_location + "/Static_data/conf_data", "r") as r:
+            for line in r.readlines():
+                print line
         from classes import DEFAULT_REGION, Misc
         Misc().logging(DEFAULT_REGION, "Folders and files check completed", "log")
 
