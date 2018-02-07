@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4989f691-08a9-4696-b7a7-483880d68e11" name="Default" comment="added conf file temporarily">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Static_data/End_Exec" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Static_data/conf_data" afterPath="$PROJECT_DIR$/Static_data/conf_data" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,8 +37,8 @@
       <file leaf-file-name="conf_data" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Static_data/conf_data">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="69" lean-forward="true" selection-start-line="18" selection-start-column="69" selection-end-line="18" selection-end-column="69" />
+            <state relative-caret-position="0">
+              <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -182,11 +182,11 @@
         <option value="$PROJECT_DIR$/ARAM-RNG.py" />
         <option value="$PROJECT_DIR$/second_step_class.py" />
         <option value="$PROJECT_DIR$/temp_delete_tables.py" />
-        <option value="$PROJECT_DIR$/Static_data/conf_data" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/Regular_checks.py" />
         <option value="$PROJECT_DIR$/third_step.py" />
         <option value="$PROJECT_DIR$/classes.py" />
+        <option value="$PROJECT_DIR$/Static_data/conf_data" />
       </list>
     </option>
   </component>
@@ -372,13 +372,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1512561205670</updated>
-    </task>
-    <task id="LOCAL-00008" summary="testing git">
-      <created>1514423684747</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1514423684747</updated>
     </task>
     <task id="LOCAL-00009" summary="Added update_folders_files method to Initial_checks class">
       <created>1514431893895</created>
@@ -716,7 +709,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518002404476</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="added conf file temporarily">
+      <created>1518003107894</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1518003107894</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -748,7 +748,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added update_folders_files method to Initial_checks class" />
     <MESSAGE value="added SFTP function" />
     <MESSAGE value="completed SFTP" />
     <MESSAGE value="completed the .my.cnf file check" />
@@ -773,7 +772,8 @@
     <MESSAGE value="Implemented a fix for the random errors that were causing threads failure" />
     <MESSAGE value="updated the assert_url function. Now it loops indefinitely with a doubling retry timer." />
     <MESSAGE value="small changes to deal with the dmg_ratio error" />
-    <option name="LAST_COMMIT_MESSAGE" value="small changes to deal with the dmg_ratio error" />
+    <MESSAGE value="added conf file temporarily" />
+    <option name="LAST_COMMIT_MESSAGE" value="added conf file temporarily" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1115,8 +1115,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Static_data/conf_data">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="69" lean-forward="true" selection-start-line="18" selection-start-column="69" selection-end-line="18" selection-end-column="69" />
+        <state relative-caret-position="0">
+          <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
           <folding />
         </state>
       </provider>
