@@ -10,10 +10,13 @@ class Initial_check:
 
     def all_initial_checks(self):
         self.check_modules()
+
+
+        self.check_files_and_folders()
+
         from classes import Misc, DEFAULT_REGION
         misc = Misc()
 
-        self.check_files_and_folders()
         misc.logging(DEFAULT_REGION, "Creating Database and user", "log")
         self.create_database_and_user()
         misc.logging(DEFAULT_REGION, "Loading the Base database tables", "log")
