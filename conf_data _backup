@@ -1,0 +1,18 @@
+VERSION=7.241.2
+API_KEY= RGAPI-7f8b6173-8c87-4e13-a7c4-4cb45c39bf35
+DATABASE_DETAILS = ["localhost", "LoL_Analysis", "123456", "LoL_Analysis"]
+DEFAULT_REGION =OC1
+MAX_THREAD_NUM = 4
+REGIONS=["KR", "EUW1", "OC1", "NA1" ]
+SFTP_USERNAME=pi
+SFTP_PASSWORD=raspberry
+SFTP_HOST=192.168.0.25
+SFTP_PORT=22
+SFTP_REMOTE_PATH=/abusteif/ARAM-RNG/Remote_Database_Uploads/
+GAMES_FOLDERS_PATH=/home/abusteif/PycharmProjects/ARAM-RNG/Games/
+ERROR_FILES_PATH=/home/abusteif/PycharmProjects/ARAM-RNG/Error_logs/
+LOG_FILES_PATH=/home/abusteif/PycharmProjects/ARAM-RNG/Logs/
+DB_BACKUPS_PATH=/home/abusteif/PycharmProjects/ARAM-RNG/DB_ARCHIVE/
+MODELS_LOCATION=/home/abusteif/PycharmProjects/ARAM-RNG/TF_Models/
+STATIC_DATA_PATH=/home/abusteif/PycharmProjects/ARAM-RNG/Static_data/
+
