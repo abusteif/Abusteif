@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4989f691-08a9-4696-b7a7-483880d68e11" name="Default" comment="added conf file temporarily">
+    <list default="true" id="4989f691-08a9-4696-b7a7-483880d68e11" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -372,13 +372,6 @@
       <option name="presentableId" value="Default" />
       <updated>1512561205670</updated>
     </task>
-    <task id="LOCAL-00010" summary="added SFTP function">
-      <created>1514468705210</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1514468705210</updated>
-    </task>
     <task id="LOCAL-00011" summary="completed SFTP">
       <created>1514538123302</created>
       <option name="number" value="00011" />
@@ -715,7 +708,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518003407035</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="added conf file temporarily">
+      <created>1518003758123</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1518003758123</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="ToolWindowManager">
