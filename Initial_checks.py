@@ -39,7 +39,7 @@ class Initial_check:
                 pip.main(['install', module])
 
     def check_files_and_folders(self):
-        from classes import REGIONS, Misc, DEFAULT_REGION
+        from classes import REGIONS
         project_location = os.path.dirname(os.path.realpath(__file__))
         with open(project_location + "/Static_data/conf_data", "r") as conf_data:
             for line in conf_data.readlines():
@@ -78,7 +78,9 @@ class Initial_check:
             conf_data.write("DB_BACKUPS_PATH=" + project_location + "/DB_ARCHIVE/\n")
             conf_data.write("MODELS_LOCATION=" + project_location + "/TF_Models/\n")
             conf_data.write("STATIC_DATA_PATH=" + project_location + "/Static_data/")
-            Misc().logging(DEFAULT_REGION, "Folders and files check completed", "log")
+
+        from classes import DEFAULT_REGION, Misc
+        Misc().logging(DEFAULT_REGION, "Folders and files check completed", "log")
 
         with open(project_location + "/Static_data/End_Exec", "a+") as end_exec:
             end_exec.seek(0)
