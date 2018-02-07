@@ -80,9 +80,10 @@ class URL_resolve:
         self.api_endpoint = api_endpoint
 
     def assert_url(self):
+        retry_time=1
         m = Misc()
         i = 0
-        for i in range(3):
+        while True:
             while True:
                 try:
                     self.html_result = requests.get(self.url)
@@ -96,13 +97,13 @@ class URL_resolve:
                 break
             if self.html_result.status_code == 200:
                 self.handle_rate_limit()
-                return self.html_result
+                return
 
             elif self.html_result.status_code == 429:
                 m.logging(self.region, self.url + " encountered a rate limit error", "error" )
                 self.handle_rate_limit(status = 429)
                 #print "Rate limit error"
-                time.sleep(10)
+                #time.sleep(10)
 
 
             elif self.html_result.status_code == 404:
@@ -111,11 +112,11 @@ class URL_resolve:
                 self.html_result =-1
                 return
             else:
-                retry_time = 1
                 #print self.html_result.status_code
                 m.logging(self.region, self.url + " encountered error: " + str(self.html_result.status_code) + ". Sleeping .. for " + str(retry_time) +" seconds", "error")
                 #print "Sleeping .."
                 time.sleep(retry_time)
+                retry_time *= 2
 
         m.logging(self.region, "Exiting program due to error: " + str(self.html_result.status_code) +" persisting after 3 reattempts" , "error")
         sys.exit(1)
