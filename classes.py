@@ -89,8 +89,9 @@ class URL_resolve:
                     self.html_result = requests.get(self.url)
                 except requests.exceptions.RequestException as e:
                     #m.logging(self.region," Retrying after encountering the following error: " + str(e.message) ,"error")
-                    print self.url
                     print time.time()
+                    print self.url
+                    print self.html_result
                     print e
                     #print " Retrying after encountering the following error: " + str(e.message)
                     continue
