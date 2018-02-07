@@ -67,7 +67,6 @@ class Third_step(threading.Thread):
             one_off_values_avg["result"] = 99
             one_off_values_avg["rank"] = 99
             one_off_values_avg["games_analysed"] = games_analysed
-            print one_off_values_avg["dmg_ratio"]
             self.database.update_fields(self.player_region + "_averages", "champ_id", champ, one_off_values_avg)
 
 
