@@ -91,7 +91,7 @@ class URL_resolve:
                     #m.logging(self.region," Retrying after encountering the following error: " + str(e.message) ,"error")
                     print self.url
                     print time.time()
-                    print e.message
+                    print e
                     #print " Retrying after encountering the following error: " + str(e.message)
                     continue
                 break
@@ -108,17 +108,16 @@ class URL_resolve:
 
             elif self.html_result.status_code == 404:
                 m.logging(self.region, self.url + " returned a 404 Error", "error")
-                #print self.url, " retRGAPI-b8c9e648-5434-4cf2-8031-630928986c54urned a 404 Error"
                 self.html_result =-1
                 return
             else:
-                #print self.html_result.status_code
                 m.logging(self.region, self.url + " encountered error: " + str(self.html_result.status_code) + ". Sleeping .. for " + str(retry_time) +" seconds", "error")
-                #print "Sleeping .."
                 time.sleep(retry_time)
                 retry_time *= 2
+                if retry_time == 1024:
+                    break
 
-        m.logging(self.region, "Exiting program due to error: " + str(self.html_result.status_code) +" persisting after 3 reattempts" , "error")
+        m.logging(self.region, "Exiting program due to error: " + str(self.html_result.status_code) +" persisting after 10 attempts" , "error")
         sys.exit(1)
 
 

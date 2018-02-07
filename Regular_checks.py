@@ -28,7 +28,6 @@ class Daily_check(threading.Thread):
                 time_check = time.time()
                 with open(STATIC_DATA_PATH + "End_Exec", "r") as end_check:
                     status = list(end_check.readlines())[0].strip()
-                    print status
                     if status == "True":
                         self.misc.logging(DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will exit now", "log")
                         print DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will now exit."
