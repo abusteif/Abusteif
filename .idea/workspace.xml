@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4989f691-08a9-4696-b7a7-483880d68e11" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Static_data /conf_data" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Static_data/Base_tables.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Static_data/End_Exec" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Static_data/conf_data" afterPath="$PROJECT_DIR$/Static_data/conf_data" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -49,7 +49,7 @@
         <entry file="file://$PROJECT_DIR$/Static_data/conf_data">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="324">
-              <caret line="18" column="52" lean-forward="false" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
+              <caret line="18" column="40" lean-forward="true" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -374,13 +374,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1512561205670</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Adding conf data">
-      <created>1514823512471</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1514823512471</updated>
     </task>
     <task id="LOCAL-00019" summary="conf_data location updated">
       <created>1514824549838</created>
@@ -718,7 +711,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518005184462</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="added conf file temporarily">
+      <created>1518005571159</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1518005571159</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1125,7 +1125,7 @@
     <entry file="file://$PROJECT_DIR$/Static_data/conf_data">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
-          <caret line="18" column="52" lean-forward="false" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
+          <caret line="18" column="40" lean-forward="true" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
           <folding />
         </state>
       </provider>
