@@ -115,8 +115,8 @@ class URL_resolve:
                 m.logging(self.region, self.url + " encountered error: " + str(self.html_result.status_code) + ". Sleeping .. for " + str(retry_time) +" seconds", "error")
                 time.sleep(retry_time)
                 retry_time *= 2
-                if retry_time == 1024:
-                    break
+                #if retry_time == 1024:
+                #    break
 
         m.logging(self.region, "Exiting program due to error: " + str(self.html_result.status_code) +" persisting after 10 attempts" , "error")
         sys.exit(1)
@@ -139,6 +139,8 @@ class URL_resolve:
             if "Retry-After" in self.html_result.headers:
                 m.logging(self.region, "Rate limit has been reached for the region " + self.region + ". Sleeping for " + str(self.html_result.headers["Retry-After"]) + " seconds", "error")
                 time.sleep(int(self.html_result.headers["Retry-After"]))
+            else:
+                m.logging(self.region, "False rate limit error. Ignoring..", "error")
 
         if "X-App-Rate-Limit-Count" in self.html_result.headers:
             app_count = self.html_result.headers["X-App-Rate-Limit-Count"].split(",")
@@ -326,7 +328,7 @@ class Database:
                 self.cur.execute("UPDATE " + table + " SET " + column + " = " + column + " + " + number + " WHERE " + id + " = " + id_value + ";")
                 break
             except MySQLdb.Error as e:
-                Misc().logging(DEFAULT_REGION, "MYSQL error with ", "error")
+                Misc().logging(DEFAULT_REGION, "MYSQL error with " + e.message, "error")
         return
 
     def update_multiple_fields(self, table, id, id_value, columns_values):

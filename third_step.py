@@ -35,10 +35,12 @@ class Third_step(threading.Thread):
                         break
 
                 self.m.logging(DEFAULT_REGION, "Running the Regular updates thread (hourly runs)", "log")
-                self.update_averages()
-                self.update_final_stats()
-                self.update_champ_stats()
-                self.update_game_stats()
+                if self.update_averages() == 1:
+                    self.update_final_stats()
+                    self.update_champ_stats()
+                    self.update_game_stats()
+                else:
+                    time.sleep(checking_period)
             else:
                 time.sleep(checking_period)
 
@@ -51,10 +53,16 @@ class Third_step(threading.Thread):
 
         all_champs = list(self.database.get_all_items("Base_champ_list", "id"))
 
-
         for champ in all_champs:
 
             games_analysed = self.database.get_database_item(self.player_region + "_champ_stats", "id", champ, "games_analysed")
+            if games_analysed == 0:
+                self.m.logging(self.player_region, "Unable to update the averages for region " + self.player_region +
+                               " due to insufficient games. This thread will sleep until the next scheduled execution ", "error")
+                return -1
+
+
+        for champ in all_champs:
             self.database.update_column_values(self.player_region + "_" + str(champ), "games_analysed", games_analysed)
             for i in range(columns.__len__()):
                 one_off_values_avg[columns[i]] = self.database.get_sum(self.player_region + "_" + str(champ), columns[i]) / games_analysed
@@ -68,6 +76,7 @@ class Third_step(threading.Thread):
             one_off_values_avg["rank"] = 99
             one_off_values_avg["games_analysed"] = games_analysed
             self.database.update_fields(self.player_region + "_averages", "champ_id", champ, one_off_values_avg)
+        return 1
 
 
     def update_final_stats(self):
