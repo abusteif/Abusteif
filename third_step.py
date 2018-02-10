@@ -8,10 +8,12 @@ import sys
 import time
 
 class Third_step(threading.Thread):
-    
-    def __init__(self, region):
+
+    def __init__(self, threadID, lock, region):
         threading.Thread.__init__(self)
         self.player_region = region
+        self.threadID = threadID
+        #self.lock = lock
         self.database=Database(DATABASE_DETAILS)
         self.m = Misc()
 
@@ -21,7 +23,7 @@ class Third_step(threading.Thread):
 
         time_check = time.time()
         checking_period = 3600
-        self.m.logging(DEFAULT_REGION, "Running the Regular updates thread for the first time", "log")
+        self.m.logging(self.player_region, "Running the Regular updates thread for the first time", "log")
         while True:
 
             if time.time() - time_check >= checking_period:

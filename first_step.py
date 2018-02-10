@@ -11,14 +11,13 @@ import time
 
 
 class Data_collector (threading.Thread):
-    def __init__(self, threadID, region, lock):
+    def __init__(self, threadID, lock, region):
         threading.Thread.__init__(self)
         self.threadID = threadID
         self.player_region = region
         self.lock = lock
 
     def run(self):
-
         database=Database(DATABASE_DETAILS)
         aram_files_path = GAMES_FOLDERS_PATH + self.player_region
         num_games_to_get = 5
@@ -34,13 +33,13 @@ class Data_collector (threading.Thread):
         second_step = Second_step(self.player_region)
         player_population = database.get_row_count(self.player_region + "_players_checked")
         processing_unit = player_population/MAX_THREAD_NUM
-        start_position = int(round(processing_unit * self.threadID))
+        start_position = int(round(processing_unit * (self.threadID%MAX_THREAD_NUM)))
         end_position = int(round(start_position + processing_unit - 1))
-        if self.threadID == MAX_THREAD_NUM-1:
+        if self.threadID%MAX_THREAD_NUM == MAX_THREAD_NUM-1:
             end_position = player_population
-
         while True:
             for one_player in list(database.get_all_items(self.player_region + "_players_checked", "id"))[start_position: end_position]:
+                self.lock[self.threadID].acquire()
                 if keep_running == True:
                     player_id = str(one_player)
                     #print player_id
@@ -57,14 +56,20 @@ class Data_collector (threading.Thread):
 
 
                     recent_games = player.get_games(current_last_game_epoch, count=num_games_to_get)
-
+                    '''
                     if recent_games == -1:
                         m.logging(self.player_region, "Removing " + str(player_id) + " from " + self.player_region + "_summoners and " + self.player_region + "_players_checked", "log")
                         #print "Removing ", player_id, " from ", self.player_region, "_summoners and ", self.player_region, "_players_checked"
                         database.delete_line(self.player_region + "_summoners", "id", player_id)
                         database.delete_line(self.player_region + "_players_checked", "id", player_id)
                         continue
+                    '''
+                    if player.total_games == 0:
+                        print "0 games played"
+                        self.lock[self.threadID].release()
 
+
+                        continue
                     database.update_numberof_games(self.player_region + "_summoners", "id", player_id, "total_games", player.total_games)
 
                     # If the player has played new games since the last check, update the overall number of games and the time of the last played game.
@@ -82,7 +87,6 @@ class Data_collector (threading.Thread):
 
                     #if not database.get_database_item(self.player_region + "_summoners", "id", player_id, "total_games") == 0:
                     aram_percentage = (float(database.get_database_item(self.player_region + "_summoners", "id", player_id,"aram_games")) / float(database.get_database_item(self.player_region + "_summoners", "id", player_id, "total_games"))) * 100
-
                     database.update_fields(self.player_region + "_summoners", "id", player_id, {"aram_games_percentage": aram_percentage})
                     # If new ARAM games were played since last check, update the games file for this player with the new games data
                     games = []
@@ -100,6 +104,7 @@ class Data_collector (threading.Thread):
                                         player_history.write("\n")
                                     except ValueError:
                                         m.logging(self.player_region, "Error while saving games " + game_id + " for " + player_id, "error")
+                                        self.lock[self.threadID].release()
                                         continue
 
             ##        else:
@@ -111,10 +116,13 @@ class Data_collector (threading.Thread):
                     if games:
                         checked_players_games[player_id] = games
                     player_count += 1
+                    self.lock[self.threadID].release()
 
                     if player_count % 2 == 0:
                         if checked_players_games:
+                            self.lock[self.threadID].acquire()
                             second_step.update_tables(checked_players_games)
+                            self.lock[self.threadID].release()
                             checked_players_games = dict()
                             if time.time() - time_check >= checking_period:
                                 time_check = time.time()

@@ -36,6 +36,7 @@ class Second_step:
                 #print player_id
 
                 all_games = games_file.readlines()
+                exising_champs = list(self.database.get_all_items("Base_champ_list", "id"))
                 for game in all_games:
                     champ_names = dict()
                     try:
@@ -53,7 +54,15 @@ class Second_step:
 
                     if str(game_id) in checked_games_players[player_id]:
                         all_champs = output.get_all_champs()
-    
+                        new_champ_check=False
+                        for champ in all_champs:
+                            if not champ in exising_champs:
+                                new_champ_check = True
+                                break
+                        if new_champ_check == True:
+                            self.misc.logging(self.region, "New champ found in game " + str(game_id) + ". Ignoring this game..", "error")
+                            self.database.delete_line(self.region+"_games", "id", str(game_id) )
+                            continue
                         for i in range(10):
                             champ_names["champ_" + str(i + 1)] = all_champs[i]
                             if i == output.player_position(player_id):
@@ -64,7 +73,7 @@ class Second_step:
                         self.database.update_fields(self.region + "_games", "id", game_id, champ_names)
 
                         for champ in all_champs:
-    
+
                             self.database.insert_items(self.region + "_" + str(champ), "game_id", game_id)
                             result = output.did_win(champ)
                             if champ == player:

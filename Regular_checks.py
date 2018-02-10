@@ -8,11 +8,13 @@ import time
 from select import select
 import sys
 
-checking_period = 3600
+checking_period = 300
 class Daily_check(threading.Thread):
 
-    def __init__(self, database_details, api_key):
+    def __init__(self, threadID, lock, database_details, api_key):
         threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.lock = lock
         self.api_key = api_key
         self.database_details = database_details
         self.database = Database(database_details)
@@ -44,16 +46,19 @@ class Daily_check(threading.Thread):
 
 
     def check_version(self):
+        print time.time()
         online_version = self.static.check_current_version()
         if online_version == self.static.get_current_version():
             self.misc.logging(DEFAULT_REGION, "Current version unchanged (" + online_version + ")", "log")
-            print -1
         else:
+            for l in self.lock:
+                l.acquire()
             self.update_version(online_version)
             self.misc.logging(DEFAULT_REGION, "A new patch has been deployed! the new version is " + online_version , "log")
             Mysql_operations(self.database_details).export_database(self.static.get_current_version())
             self.reset_database()
-            print 1
+            for l in self.lock:
+                l.release()
 
     def update_version(self, new_version):
         return self.static.update_current_version(new_version)

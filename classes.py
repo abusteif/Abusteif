@@ -88,11 +88,12 @@ class URL_resolve:
                 try:
                     self.html_result = requests.get(self.url)
                 except requests.exceptions.RequestException as e:
-                    #m.logging(self.region," Retrying after encountering the following error: " + str(e.message) ,"error")
                     print time.time()
                     print self.url
-                    print self.html_result
                     print e
+                    m.logging(self.region,"Retrying after encountering the following error: " + str(e) ,"error")
+
+
                     #print " Retrying after encountering the following error: " + str(e.message)
                     continue
                 break
@@ -108,7 +109,8 @@ class URL_resolve:
 
 
             elif self.html_result.status_code == 404:
-                m.logging(self.region, self.url + " returned a 404 Error", "error")
+                self.handle_rate_limit()
+                #m.logging(self.region, self.url + " returned a 404 Error", "error")
                 self.html_result =-1
                 return
             else:
@@ -224,7 +226,7 @@ class Player:
             if "matches" in self.json_games_url:
                 all_games = self.json_games_url['matches'][:-1]
             else:
-                m.logging(self.region,self.json_games_url + " was returned after making the following call " + games_url, "error")
+                pass
         for game in all_games:
             if recent_games_list.__len__() == count:
                 return recent_games_list
@@ -302,7 +304,7 @@ class Static:
                 if not line.split("=")[0].strip() == "VERSION" and not line.split("=")[0].strip() == "PATCH_DATE":
                     conf_data.write(line)
                 elif line.split("=")[0].strip() == "PATCH_DATE":
-                    conf_data.write("PATCH_DATE="+str(int(round(time.time() * 100)))+"\n")
+                    conf_data.write("PATCH_DATE="+str(int(round(time.time() * 1000)))+"\n")
                 elif line.split("=")[0].strip() == "VERSION":
                     conf_data.write("VERSION="+new_version+"\n")
             conf_data.truncate()
@@ -537,7 +539,8 @@ class Database:
             m.logging(new_table.split("_")[0],  "Table "+new_table + " Successfully created", "log")
         except self.db.Error as err:
             if err[0] == 1050:
-                m.logging(new_table.split("_")[0], "Table "+new_table + " already exists. Skipping ..", "error")
+                #m.logging(new_table.split("_")[0], "Table "+new_table + " already exists. Skipping ..", "error")
+                pass
             else:
                 print err
 
