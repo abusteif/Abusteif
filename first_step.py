@@ -65,7 +65,6 @@ class Data_collector (threading.Thread):
                         continue
                     '''
                     if player.total_games == 0:
-                        print "0 games played"
                         self.lock[self.threadID].release()
 
 
