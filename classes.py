@@ -116,6 +116,7 @@ class URL_resolve:
             else:
                 m.logging(self.region, self.url + " encountered error: " + str(self.html_result.status_code) + ". Sleeping .. for " + str(retry_time) +" seconds", "error")
                 time.sleep(retry_time)
+                self.handle_rate_limit()
                 retry_time *= 2
                 #if retry_time == 1024:
                 #    break

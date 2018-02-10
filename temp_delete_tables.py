@@ -10,11 +10,9 @@ def reset_database():
         for table in tables:
             database.delete_table(region + "_" + table)
             database.replicate_table("Base_" + table, region + "_" + table)
-            misc.logging(region, "table " + region + "_" + table + " has been reset", "log")
 
         for champ in all_champs:
             database.delete_table(region + "_" + str(champ))
             database.replicate_table("Base_champ", region + "_" + str(champ))
-            misc.logging(region, "table " + region + "_" + str(champ) + " has been reset", "log")
 
 reset_database()

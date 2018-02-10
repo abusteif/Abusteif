@@ -73,6 +73,8 @@ class Third_step(threading.Thread):
             one_off_values_avg["kill_ratio"] = self.database.get_sum(self.player_region + "_" + str(champ),"kills") / deaths
             one_off_values_avg["assist_ratio"] = self.database.get_sum(self.player_region + "_" + str(champ),"assists") / deaths
             one_off_values_avg["dmg_ratio"] = self.database.get_sum(self.player_region + "_" + str(champ),"physical_damage") / self.database.get_sum(self.player_region + "_" + str(champ), "magical_damage")
+            if one_off_values_avg["dmg_ratio"] > 100:
+                print "the dmg ratio problem", one_off_values_avg["dmg_ratio"], champ
             one_off_values_avg["game_id"] = 99
             one_off_values_avg["result"] = 99
             one_off_values_avg["rank"] = 99
@@ -199,7 +201,8 @@ class Third_step(threading.Thread):
 
             values["kill_ratio"]        = s.stat_percent(self.database.get_database_item(self.player_region+"_averages", "champ_id", champ, "kill_ratio"),
                                                  self.database.get_database_item(self.player_region+"_final_stats", "game_id", 2, "kill_ratio"))
-
+            if values["dmg_ratio"] > 100:
+                print "champ stats dmg ratio", values["dmg_ratio"], champ
             self.database.update_fields(self.player_region+"_champ_stats", "id", champ, values)
 
 
