@@ -73,8 +73,8 @@ class Third_step(threading.Thread):
             one_off_values_avg["kill_ratio"] = self.database.get_sum(self.player_region + "_" + str(champ),"kills") / deaths
             one_off_values_avg["assist_ratio"] = self.database.get_sum(self.player_region + "_" + str(champ),"assists") / deaths
             one_off_values_avg["dmg_ratio"] = self.database.get_sum(self.player_region + "_" + str(champ),"physical_damage") / self.database.get_sum(self.player_region + "_" + str(champ), "magical_damage")
-            if one_off_values_avg["dmg_ratio"] > 100:
-                print "the dmg ratio problem", one_off_values_avg["dmg_ratio"], champ
+            if one_off_values_avg["dmg_ratio"] >= 100:
+                one_off_values_avg["dmg_ratio"]=99
             one_off_values_avg["game_id"] = 99
             one_off_values_avg["result"] = 99
             one_off_values_avg["rank"] = 99

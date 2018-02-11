@@ -244,7 +244,7 @@ class Player:
             if not game['platformId'] == self.region:
                 m.logging(self.region, "Player " + str(self.account_id) + " is not in " + self.region + " anymore. ", "log")
                 #print "Player " + str(self.account_Id) + " is not in " + self.region + " anymore. "
-                return -1
+                return -2
         return recent_games_list
 
     def get_player_id(self, name):

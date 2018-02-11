@@ -56,19 +56,18 @@ class Data_collector (threading.Thread):
 
 
                     recent_games = player.get_games(current_last_game_epoch, count=num_games_to_get)
-                    '''
-                    if recent_games == -1:
+
+                    if player.total_games == 0:
+                        self.lock[self.threadID].release()
+                        continue
+
+
+                    if recent_games == -2:
                         m.logging(self.player_region, "Removing " + str(player_id) + " from " + self.player_region + "_summoners and " + self.player_region + "_players_checked", "log")
-                        #print "Removing ", player_id, " from ", self.player_region, "_summoners and ", self.player_region, "_players_checked"
                         database.delete_line(self.player_region + "_summoners", "id", player_id)
                         database.delete_line(self.player_region + "_players_checked", "id", player_id)
                         continue
-                    '''
-                    if player.total_games == 0:
-                        self.lock[self.threadID].release()
 
-
-                        continue
                     database.update_numberof_games(self.player_region + "_summoners", "id", player_id, "total_games", player.total_games)
 
                     # If the player has played new games since the last check, update the overall number of games and the time of the last played game.
