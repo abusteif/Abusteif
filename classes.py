@@ -154,7 +154,7 @@ class URL_resolve:
 
             for count in range(app_count.__len__()):
                 if int(app_limit[count].split(":")[0]) - int(app_count[count].split(":")[0]) < MAX_THREAD_NUM:
-                    m.logging(self.region, "Rate limit for the region "+self.region + " is almost reached", "error")
+        ##            m.logging(self.region, "Rate limit for the region "+self.region + " is almost reached", "error")
         ##            print "Rate limit for the region "+self.region
                     app_time_wait =  int((app_limit[count].split(":")[1])) - time.time() + URL_resolve.app_window[count]
         ##            print app_time_wait
