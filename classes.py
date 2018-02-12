@@ -88,13 +88,13 @@ class URL_resolve:
                 try:
                     self.html_result = requests.get(self.url)
                 except requests.exceptions.RequestException as e:
-                    print time.time()
-                    print self.url
-                    print e
-                    m.logging(self.region,"Retrying after encountering the following error: " + str(e) ,"error")
+                    #print time.time()
+                    #print self.url
+                    #print e
+                    m.logging(self.region,"Encountered a Requests error. Sleeping for "+str(retry_time) +" seconds" ,"error")
+                    time.sleep(retry_time)
+                    retry_time *=2
 
-
-                    #print " Retrying after encountering the following error: " + str(e.message)
                     continue
                 break
             if self.html_result.status_code == 200:

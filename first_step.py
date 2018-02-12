@@ -110,7 +110,7 @@ class Data_collector (threading.Thread):
             ##            m.logging(self.player_region, player_id + " did not play any ARAM games recently", "log")
 
                     m.logging(self.player_region, self.player_region + "- Thread: " + str(self.threadID) + ", Player: " + str(player_id) +
-                              ", ARAM: " + str(player.aram_games), "log")
+                              ", All Games: " + str(player.total_games) + ", ARAM: " + str(player.aram_games), "log")
 
                     if games:
                         checked_players_games[player_id] = games
@@ -136,5 +136,6 @@ class Data_collector (threading.Thread):
                     database.close_db()
                     break
 
-            m.logging(self.player_region, "End of program reached. Exiting..", "log")
+            m.logging(self.player_region, "End of program reached. Exi"
+                                          "ting..", "log")
             break
