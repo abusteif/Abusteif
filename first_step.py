@@ -66,6 +66,7 @@ class Data_collector (threading.Thread):
                         m.logging(self.player_region, "Removing " + str(player_id) + " from " + self.player_region + "_summoners and " + self.player_region + "_players_checked", "log")
                         database.delete_line(self.player_region + "_summoners", "id", player_id)
                         database.delete_line(self.player_region + "_players_checked", "id", player_id)
+                        self.lock[self.threadID].release()
                         continue
 
                     database.update_numberof_games(self.player_region + "_summoners", "id", player_id, "total_games", player.total_games)
@@ -134,4 +135,6 @@ class Data_collector (threading.Thread):
                 else:
                     database.close_db()
                     break
+
+            m.logging(self.player_region, "End of program reached. Exiting..", "log")
             break
