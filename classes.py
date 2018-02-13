@@ -134,6 +134,14 @@ class URL_resolve:
 
 
     def handle_rate_limit(self,status = 200):
+
+        if not "X-Method-Rate-Limit-Count" in self.html_result.headers:
+            print self.url
+            print self.region
+            print self.html_result.headers
+            print self.html_result
+            return
+
         m = Misc()
         method_count = self.html_result.headers["X-Method-Rate-Limit-Count"].split(",")[0]
         method_limit = self.html_result.headers["X-Method-Rate-Limit"].split(",")[0]
