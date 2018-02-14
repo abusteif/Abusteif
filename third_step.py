@@ -32,8 +32,8 @@ class Third_step(threading.Thread):
                     status = list(end_check.readlines())[0].strip()
                     print status
                     if status == "True":
-                        self.m.logging(DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will exit now", "log")
-                        print DEFAULT_REGION, "Regular checks thread: End of execution was requested. This thread will now exit."
+                        self.m.logging(DEFAULT_REGION, "Regular updates thread: End of execution was requested. This thread will exit now", "log")
+                        print DEFAULT_REGION, "Regular updates thread: End of execution was requested. This thread will now exit."
                         break
 
                 self.m.logging(DEFAULT_REGION, "Running the Regular updates thread (hourly runs)", "log")

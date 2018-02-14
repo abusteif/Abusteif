@@ -9,6 +9,7 @@ from select import select
 import sys
 
 checking_period = 3600
+backup_period = 3*3600
 class Daily_check(threading.Thread):
 
     def __init__(self, threadID, lock, database_details, api_key):
@@ -24,6 +25,7 @@ class Daily_check(threading.Thread):
     def run(self):
 
         time_check = time.time()
+        backup_time = time.time()
 
         while True:
             if time.time() - time_check >= checking_period:
@@ -39,8 +41,10 @@ class Daily_check(threading.Thread):
                 self.check_version()
                 self.misc.logging(DEFAULT_REGION, "Checking for a new champ", "log")
                 self.check_for_new_champ()
-                #self.misc.logging(DEFAULT_REGION, "Uploading a copy of the database", "log")
-                #self.sftp_database()
+                if time.time() - backup_time >= backup_period:
+                    backup_time = time.time()
+                    self.misc.logging(DEFAULT_REGION, "Uploading a copy of the database", "log")
+                    self.sftp_database()
             else:
                 time.sleep(checking_period)
 
