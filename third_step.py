@@ -43,11 +43,11 @@ class Third_step(threading.Thread):
                     self.update_game_stats()
                     self.lock[self.threadID].release()
                 else:
-                    time.sleep(checking_period)
                     self.lock[self.threadID].release()
+                    time.sleep(checking_period)
             else:
-                time.sleep(checking_period)
                 self.lock[self.threadID].release()
+                time.sleep(checking_period)
 
     def update_averages(self):
 
