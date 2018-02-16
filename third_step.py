@@ -13,7 +13,7 @@ class Third_step(threading.Thread):
         threading.Thread.__init__(self)
         self.player_region = region
         self.threadID = threadID
-        #self.lock = lock
+        self.lock = lock
         self.database=Database(DATABASE_DETAILS)
         self.m = Misc()
 
@@ -25,26 +25,29 @@ class Third_step(threading.Thread):
         checking_period = 3600
         self.m.logging(self.player_region, "Running the Regular updates thread for the first time", "log")
         while True:
-
+            self.lock[self.threadID].acquire()
             if time.time() - time_check >= checking_period:
                 time_check = time.time()
                 with open(STATIC_DATA_PATH + "End_Exec", "r") as end_check:
                     status = list(end_check.readlines())[0].strip()
                     print status
                     if status == "True":
-                        self.m.logging(DEFAULT_REGION, "Regular updates thread: End of execution was requested. This thread will exit now", "log")
-                        print DEFAULT_REGION, "Regular updates thread: End of execution was requested. This thread will now exit."
+                        self.m.logging(self.player_region, "Regular updates thread: End of execution was requested. This thread will exit now", "log")
+                        print self.player_region, "Regular updates thread: End of execution was requested. This thread will now exit."
                         break
 
-                self.m.logging(DEFAULT_REGION, "Running the Regular updates thread (hourly runs)", "log")
+                self.m.logging(self.player_region, "Running the Regular updates thread (hourly runs)", "log")
                 if self.update_averages() == 1:
                     self.update_final_stats()
                     self.update_champ_stats()
                     self.update_game_stats()
+                    self.lock[self.threadID].release()
                 else:
                     time.sleep(checking_period)
+                    self.lock[self.threadID].release()
             else:
                 time.sleep(checking_period)
+                self.lock[self.threadID].release()
 
     def update_averages(self):
 

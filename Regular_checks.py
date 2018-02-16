@@ -57,6 +57,7 @@ class Daily_check(threading.Thread):
         else:
             for l in self.lock:
                 l.acquire()
+                print "acquired ", l
             self.update_version(online_version)
             self.misc.logging(DEFAULT_REGION, "A new patch has been deployed! the new version is " + online_version , "log")
             Mysql_operations(self.database_details).export_database(self.static.get_current_version())

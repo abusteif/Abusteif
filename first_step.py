@@ -110,7 +110,7 @@ class Data_collector (threading.Thread):
             ##            m.logging(self.player_region, player_id + " did not play any ARAM games recently", "log")
 
                     m.logging(self.player_region, self.player_region + "- Thread: " + str(self.threadID) + ", Player: " + str(player_id) +
-                              ", All Games: " + str(player.total_games) + ", ARAM: " + str(player.aram_games), "log")
+                              ", All: " + str(player.total_games) + ", ARAM: " + str(player.aram_games), "log")
 
                     if games:
                         checked_players_games[player_id] = games
