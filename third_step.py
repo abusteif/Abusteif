@@ -61,7 +61,9 @@ class Third_step(threading.Thread):
         for champ in all_champs:
 
             games_analysed = self.database.get_database_item(self.player_region + "_champ_stats", "id", champ, "games_analysed")
-            if games_analysed == 0:
+            magic_dmg = self.database.get_sum(self.player_region + "_" + str(champ), "magical_damage")
+            deaths = self.database.get_sum(self.player_region + "_" + str(champ), "deaths")
+            if games_analysed == 0 or magic_dmg ==0 or deaths == 0:
                 self.m.logging(self.player_region, "Unable to update the averages for region " + self.player_region +
                                " due to insufficient games. This thread will sleep until the next scheduled execution ", "error")
                 return -1

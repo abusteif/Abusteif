@@ -17,8 +17,8 @@
       <file leaf-file-name="Regular_checks.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Regular_checks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="47" column="17" lean-forward="false" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
+            <state relative-caret-position="864">
+              <caret line="55" column="37" lean-forward="true" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -47,7 +47,7 @@
       <file leaf-file-name="classes.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5094">
+            <state relative-caret-position="-6831">
               <caret line="296" column="8" lean-forward="false" selection-start-line="296" selection-start-column="8" selection-end-line="296" selection-end-column="8" />
               <folding />
             </state>
@@ -67,8 +67,8 @@
       <file leaf-file-name="third_step.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/third_step.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+            <state relative-caret-position="612">
+              <caret line="65" column="66" lean-forward="false" selection-start-line="65" selection-start-column="66" selection-end-line="65" selection-end-column="66" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -79,8 +79,8 @@
       <file leaf-file-name="first_step.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/first_step.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1854">
-              <caret line="112" column="36" lean-forward="false" selection-start-line="112" selection-start-column="36" selection-end-line="112" selection-end-column="36" />
+            <state relative-caret-position="-72">
+              <caret line="41" column="50" lean-forward="true" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -358,13 +358,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1512561205670</updated>
-    </task>
-    <task id="LOCAL-00039" summary="trying to fix the random thread interuptions">
-      <created>1517477408993</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1517477408993</updated>
     </task>
     <task id="LOCAL-00040" summary="trying to fix the random thread interuptions">
       <created>1517477489553</created>
@@ -702,7 +695,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518755846256</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="Added locking for the regular updates thread">
+      <created>1518757314825</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1518757314826</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1065,8 +1065,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5094">
+        <state relative-caret-position="-6831">
           <caret line="296" column="8" lean-forward="false" selection-start-line="296" selection-start-column="8" selection-end-line="296" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Regular_checks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="55" column="37" lean-forward="true" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1079,26 +1087,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Regular_checks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="47" column="17" lean-forward="false" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/first_step.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1854">
-          <caret line="112" column="36" lean-forward="false" selection-start-line="112" selection-start-column="36" selection-end-line="112" selection-end-column="36" />
+        <state relative-caret-position="-72">
+          <caret line="41" column="50" lean-forward="true" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/third_step.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+        <state relative-caret-position="612">
+          <caret line="65" column="66" lean-forward="false" selection-start-line="65" selection-start-column="66" selection-end-line="65" selection-end-column="66" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
