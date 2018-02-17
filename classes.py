@@ -29,8 +29,6 @@ with open(STATIC_DATA_PATH + "conf_data", "r") as conf_data:
                 value = line.split("=")[1].strip()
                 if data == "API_KEY":
                     API_KEY = value
-                elif data == "PATCH_DATE":
-                    PATCH_DATE = int(value)
                 elif data == "DATABASE_DETAILS":
                     DATABASE_DETAILS = ast.literal_eval(value)
                 elif data == "ROOT_MYSQL_DETAILS":
@@ -300,6 +298,12 @@ class Static:
                 if line.split("=")[0].strip() == "VERSION":
                     return line.split("=")[1].strip()
 
+    def get_patch_date(self):
+        with open(STATIC_DATA_PATH+"conf_data", "r") as conf_data:
+            for line in conf_data.readlines():
+                if line.split("=")[0].strip() == "PATCH_DATE":
+                    return int(line.split("=")[1].strip())
+
     def check_current_version(self):
         current_patch_url = 'https://' + DEFAULT_REGION +'.api.riotgames.com/lol/static-data/v3/versions?api_key=' + self.api_key
         json_current_patch=URL_resolve(current_patch_url, DEFAULT_REGION, "/lol/static-data/v3/versions" ).request_to_json()
@@ -317,6 +321,7 @@ class Static:
                 elif line.split("=")[0].strip() == "VERSION":
                     conf_data.write("VERSION="+new_version+"\n")
             conf_data.truncate()
+
 
 
 class Database:

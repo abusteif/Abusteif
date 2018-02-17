@@ -2,7 +2,7 @@ from __future__ import division
 import threading
 import os.path
 import json
-from classes import Game, Player, Misc, Database, API_KEY, GAMES_FOLDERS_PATH, MAX_THREAD_NUM, DATABASE_DETAILS, PATCH_DATE, STATIC_DATA_PATH
+from classes import Game, Player, Misc, Database, API_KEY, GAMES_FOLDERS_PATH, MAX_THREAD_NUM, DATABASE_DETAILS, STATIC_DATA_PATH, Static
 from second_step_class import Second_step
 from third_step import Third_step
 from select import select
@@ -29,7 +29,6 @@ class Data_collector (threading.Thread):
         m = Misc()
         player_count = 0
         checked_players_games = dict()
-        games=[]
         second_step = Second_step(self.player_region)
         player_population = database.get_row_count(self.player_region + "_players_checked")
         processing_unit = player_population/MAX_THREAD_NUM
@@ -41,6 +40,7 @@ class Data_collector (threading.Thread):
             for one_player in list(database.get_all_items(self.player_region + "_players_checked", "id"))[start_position: end_position]:
                 self.lock[self.threadID].acquire()
                 if keep_running == True:
+                    patch_date = Static(API_KEY).get_patch_date()
                     player_id = str(one_player)
                     #print player_id
                     player = Player( self.player_region,API_KEY,account_id=player_id )
@@ -51,8 +51,8 @@ class Data_collector (threading.Thread):
 
                     # Get the timestamp of the last checked game
                     current_last_game_epoch = database.get_database_item(self.player_region + "_summoners", "id", player_id, "last_game_epoch")
-                    if current_last_game_epoch < PATCH_DATE:
-                        current_last_game_epoch = PATCH_DATE
+                    if current_last_game_epoch < patch_date:
+                        current_last_game_epoch = patch_date
 
 
                     recent_games = player.get_games(current_last_game_epoch, count=num_games_to_get)

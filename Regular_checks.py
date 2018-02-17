@@ -52,7 +52,8 @@ class Daily_check(threading.Thread):
     def check_version(self):
         print time.time()
         online_version = self.static.check_current_version()
-        if online_version == self.static.get_current_version():
+        current_version = self.static.get_current_version()
+        if online_version == current_version:
             self.misc.logging(DEFAULT_REGION, "Current version unchanged (" + online_version + ")", "log")
         else:
             for l in self.lock:
@@ -60,7 +61,8 @@ class Daily_check(threading.Thread):
                 print "acquired ", l
             self.update_version(online_version)
             self.misc.logging(DEFAULT_REGION, "A new patch has been deployed! the new version is " + online_version , "log")
-            Mysql_operations(self.database_details).export_database(self.static.get_current_version())
+            Mysql_operations(self.database_details).export_database(current_version)
+
             self.reset_database()
             for l in self.lock:
                 l.release()
