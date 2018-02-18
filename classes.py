@@ -86,9 +86,7 @@ class URL_resolve:
                 try:
                     self.html_result = requests.get(self.url)
                 except requests.exceptions.RequestException as e:
-                    #print time.time()
-                    #print self.url
-                    #print e
+
                     m.logging(self.region,"Encountered a Requests error. Sleeping for "+str(retry_time) +" seconds" ,"error")
                     time.sleep(retry_time)
                     retry_time *=2
@@ -102,25 +100,23 @@ class URL_resolve:
             elif self.html_result.status_code == 429:
                 m.logging(self.region, self.url + " encountered a rate limit error", "error" )
                 self.handle_rate_limit(status = 429)
-                #print "Rate limit error"
-                #time.sleep(10)
 
 
             elif self.html_result.status_code == 404:
                 self.handle_rate_limit()
-                #m.logging(self.region, self.url + " returned a 404 Error", "error")
                 self.html_result =-1
                 return
+
             else:
                 m.logging(self.region, self.url + " encountered error: " + str(self.html_result.status_code) + ". Sleeping .. for " + str(retry_time) +" seconds", "error")
                 time.sleep(retry_time)
                 self.handle_rate_limit()
                 retry_time *= 2
-                #if retry_time == 1024:
-                #    break
 
-        m.logging(self.region, "Exiting program due to error: " + str(self.html_result.status_code) +" persisting after 10 attempts" , "error")
-        sys.exit(1)
+            if self.html_result.status_code == 403:
+                if retry_time >=1024:
+                    m.logging(self.region, "Exiting program due to error: " + str(self.html_result.status_code) +" persisting after 10 attempts" , "error")
+                    sys.exit(1)
 
 
     def request_to_json(self):
@@ -134,10 +130,6 @@ class URL_resolve:
     def handle_rate_limit(self,status = 200):
 
         if not "X-Method-Rate-Limit-Count" in self.html_result.headers:
-            print self.url
-            print self.region
-            print self.html_result.headers
-            print self.html_result
             return
 
         m = Misc()
@@ -161,7 +153,6 @@ class URL_resolve:
             for count in range(app_count.__len__()):
                 if int(app_limit[count].split(":")[0]) - int(app_count[count].split(":")[0]) < MAX_THREAD_NUM:
         ##            m.logging(self.region, "Rate limit for the region "+self.region + " is almost reached", "error")
-        ##            print "Rate limit for the region "+self.region
                     app_time_wait =  int((app_limit[count].split(":")[1])) - time.time() + URL_resolve.app_window[count]
         ##            print app_time_wait
                     time.sleep(abs(app_time_wait))
@@ -371,6 +362,7 @@ class Database:
                 quoted_values += "\"" + value + "\"" + ","
             column_values = quoted_values[:-1]
         try:
+
             self.cur.execute("INSERT INTO " + table + " (" + column_names + ") VALUES ( " + column_values + " ); ")
             #Misc().logging(table.split("_")[0], "Successfully added " + "( " + column_values + " )" + " to " + table + " table", "log")
             #print "Successfully addedatabase_named " + "( " + column_values + " )" + " to " + table + " table"

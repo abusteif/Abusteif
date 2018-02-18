@@ -136,6 +136,4 @@ class Data_collector (threading.Thread):
                     database.close_db()
                     break
 
-            m.logging(self.player_region, "End of program reached. Exi"
-                                          "ting..", "log")
-            break
+            m.logging(self.player_region, "End of loop reached. Restarting..", "log")
