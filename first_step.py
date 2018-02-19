@@ -134,6 +134,6 @@ class Data_collector (threading.Thread):
 
                 else:
                     database.close_db()
-                    break
+                    return
 
             m.logging(self.player_region, "End of loop reached. Restarting..", "log")
