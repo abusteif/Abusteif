@@ -132,4 +132,4 @@ class Initial_check:
         database.close_db()
 
 if __name__ == '__main__':
-    Initial_check.all_initial_checks()
+    Initial_check().all_initial_checks()

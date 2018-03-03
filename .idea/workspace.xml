@@ -27,8 +27,8 @@
       <file leaf-file-name="Initial_checks.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Initial_checks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="111" column="96" lean-forward="false" selection-start-line="111" selection-start-column="96" selection-end-line="111" selection-end-column="96" />
+            <state relative-caret-position="815">
+              <caret line="134" column="19" lean-forward="false" selection-start-line="134" selection-start-column="19" selection-end-line="134" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -360,13 +360,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1512561205670</updated>
-    </task>
-    <task id="LOCAL-00045" summary="trying to fix the random thread interuptions. Done few changes, but problem should still exist">
-      <created>1517565227537</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1517565227537</updated>
     </task>
     <task id="LOCAL-00046" summary="trying to fix the random thread interuptions. Done few changes, but problem should still exist">
       <created>1517633871875</created>
@@ -704,7 +697,14 @@
       <option name="project" value="LOCAL" />
       <updated>1520076999131</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094" summary="added main function to initial_checks file">
+      <created>1520077801788</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1520077801788</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -736,7 +736,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated intervals" />
     <MESSAGE value="updated checking periods" />
     <MESSAGE value="commented out the insert logging and added thread reporting" />
     <MESSAGE value="less logs and tried to fix the regular updates thread" />
@@ -761,7 +760,8 @@
     <MESSAGE value="patch date update" />
     <MESSAGE value="fixed exit condition" />
     <MESSAGE value="minor change" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor change" />
+    <MESSAGE value="added main function to initial_checks file" />
+    <option name="LAST_COMMIT_MESSAGE" value="added main function to initial_checks file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1104,8 +1104,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Initial_checks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="111" column="96" lean-forward="false" selection-start-line="111" selection-start-column="96" selection-end-line="111" selection-end-column="96" />
+        <state relative-caret-position="815">
+          <caret line="134" column="19" lean-forward="false" selection-start-line="134" selection-start-column="19" selection-end-line="134" selection-end-column="19" />
           <folding />
         </state>
       </provider>
