@@ -1,13 +1,11 @@
 from __future__ import division
 import requests
 import json
-import BeautifulSoup
 import timeit
 import time
 import datetime
 import MySQLdb
 import os
-from BeautifulSoup import BeautifulSoup
 import sys
 from collections import OrderedDict
 import subprocess
