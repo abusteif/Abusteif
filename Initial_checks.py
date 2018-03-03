@@ -30,7 +30,6 @@ class Initial_check:
                         "time",
                         "datetime",
                         "collections",
-                        "BeautifulSoup",
                         "paramiko"]
         print "Checking modules"
         for module in modules_list:
