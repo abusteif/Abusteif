@@ -57,8 +57,8 @@
       <file leaf-file-name="classes.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="323" column="0" lean-forward="true" selection-start-line="323" selection-start-column="0" selection-end-line="323" selection-end-column="0" />
+            <state relative-caret-position="307">
+              <caret line="574" column="31" lean-forward="false" selection-start-line="574" selection-start-column="31" selection-end-line="574" selection-end-column="31" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -372,13 +372,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1512561205670</updated>
-    </task>
-    <task id="LOCAL-00049" summary="added some error handling and created the database reset script">
-      <created>1517728117362</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1517728117362</updated>
     </task>
     <task id="LOCAL-00050" summary="fixed stupid mistake with games analysed counter">
       <created>1517807014131</created>
@@ -716,7 +709,14 @@
       <option name="project" value="LOCAL" />
       <updated>1520087120928</updated>
     </task>
-    <option name="localTasksCounter" value="98" />
+    <task id="LOCAL-00098" summary="added new autocommit">
+      <created>1520088359856</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1520088359856</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -748,7 +748,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="less logs and tried to fix the regular updates thread" />
     <MESSAGE value="trying to fix the random thread interuptions" />
     <MESSAGE value="trying to fix the random thread interuptions. Done few changes, but problem should still exist" />
     <MESSAGE value="added some error handling and created the database reset script" />
@@ -773,7 +772,8 @@
     <MESSAGE value="added main function to initial_checks file" />
     <MESSAGE value="removed all references to BeautifulSoup" />
     <MESSAGE value="removed autocommit statements" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed autocommit statements" />
+    <MESSAGE value="added new autocommit" />
+    <option name="LAST_COMMIT_MESSAGE" value="added new autocommit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1119,8 +1119,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="323" column="0" lean-forward="true" selection-start-line="323" selection-start-column="0" selection-end-line="323" selection-end-column="0" />
+        <state relative-caret-position="307">
+          <caret line="574" column="31" lean-forward="false" selection-start-line="574" selection-start-column="31" selection-end-line="574" selection-end-column="31" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>

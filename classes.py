@@ -320,7 +320,7 @@ class Database:
         self.db = MySQLdb.connect(host=database_details[0], user=database_details[1], passwd=database_details[2], db=database_details[3])
         self.cur = self.db.cursor()
         self.db_name = database_details[3]
-        self.db.autocommit()
+        self.db.autocommit(True)
 
         #self.cur.connection.autocommit(True)
         return
@@ -572,7 +572,7 @@ class Mysql_operations:
         self.database_details = database_details
         self.db = MySQLdb.connect(host=database_details[0], user=database_details[1], passwd=database_details[2])
         self.cur = self.db.cursor()
-        self.db.autocommit()
+        self.db.autocommit(True)
 
         #self.cur.connection.autocommit(True)
 
