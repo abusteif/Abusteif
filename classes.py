@@ -320,7 +320,7 @@ class Database:
         self.db = MySQLdb.connect(host=database_details[0], user=database_details[1], passwd=database_details[2], db=database_details[3])
         self.cur = self.db.cursor()
         self.db_name = database_details[3]
-        self.cur.connection.autocommit(True)
+        #self.cur.connection.autocommit(True)
         return
 
     def update_numberof_games(self, table, id, id_value, column, number):
@@ -569,7 +569,7 @@ class Mysql_operations:
     def __init__(self, database_details):
         self.database_details = database_details
         self.cur = MySQLdb.connect(host=database_details[0], user=database_details[1], passwd=database_details[2]).cursor()
-        self.cur.connection.autocommit(True)
+        #self.cur.connection.autocommit(True)
 
     def create_user(self, user_details):
         try:
