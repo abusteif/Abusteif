@@ -130,3 +130,6 @@ class Initial_check:
                 database.insert_items(region + "_champ_stats", "id, name", str(champ) +
                                       " , " + database.get_database_item("Base_champ_list", "id", champ, "name") )
         database.close_db()
+
+if __name__ == '__main__':
+    Initial_check.all_initial_checks()
