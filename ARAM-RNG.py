@@ -28,7 +28,7 @@ for i in range(REGIONS.__len__()):
         threads.append(data_collect_thread)
 
 for i in range(REGIONS.__len__()*MAX_THREAD_NUM, REGIONS.__len__()*(1+MAX_THREAD_NUM), 1):
-    tables_update_thread = Third_step(i, locks,REGIONS[i%MAX_THREAD_NUM])
+    tables_update_thread = Third_step(i, locks,REGIONS[i%REGIONS.__len__()])
     tables_update_thread.daemon = True
     tables_update_thread.start()
     threads.append(tables_update_thread)
