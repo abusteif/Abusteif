@@ -202,7 +202,7 @@ class Player:
             self.get_player_id(player_name)
 
 
-    def get_games(self, begin_time=0, count=100 ):
+    def get_games(self, begin_time=0, count=99 ):
         m = Misc()
         first_game = True
         recent_games_list = OrderedDict()
@@ -213,16 +213,13 @@ class Player:
         self.json_games_url = URL_resolve(games_url, self.region, "/lol/match/v3/matchlists/by-account/{accountId}").request_to_json()
         if self.json_games_url == -1:
             return -1
-        if begin_time == 0 or self.json_games_url['matches'].__len__() > count:
-            if "matches" in self.json_games_url:
-                all_games = self.json_games_url['matches']
-            else:
-                m.logging(self.region, str(self.json_games_url) + " was returned after making the following call " + games_url, "error")
+
+        if "matches" in self.json_games_url:
+            all_games = self.json_games_url['matches']
         else:
-            if "matches" in self.json_games_url:
-                all_games = self.json_games_url['matches'][:-1]
-            else:
-                pass
+            m.logging(self.region, str(self.json_games_url) + " was returned after making the following call " + games_url, "error")
+            return -1
+
         for game in all_games:
             if recent_games_list.__len__() == count:
                 return recent_games_list
@@ -261,8 +258,9 @@ class Champ:
         champ_id = str(self.champ_id)
         champ_name_url = 'https://EUW1.api.riotgames.com/lol/static-data/v3/champions/' + champ_id +'?locale=en_US&tags=tags&api_key=' + self.api_key
         json_champ = URL_resolve(champ_name_url, "EUW1", "/lol/static-data/v3/champions/{id}").request_to_json()
-        details = OrderedDict()
-        details = {"id":json_champ['id'] ,"name":json_champ['name'].encode('utf-8'), "class1":json_champ['tags'][0].encode('utf-8'), "class2":json_champ['tags'][1].encode('utf-8')}
+        details = {"id":json_champ['id'] ,"name":json_champ['name'].encode('utf-8'), "class1":json_champ['tags'][0].encode('utf-8')}
+        if json_champ['tags'][1].encode('utf-8'):
+            details["class2"]=json_champ['tags'][1].encode('utf-8')
         return details
 
 
