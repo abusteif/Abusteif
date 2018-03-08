@@ -490,8 +490,14 @@ class Database:
 
     def get_row(self,table, criteria, criteria_value):
         criteria_value = str(criteria_value)
-        self.cur.execute("SELECT * FROM " + table + " WHERE " +criteria +" = "+ criteria_value + " ;")
-        return self.cur.fetchall()[0]
+        statement = "SELECT * FROM " + table + " WHERE " +criteria +" = "+ criteria_value + " ;"
+        self.cur.execute(statement)
+        result = self.cur.fetchall()
+        if result:
+            return result[0]
+        else:
+            print statement + "returned no result"
+            return result
 
     def get_row_count(self, table):
         data = self.cur.execute("SELECT COUNT(*) FROM " + table + " ;")

@@ -90,9 +90,12 @@ class Daily_check(threading.Thread):
         new_champ_id = str(champ_details['id'])
         new_champ_name = champ_details['name']
         new_champ_class_1 = champ_details['class1']
-        new_champ_class_2 = champ_details['class2']
-
-        self.database.insert_items("Base_champ_list", "name, id, class1, class2", new_champ_name + "," + new_champ_id + "," + new_champ_class_1 + "," + new_champ_class_2)
+        if champ_details['class2']:
+            new_champ_class_2 = champ_details['class2']
+            self.database.insert_items("Base_champ_list", "name, id, class1, class2",
+                                       new_champ_name + "," + new_champ_id + "," + new_champ_class_1 + "," + new_champ_class_2)
+        else:
+            self.database.insert_items("Base_champ_list", "name, id, class1", new_champ_name + "," + new_champ_id + "," + new_champ_class_1)
         for region in REGIONS + ["Base"]:
             self.database.insert_items(region+"_averages", "champ_id", new_champ_id)
             self.database.insert_items(region+"_champ_stats", "name, id", new_champ_name + "," + new_champ_id)

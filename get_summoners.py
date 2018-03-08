@@ -30,7 +30,7 @@ class Get_summoners(threading.Thread):
         #The purpose of the function below is to find as many players that play mainly ARAM games as possible.
         #This is done by recursively going through players' games and extracting the 10 participants' ID's
 
-        self.get_players(player_list, self.player_region, self.database, API_KEY, 4, 0)
+        self.get_players(player_list, self.player_region, self.database, API_KEY, 4, 0, 20000)
 
         misc.logging(self.player_region, "Summoner retreival algorithm completed", "log")
         print("Time taken: %s seconds ---" % (time.time() - start_time))
@@ -38,7 +38,7 @@ class Get_summoners(threading.Thread):
 
         self.database.close_db()
 
-    def get_players(self, player_list, player_region, database, api_key,  i, j):
+    def get_players(self, player_list, player_region, database, api_key,  i, j, total_num_players):
 
     #i determines the depth of the execution
         i = i -1
@@ -63,12 +63,15 @@ class Get_summoners(threading.Thread):
                     game_participants = Json_ops(game_details).participants_id()
 
                     for current_player in game_participants:
+                        if database.get_row_count(player_region+"_players_checked") >= total_num_players:
+                            print "ads"
+                            return
                         if not current_player == player:
                             player_list1.append(current_player)
                             if not database.insert_items(player_region+"_players_checked", "id", str(current_player)):
                                 database.update_numberof_games(player_region+"_players_checked", "id" ,str(current_player),  "times_hit", 1)
 
-                    self.get_players(player_list1, player_region, database, api_key, i, j)
+                    self.get_players(player_list1, player_region, database, api_key, i, j, total_num_players)
 
 
 if __name__ == '__main__':

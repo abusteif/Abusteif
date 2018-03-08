@@ -213,11 +213,15 @@ class Third_step(threading.Thread):
 
     def update_game_stats(self):
 
+        self.m.logging(self.player_region, "Updating the game stats table for region " + self.player_region, "log")
+
         games = self.database.get_all_items(self.player_region + "_games", "id")
 
         stat_names = list(self.database.get_column_names("Base_champ_stats"))[2:]
         for game_id in games:
             champs = list(self.database.get_row(self.player_region + "_games", "id", game_id))[4:]
+            if not champs:
+                continue
             if champs[1] == 0:
                 continue
             winning_team = champs.pop(0)
