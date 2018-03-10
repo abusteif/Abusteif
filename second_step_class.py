@@ -62,6 +62,8 @@ class Second_step:
                         if new_champ_check == True:
                             self.misc.logging(self.region, "New champ found in game " + str(game_id) + ". Ignoring this game..", "error")
                             self.database.delete_line(self.region+"_games", "id", str(game_id) )
+                            self.database.update_numberof_games(self.region+"_summoners", "id", player_id, "aram_games", -1)
+                            self.database.update_numberof_games(self.region+"_summoners", "id", player_id, "total_games", -1)
                             continue
                         for i in range(10):
                             champ_names["champ_" + str(i + 1)] = all_champs[i]

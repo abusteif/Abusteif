@@ -8,7 +8,7 @@ import time
 from select import select
 import sys
 
-checking_period = 3600
+checking_period = 1800
 backup_period = 3*3600
 class Daily_check(threading.Thread):
 
@@ -90,7 +90,7 @@ class Daily_check(threading.Thread):
         new_champ_id = str(champ_details['id'])
         new_champ_name = champ_details['name']
         new_champ_class_1 = champ_details['class1']
-        if champ_details['class2']:
+        if "class2" in champ_details:
             new_champ_class_2 = champ_details['class2']
             self.database.insert_items("Base_champ_list", "name, id, class1, class2",
                                        new_champ_name + "," + new_champ_id + "," + new_champ_class_1 + "," + new_champ_class_2)

@@ -324,13 +324,20 @@ class Database:
         return
 
     def update_numberof_games(self, table, id, id_value, column, number):
+
+        sign = " + "
+        if int(number) < 0:
+            sign = " - "
+            number = abs(number)
+
         number = str(number)
         id_value=str(id_value)
         counter = 3
+
         while counter > 0:
             try:
                 counter -=1
-                self.cur.execute("UPDATE " + table + " SET " + column + " = " + column + " + " + number + " WHERE " + id + " = " + id_value + ";")
+                self.cur.execute("UPDATE " + table + " SET " + column + " = " + column + sign + number + " WHERE " + id + " = " + id_value + ";")
                 break
             except MySQLdb.Error as e:
                 Misc().logging(DEFAULT_REGION, "MYSQL error with " + e.message, "error")
