@@ -17,7 +17,7 @@
       <file leaf-file-name="Regular_checks.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Regular_checks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="41">
+            <state relative-caret-position="18">
               <caret line="80" column="65" lean-forward="false" selection-start-line="80" selection-start-column="65" selection-end-line="80" selection-end-column="65" />
               <folding />
             </state>
@@ -37,17 +37,17 @@
       <file leaf-file-name="second_step_class.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/second_step_class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1296">
-              <caret line="78" column="47" lean-forward="false" selection-start-line="78" selection-start-column="47" selection-end-line="78" selection-end-column="47" />
+            <state relative-caret-position="437">
+              <caret line="62" column="90" lean-forward="true" selection-start-line="62" selection-start-column="90" selection-end-line="62" selection-end-column="90" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="first_step.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="first_step.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/first_step.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1395">
+            <state relative-caret-position="144">
               <caret line="17" column="24" lean-forward="false" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
@@ -56,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="classes.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="classes.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="220" column="21" lean-forward="false" selection-start-line="220" selection-start-column="21" selection-end-line="220" selection-end-column="21" />
+            <state relative-caret-position="313">
+              <caret line="261" column="33" lean-forward="false" selection-start-line="261" selection-start-column="33" selection-end-line="261" selection-end-column="33" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -119,7 +119,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>print</find>
       <find>default_Re</find>
       <find>classes</find>
       <find>false</find>
@@ -149,6 +148,7 @@
       <find>acquired</find>
       <find>acqui</find>
       <find>count</find>
+      <find>champ</find>
     </findStrings>
     <replaceStrings>
       <replace>self.database</replace>
@@ -228,8 +228,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -370,13 +370,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1512561205670</updated>
-    </task>
-    <task id="LOCAL-00053" summary="Implemented a fix for the random errors that were causing threads failure">
-      <created>1517919927390</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1517919927390</updated>
     </task>
     <task id="LOCAL-00054" summary="updated the assert_url function. Now it loops indefinitely with a doubling retry timer.">
       <created>1517963580322</created>
@@ -714,23 +707,30 @@
       <option name="project" value="LOCAL" />
       <updated>1520495553570</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="BIG CHANGE to the game retreival function">
+      <created>1520508769185</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1520508769186</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="381" y="188" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16657682" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1606469" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3006135" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3006135" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997955" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997955" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -746,7 +746,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added some error handling and created the database reset script" />
     <MESSAGE value="fixed stupid mistake with games analysed counter" />
     <MESSAGE value="Implemented a fix for the random errors that were causing threads failure" />
     <MESSAGE value="updated the assert_url function. Now it loops indefinitely with a doubling retry timer." />
@@ -771,7 +770,8 @@
     <MESSAGE value="added new autocommit" />
     <MESSAGE value="fixed the regular threads creation" />
     <MESSAGE value="pushed error handling for games table&#10;updated get_summoners to limit the number of players to 20000&#10;updated new champs addition" />
-    <option name="LAST_COMMIT_MESSAGE" value="pushed error handling for games table&#10;updated get_summoners to limit the number of players to 20000&#10;updated new champs addition" />
+    <MESSAGE value="BIG CHANGE to the game retreival function" />
+    <option name="LAST_COMMIT_MESSAGE" value="BIG CHANGE to the game retreival function" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1076,14 +1076,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/second_step_class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1296">
-          <caret line="78" column="47" lean-forward="false" selection-start-line="78" selection-start-column="47" selection-end-line="78" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Static_data/conf_data">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -1092,9 +1084,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/first_step.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="17" column="24" lean-forward="false" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/second_step_class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="62" column="90" lean-forward="true" selection-start-line="62" selection-start-column="90" selection-end-line="62" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Regular_checks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
+        <state relative-caret-position="18">
           <caret line="80" column="65" lean-forward="false" selection-start-line="80" selection-start-column="65" selection-end-line="80" selection-end-column="65" />
           <folding />
         </state>
@@ -1102,18 +1112,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="220" column="21" lean-forward="false" selection-start-line="220" selection-start-column="21" selection-end-line="220" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/first_step.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1395">
-          <caret line="17" column="24" lean-forward="false" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+        <state relative-caret-position="313">
+          <caret line="261" column="33" lean-forward="false" selection-start-line="261" selection-start-column="33" selection-end-line="261" selection-end-column="33" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
