@@ -50,9 +50,7 @@ class Get_summoners(threading.Thread):
             player_o = Player(player_region, api_key, account_id=player)
             #player_o = Player(player, player_region, api_key)
             recent_games = player_o.get_games()
-            if recent_games == -1:
-                continue
-            if recent_games.__len__() < 10:
+            if recent_games == -1 or recent_games == -2 or recent_games.__len__() < 10:
                 continue
             print list(recent_games)[:20]
             for game in list(recent_games)[:20]:
