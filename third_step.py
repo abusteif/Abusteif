@@ -27,10 +27,10 @@ class Third_step(threading.Thread):
         while True:
             self.lock[self.threadID].acquire()
             if time.time() - time_check >= checking_period:
+                print time.time()
                 time_check = time.time()
                 with open(STATIC_DATA_PATH + "End_Exec", "r") as end_check:
                     status = list(end_check.readlines())[0].strip()
-                    print status
                     if status == "True":
                         self.m.logging(self.player_region, "Regular updates thread: End of execution was requested. This thread will exit now", "log")
                         print self.player_region, "Regular updates thread: End of execution was requested. This thread will now exit."

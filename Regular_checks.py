@@ -50,7 +50,6 @@ class Daily_check(threading.Thread):
 
 
     def check_version(self):
-        print time.time()
         online_version = self.static.check_current_version()
         current_version = self.static.get_current_version()
         if online_version == current_version:
