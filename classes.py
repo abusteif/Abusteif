@@ -259,7 +259,7 @@ class Champ:
         champ_name_url = 'https://EUW1.api.riotgames.com/lol/static-data/v3/champions/' + champ_id +'?locale=en_US&tags=tags&api_key=' + self.api_key
         json_champ = URL_resolve(champ_name_url, "EUW1", "/lol/static-data/v3/champions/{id}").request_to_json()
         details = {"id":json_champ['id'] ,"name":json_champ['name'].encode('utf-8'), "class1":json_champ['tags'][0].encode('utf-8')}
-        if json_champ['tags'][1]:
+        if json_champ['tags'].__len__() > 1:
             details["class2"]=json_champ['tags'][1].encode('utf-8')
         return details
 

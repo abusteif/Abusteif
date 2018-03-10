@@ -1,6 +1,5 @@
-from classes import DEFAULT_REGION, DATABASE_DETAILS, Database
+from classes import DEFAULT_REGION, DATABASE_DETAILS, Database, Champ, API_KEY
 
 database=Database(DATABASE_DETAILS)
 
-if not database.get_row("OC1_games", "id", 51):
-    print "dd"
+print Champ(145,API_KEY ).getChampDetails()
