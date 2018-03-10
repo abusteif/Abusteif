@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4989f691-08a9-4696-b7a7-483880d68e11" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Regular_checks.py" afterPath="$PROJECT_DIR$/Regular_checks.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes.py" afterPath="$PROJECT_DIR$/classes.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/second_step_class.py" afterPath="$PROJECT_DIR$/second_step_class.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.py" afterPath="$PROJECT_DIR$/test.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,10 +14,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Regular_checks.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Regular_checks.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Regular_checks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
+            <state relative-caret-position="-429">
               <caret line="92" column="36" lean-forward="false" selection-start-line="92" selection-start-column="36" selection-end-line="92" selection-end-column="36" />
               <folding />
             </state>
@@ -37,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="second_step_class.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="second_step_class.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/second_step_class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="65" column="119" lean-forward="false" selection-start-line="65" selection-start-column="119" selection-end-line="65" selection-end-column="119" />
+            <state relative-caret-position="183">
+              <caret line="92" column="4" lean-forward="true" selection-start-line="92" selection-start-column="4" selection-end-line="92" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -373,13 +370,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1512561205670</updated>
-    </task>
-    <task id="LOCAL-00058" summary="added conf file temporarily">
-      <created>1518003407035</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1518003407035</updated>
     </task>
     <task id="LOCAL-00059" summary="added conf file temporarily">
       <created>1518003758123</created>
@@ -717,7 +707,14 @@
       <option name="project" value="LOCAL" />
       <updated>1520657279607</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="One can hope that the champ addition function will work">
+      <created>1520678444793</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1520678444793</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -749,7 +746,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated the assert_url function. Now it loops indefinitely with a doubling retry timer." />
     <MESSAGE value="small changes to deal with the dmg_ratio error" />
     <MESSAGE value="added conf file temporarily" />
     <MESSAGE value="fixed initial checks issue" />
@@ -774,7 +770,8 @@
     <MESSAGE value="BIG CHANGE to the game retreival function" />
     <MESSAGE value="fixed champ details .. again" />
     <MESSAGE value="fixed get_summoners function" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed get_summoners function" />
+    <MESSAGE value="One can hope that the champ addition function will work" />
+    <option name="LAST_COMMIT_MESSAGE" value="One can hope that the champ addition function will work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1107,18 +1104,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/second_step_class.py">
+    <entry file="file://$PROJECT_DIR$/Regular_checks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="65" column="119" lean-forward="false" selection-start-line="65" selection-start-column="119" selection-end-line="65" selection-end-column="119" />
+        <state relative-caret-position="-429">
+          <caret line="92" column="36" lean-forward="false" selection-start-line="92" selection-start-column="36" selection-end-line="92" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Regular_checks.py">
+    <entry file="file://$PROJECT_DIR$/second_step_class.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="92" column="36" lean-forward="false" selection-start-line="92" selection-start-column="36" selection-end-line="92" selection-end-column="36" />
+        <state relative-caret-position="183">
+          <caret line="92" column="4" lean-forward="true" selection-start-line="92" selection-start-column="4" selection-end-line="92" selection-end-column="4" />
           <folding />
         </state>
       </provider>
