@@ -20,7 +20,7 @@ class Data_collector (threading.Thread):
     def run(self):
         database=Database(DATABASE_DETAILS)
         aram_files_path = GAMES_FOLDERS_PATH + self.player_region
-        num_games_to_get = 5
+        num_games_to_get = 99
 
         time_check = time.time()
         checking_period = 3600

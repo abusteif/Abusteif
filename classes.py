@@ -179,8 +179,15 @@ class Game:
 
 
     def game_details(self):
-        game_url = 'https://' + self.region + '.api.riotgames.com/lol/match/v3/matches/' + self.game_id + '?api_key=' + self.api_key
-        self.json_game_details = URL_resolve(game_url, self.region, "/lol/match/v3/matches/{matchId}").request_to_json()
+        counter = 3
+        while counter > 0:
+            game_url = 'https://' + self.region + '.api.riotgames.com/lol/match/v3/matches/' + self.game_id + '?api_key=' + self.api_key
+            self.json_game_details = URL_resolve(game_url, self.region, "/lol/match/v3/matches/{matchId}").request_to_json()
+            if self.json_game_details == -1:
+                time.sleep(12/counter)
+                counter -=1
+            else:
+                counter =0
         return self.json_game_details
 
     def game_champs(self, team):

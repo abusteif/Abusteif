@@ -36,13 +36,15 @@ class Second_step:
                 #print player_id
 
                 all_games = games_file.readlines()
-                exising_champs = list(self.database.get_all_items("Base_champ_list", "id"))
+                existing_champs = list(self.database.get_all_items("Base_champ_list", "id"))
                 for game in all_games:
                     champ_names = dict()
                     try:
                         json_game = json.loads(game.strip())
                     except ValueError:
                         self.misc.logging(self.region,"Json error in file: " + str(player_id) + ".. Ignoring", "error")
+                        continue
+                    if json_game == -1:
                         continue
                     output = Json_ops(json_game)
                     game_id = output.game_id()
@@ -56,7 +58,7 @@ class Second_step:
                         all_champs = output.get_all_champs()
                         new_champ_check=False
                         for champ in all_champs:
-                            if not champ in exising_champs:
+                            if not champ in existing_champs:
                                 new_champ_check = True
                                 break
                         if new_champ_check == True:
