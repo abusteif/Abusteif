@@ -5,6 +5,7 @@ from classes import Mysql_operations, Database, Static,Champ,REGIONS, Misc,\
 import threading
 import paramiko
 import time
+import os
 from select import select
 import sys
 
@@ -136,6 +137,11 @@ class Daily_check(threading.Thread):
         except Exception as e:
             self.misc.logging(DEFAULT_REGION, "Error while transferring database " + remote_file_name+" to the remote SFTP server. Error message: " + str(e), "error")
             return
+        try:
+            os.remove(local_file_name)
+            self.misc.logging(DEFAULT_REGION, "Local copy of backup file (" + remote_file_name + ") has been deleted.", "log")
+        except OSError as e:
+            self.misc.logging(DEFAULT_REGION, "Error while deleting local backup file (" + remote_file_name + "): " + e.message, "error")
         connection.close()
         transport.close()
 

@@ -27,7 +27,7 @@ class Third_step(threading.Thread):
         while True:
             self.lock[self.threadID].acquire()
             if time.time() - time_check >= checking_period:
-                print time.time()
+                print self.player_region, " ", self.threadID, " ",  time.time()
                 time_check = time.time()
                 with open(STATIC_DATA_PATH + "End_Exec", "r") as end_check:
                     status = list(end_check.readlines())[0].strip()
@@ -38,14 +38,17 @@ class Third_step(threading.Thread):
 
                 self.m.logging(self.player_region, "Running the Regular updates thread (hourly runs)", "log")
                 if self.update_averages() == 1:
+                    print self.player_region + " checkpoint 1"
                     self.update_final_stats()
                     self.update_champ_stats()
                     self.update_game_stats()
                     self.lock[self.threadID].release()
                 else:
+                    print self.player_region + " checkpoint 2"
                     self.lock[self.threadID].release()
                     time.sleep(checking_period)
             else:
+                print self.player_region + " checkpoint 3"
                 self.lock[self.threadID].release()
                 time.sleep(checking_period)
 
