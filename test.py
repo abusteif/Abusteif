@@ -19,3 +19,4 @@ for e in l:
                 result = j.did_win(champ)
                 if champ == player:
                     print result
+

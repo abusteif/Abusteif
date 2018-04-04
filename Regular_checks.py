@@ -125,6 +125,7 @@ class Daily_check(threading.Thread):
     def sftp_database(self):
         local_file_name = Mysql_operations(self.database_details).export_database("daily_sftp_database")
         remote_file_name = local_file_name.split("/")[-1]
+        transfer_error = False
         try:
             transport = paramiko.Transport((SFTP_HOST, SFTP_PORT))
             transport.connect(username=SFTP_USERNAME, password=SFTP_PASSWORD)
@@ -136,14 +137,16 @@ class Daily_check(threading.Thread):
             self.misc.logging(DEFAULT_REGION, "Database upload successful ("+remote_file_name+")", "log")
         except Exception as e:
             self.misc.logging(DEFAULT_REGION, "Error while transferring database " + remote_file_name+" to the remote SFTP server. Error message: " + str(e), "error")
-            return
+            transfer_error = True
         try:
             os.remove(local_file_name)
             self.misc.logging(DEFAULT_REGION, "Local copy of backup file (" + remote_file_name + ") has been deleted.", "log")
         except OSError as e:
             self.misc.logging(DEFAULT_REGION, "Error while deleting local backup file (" + remote_file_name + "): " + e.message, "error")
-        connection.close()
-        transport.close()
+        if not transfer_error:
+            connection.close()
+            transport.close()
+        return
 
 
 
