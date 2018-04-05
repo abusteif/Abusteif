@@ -45,7 +45,7 @@ class Daily_check(threading.Thread):
                 if time.time() - backup_time >= backup_period:
                     backup_time = time.time()
                     self.misc.logging(DEFAULT_REGION, "Uploading a copy of the database", "log")
-                    self.sftp_database()
+                    self.sftp_database("regular_database_backup")
             else:
                 time.sleep(checking_period)
 
@@ -61,7 +61,8 @@ class Daily_check(threading.Thread):
                 print "acquired ", l
             self.update_version(online_version)
             self.misc.logging(DEFAULT_REGION, "A new patch has been deployed! the new version is " + online_version , "log")
-            Mysql_operations(self.database_details).export_database(current_version)
+            self.sftp_database(current_version )
+            #Mysql_operations(self.database_details).export_database(current_version)
 
             self.reset_database()
             for l in self.lock:
@@ -122,8 +123,8 @@ class Daily_check(threading.Thread):
                 self.database.replicate_table("Base_champ", region + "_" + str(champ))
                 self.misc.logging(region, "table " +region + "_" + str(champ)+ " has been reset", "log")
 
-    def sftp_database(self):
-        local_file_name = Mysql_operations(self.database_details).export_database("daily_sftp_database")
+    def sftp_database(self, file_name):
+        local_file_name = Mysql_operations(self.database_details).export_database(file_name)
         remote_file_name = local_file_name.split("/")[-1]
         transfer_error = False
         try:
@@ -133,7 +134,6 @@ class Daily_check(threading.Thread):
 
             connection.put(local_file_name, SFTP_REMOTE_PATH+remote_file_name)
 
-            #connection.put(local_file_name, "/home/pi/Abusteif/sftp_test_folder/test")
             self.misc.logging(DEFAULT_REGION, "Database upload successful ("+remote_file_name+")", "log")
         except Exception as e:
             self.misc.logging(DEFAULT_REGION, "Error while transferring database " + remote_file_name+" to the remote SFTP server. Error message: " + str(e), "error")

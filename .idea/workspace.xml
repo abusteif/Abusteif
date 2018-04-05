@@ -4,7 +4,6 @@
     <list default="true" id="4989f691-08a9-4696-b7a7-483880d68e11" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Regular_checks.py" afterPath="$PROJECT_DIR$/Regular_checks.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.py" afterPath="$PROJECT_DIR$/test.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,8 +17,8 @@
       <file leaf-file-name="Regular_checks.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Regular_checks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="729">
-              <caret line="148" column="14" lean-forward="false" selection-start-line="148" selection-start-column="14" selection-end-line="148" selection-end-column="14" />
+            <state relative-caret-position="482">
+              <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
               <folding>
                 <element signature="e#18#249#0" expanded="true" />
               </folding>
@@ -27,22 +26,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="get_summoners.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/get_summoners.py">
+      <file leaf-file-name="classes.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="882">
-              <caret line="52" column="59" lean-forward="false" selection-start-line="52" selection-start-column="59" selection-end-line="52" selection-end-column="59" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="second_step_class.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/second_step_class.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1908">
-              <caret line="112" column="103" lean-forward="false" selection-start-line="109" selection-start-column="12" selection-end-line="112" selection-end-column="103" />
-              <folding />
+            <state relative-caret-position="307">
+              <caret line="288" column="8" lean-forward="false" selection-start-line="288" selection-start-column="8" selection-end-line="288" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -60,54 +51,8 @@
       <file leaf-file-name="Initial_checks.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Initial_checks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
+            <state relative-caret-position="180">
               <caret line="31" column="5" lean-forward="false" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#92#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="first_step.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/first_step.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1620">
-              <caret line="99" column="85" lean-forward="false" selection-start-line="99" selection-start-column="43" selection-end-line="99" selection-end-column="85" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="classes.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11268">
-              <caret line="637" column="47" lean-forward="false" selection-start-line="637" selection-start-column="44" selection-end-line="637" selection-end-column="47" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="third_step.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/third_step.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1062">
-              <caret line="66" column="70" lean-forward="false" selection-start-line="66" selection-start-column="58" selection-end-line="66" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -134,7 +79,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>av</find>
       <find>ave</find>
       <find>database.</find>
       <find>lock</find>
@@ -164,6 +108,7 @@
       <find>update_numberof_games</find>
       <find>update</find>
       <find>cnf</find>
+      <find>sftp_data</find>
     </findStrings>
     <replaceStrings>
       <replace>self.database</replace>
@@ -198,8 +143,8 @@
         <option value="$PROJECT_DIR$/Static_data/conf_data" />
         <option value="$PROJECT_DIR$/second_step_class.py" />
         <option value="$PROJECT_DIR$/third_step.py" />
-        <option value="$PROJECT_DIR$/Regular_checks.py" />
         <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/Regular_checks.py" />
       </list>
     </option>
   </component>
@@ -228,7 +173,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -245,6 +189,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -385,13 +330,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1512561205670</updated>
-    </task>
-    <task id="LOCAL-00063" summary="added conf file temporarily">
-      <created>1518004298264</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1518004298264</updated>
     </task>
     <task id="LOCAL-00064" summary="added conf file temporarily">
       <created>1518004373822</created>
@@ -729,11 +667,18 @@
       <option name="project" value="LOCAL" />
       <updated>1521370906856</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="updated backfile deletion function">
+      <created>1522846039126</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1522846039126</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="93" y="184" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16010782" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -761,7 +706,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Removed limit for url retrials. &#10;Added a check for analysed games in third step" />
     <MESSAGE value="A lot of changes. Implemented locking for new version and made other bug fixes" />
     <MESSAGE value="fix for out of range error and players moving servers" />
     <MESSAGE value="Fixed a locking issue" />
@@ -786,7 +730,8 @@
     <MESSAGE value="minor changes" />
     <MESSAGE value="fixed bug when 404 is returned for a match&#10;increased number of games to get" />
     <MESSAGE value="added backup file deletion function" />
-    <option name="LAST_COMMIT_MESSAGE" value="added backup file deletion function" />
+    <MESSAGE value="updated backfile deletion function" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated backfile deletion function" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1057,26 +1002,8 @@
         <state relative-caret-position="1620">
           <caret line="99" column="85" lean-forward="false" selection-start-line="99" selection-start-column="43" selection-end-line="99" selection-end-column="85" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#0#31#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11268">
-          <caret line="637" column="47" lean-forward="false" selection-start-line="637" selection-start-column="44" selection-end-line="637" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/third_step.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1062">
-          <caret line="66" column="70" lean-forward="false" selection-start-line="66" selection-start-column="58" selection-end-line="66" selection-end-column="70" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1093,7 +1020,7 @@
         <state relative-caret-position="378">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
-            <element signature="e#0#92#0" expanded="true" />
+            <element signature="e#0#92#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1122,18 +1049,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/third_step.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="29" column="51" lean-forward="true" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Initial_checks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
+        <state relative-caret-position="180">
           <caret line="31" column="5" lean-forward="false" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/classes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="288" column="8" lean-forward="false" selection-start-line="288" selection-start-column="8" selection-end-line="288" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Regular_checks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="729">
-          <caret line="148" column="14" lean-forward="false" selection-start-line="148" selection-start-column="14" selection-end-line="148" selection-end-column="14" />
+        <state relative-caret-position="482">
+          <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
           <folding>
             <element signature="e#18#249#0" expanded="true" />
           </folding>
